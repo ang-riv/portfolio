@@ -1,32 +1,63 @@
 import React from "react";
 
-function Navigation() {
+const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
+  // scrolling to a specific section using refs
+  const scrollToSection = (ref) => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   const containerStyles = {
+    border: "1px solid pink",
     "margin-top": "1em",
     height: "3em",
     display: "flex",
-    "flex-direction": "",
+    "justify-content": "end",
+    "align-items": "center",
+  };
+
+  const ulStyle = {
+    display: "flex",
     "justify-content": "end",
     "align-items": "center",
   };
   const linkStyles = {
-    "margin-right": "3em",
+    marginRight: "3em",
+    fontWeight: "bolder",
+    fontSize: "1.17em",
+    "list-style-type": "none",
   };
 
   const contactStyle = {
-    "background-color": "#9FD1FF",
-    "margin-right": "3em",
+    backgroundColor: "#9FD1FF",
+    marginRight: "2.5em",
     padding: "0.25em 1.3em",
-    "border-radius": "0.938em",
+    borderRadius: "0.938em",
+    fontWeight: "bolder",
+    fontSize: "1.17em",
+    "list-style-type": "none",
   };
+
   return (
     <div style={containerStyles}>
-      <h3 style={linkStyles}>About</h3>
-      <h3 style={linkStyles}>Skills</h3>
-      <h3 style={linkStyles}>Projects</h3>
-      <h3 style={contactStyle}>Contact</h3>
+      <nav>
+        <ul style={ulStyle}>
+          <li style={linkStyles} onClick={() => scrollToSection(aboutRef)}>
+            About
+          </li>
+          <li style={linkStyles} onClick={() => scrollToSection(skillsRef)}>
+            Skills
+          </li>
+          <li style={linkStyles} onClick={() => scrollToSection(projectsRef)}>
+            Projects
+          </li>
+          <li style={linkStyles} onClick={() => scrollToSection(contactRef)}>
+            Contact
+          </li>
+        </ul>
+      </nav>
     </div>
   );
-}
+};
 
 export default Navigation;

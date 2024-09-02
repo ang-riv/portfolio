@@ -8,10 +8,18 @@ h2 {
 
 h3,
 h4,
-p {
+p,
+li {
   font-family: "Nunito", sans-serif;
 }
 
+li:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
 /** icon styles **/
 .home-icon {
   height: 3em;
