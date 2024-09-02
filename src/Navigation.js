@@ -7,8 +7,9 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // TODO: move all of these into the css file
   const containerStyles = {
-    border: "1px solid pink",
     "margin-top": "1em",
     height: "3em",
     display: "flex",
@@ -51,7 +52,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
           <li style={linkStyles} onClick={() => scrollToSection(projectsRef)}>
             Projects
           </li>
-          <li style={linkStyles} onClick={() => scrollToSection(contactRef)}>
+          <li style={contactStyle} onClick={() => scrollToSection(contactRef)}>
             Contact
           </li>
         </ul>
