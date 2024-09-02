@@ -1,0 +1,21 @@
+* {
+  color: #001324;
+}
+h1,
+h2 {
+  font-family: "Alice", serif;
+}
+
+h3,
+h4,
+p {
+  font-family: "Nunito", sans-serif;
+}
+
+/** icon styles **/
+.home-icon {
+  height: 3em;
+  width: 3em;
+}
+
+/** media queries **/
