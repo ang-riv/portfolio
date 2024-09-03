@@ -23,7 +23,7 @@ function App() {
       </div>
       <section id=""></section>
       <section id="about">about</section>
-      <Icon icon="mdi-light:home" className="home-icon" />
+      <Icon icon="mdi-light:home" className="home-icon" color="red" />
     </div>
   );
 }

@@ -28,6 +28,7 @@ a {
 .home-icon {
   height: 3em;
   width: 3em;
+  color: blue;
 }
 
 /** keyframes (maybe) **/
