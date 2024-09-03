@@ -25,7 +25,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   const linkStyles = {
     marginRight: "3em",
     fontWeight: "bolder",
-    fontSize: "1.17em",
+    fontSize: "1.3em",
     "list-style-type": "none",
   };
 
@@ -35,7 +35,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     padding: "0.25em 1.3em",
     borderRadius: "0.938em",
     fontWeight: "bolder",
-    fontSize: "1.17em",
+    fontSize: "1.3em",
     "list-style-type": "none",
   };
 

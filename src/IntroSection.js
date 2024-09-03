@@ -10,7 +10,7 @@ const IntroSection = React.forwardRef((props, ref) => {
   };
   return (
     <section ref={ref} style={containerStyle}>
-      <figure style={{ border: "1px solid purple" }}>
+      <figure style={{ height: "443px", width: "470px" }}>
         <PuzzlePiece />
       </figure>
       <h1>
