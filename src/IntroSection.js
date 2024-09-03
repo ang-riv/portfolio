@@ -1,16 +1,15 @@
 import React from "react";
-import { PuzzlePiece, IntroPuzzle } from "./Icons";
+import { IntroPuzzle } from "./Icons";
 const IntroSection = React.forwardRef((props, ref) => {
   const containerStyle = {
     height: "95vh",
-    backgroundColor: "lightblue",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   };
   return (
-    <section ref={ref} style={containerStyle}>
-      <figure style={{ height: "443px", width: "470px" }}>
+    <section ref={ref} id="introSection" style={containerStyle}>
+      <figure style={{ height: "460px", width: "480px" }}>
         <IntroPuzzle />
       </figure>
 

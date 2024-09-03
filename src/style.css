@@ -13,8 +13,17 @@ li {
   font-family: "Nunito", sans-serif;
 }
 
+section:not(#introSection) {
+  margin-top: 10em;
+}
+
 h1 {
   font-size: 3em;
+}
+
+h2 {
+  font-size: 2.5em;
+  text-align: center;
 }
 
 li:hover {

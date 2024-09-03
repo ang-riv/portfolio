@@ -5,8 +5,8 @@ export function ColorPieces(props, fillColor) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="13em"
-      height="13em"
+      width="14em"
+      height="14em"
       viewBox="0 0 20 20"
       {...props}
     >
