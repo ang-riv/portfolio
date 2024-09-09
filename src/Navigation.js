@@ -36,7 +36,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     borderRadius: "0.938em",
     fontWeight: "bolder",
     fontSize: "1.3em",
-    "list-style-type": "none",
+    listStyleType: "none",
   };
 
   return (
