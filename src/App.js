@@ -4,6 +4,8 @@ import Navigation from "./Navigation.js";
 import React, { useRef } from "react";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
+import SkillsSection from "./SkillsSection.js";
+
 function App() {
   const introRef = useRef(null);
   const aboutRef = useRef(null);
@@ -21,6 +23,7 @@ function App() {
       />
       <IntroSection ref={introRef} />
       <AboutSection ref={aboutRef} />
+      <SkillsSection ref={skillsRef} />
     </div>
   );
 }

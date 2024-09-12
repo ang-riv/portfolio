@@ -1,12 +1,12 @@
 import React from "react";
 
 // single puzzle piece for intro puzzle
-export function ColorPieces(props, fillColor) {
+export function ColorPieces(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="14em"
-      height="14em"
+      width={props.size}
+      height={props.size}
       viewBox="0 0 20 20"
       {...props}
     >
@@ -28,19 +28,47 @@ export function IntroPuzzle() {
 
   return (
     <>
-      <ColorPieces fillColor={pink} style={{ transform: "rotate(90deg)" }} />
+      <ColorPieces
+        fillColor={pink}
+        size="14em"
+        style={{ transform: "rotate(90deg)" }}
+      />
       <ColorPieces
         fillColor={green}
+        size="14em"
         style={{ transform: "rotate(-180deg)", marginBottom: "1.3em" }}
       />
-      <ColorPieces fillColor={purple} style={{ marginLeft: "1.4em" }} />
+      <ColorPieces
+        fillColor={purple}
+        size="14em"
+        style={{ marginLeft: "1.4em" }}
+      />
       <ColorPieces
         fillColor={yellow}
+        size="14em"
         style={{
           transform: "rotate(-90deg)",
           marginBottom: "1.3em",
         }}
       />
+    </>
+  );
+}
+
+// puzzle in the skills section
+export function SkillPuzzle() {
+  const html = "";
+  const css = "";
+  const js = "";
+  const git = "";
+
+  return (
+    <>
+      <ColorPieces fillColor="orange" size="12em" />
+      <ColorPieces fillColor="blue" size="12em" />
+      <ColorPieces fillColor="yellow" size="12em" />
+      <ColorPieces fillColor="blue" size="12em" />
+      <ColorPieces fillColor="purple" size="12em" />
     </>
   );
 }
