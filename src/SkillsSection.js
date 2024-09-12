@@ -1,5 +1,5 @@
 import React from "react";
-import { SkillPuzzle } from "./Icons";
+import { Puzzle, LogoPiece, HtmlLogo, Test } from "./Icons";
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
@@ -20,40 +20,43 @@ const SkillsSection = React.forwardRef((props, ref) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          gap: "5%",
         }}
       >
-        <div
+        <figure
           style={{
-            height: "45vh",
-            width: "100vw",
-            outline: "1px dotted purple",
-            display: "flex",
-            justifyContent: "center",
-            gap: "5%",
+            outline: "1px dotted pink",
+            width: "40%",
+            margin: "0",
+            padding: "0",
           }}
         >
-          <figure
-            style={{
-              outline: "1px dotted pink",
-              width: "40%",
-              margin: "0",
-              padding: "0",
-            }}
-          >
-            <SkillPuzzle />
-          </figure>
-          <figure
-            style={{
-              outline: "1px dotted green",
-              width: "40%",
-              margin: "0",
-              padding: "0",
-            }}
-          >
-            <SkillPuzzle />
-          </figure>
-        </div>
+          <Puzzle
+            color1="orange"
+            color2="yellow"
+            color3="blue"
+            color4="purple"
+            size="12em"
+          />
+        </figure>
+        <figure
+          style={{
+            outline: "1px dotted green",
+            width: "40%",
+            margin: "0",
+            padding: "0",
+          }}
+        >
+          <Puzzle
+            color1="orange"
+            color2="yellow"
+            color3="blue"
+            color4="purple"
+            size="12em"
+          />
+        </figure>
       </div>
+      <Test />
     </section>
   );
 });
