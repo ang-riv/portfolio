@@ -1,5 +1,7 @@
 import React from "react";
-
+import rightEndPiece from "./assets/rightEndPiece.svg";
+import endPiece from "./assets/endPiece.svg";
+import middlePiece from "./assets/middlePiece.svg";
 // single puzzle piece for intro puzzle
 export function ColorPieces(props) {
   return (
@@ -152,6 +154,17 @@ export function LogoPuzzle() {
     </div>
   );
 }
+
+export function TestPuzzle() {
+  return (
+    <div style={{ outline: "1px solid green" }}>
+      <img src={endPiece} style={{ height: "100%", width: "20%" }}></img>
+      <img src={middlePiece} style={{ height: "50%", width: "20%" }}></img>
+      <img src={rightEndPiece} style={{ height: "20%", width: "20%" }}></img>
+    </div>
+  );
+}
+
 // 2x2 puzzle
 export function Puzzle(props) {
   return (
