@@ -1,5 +1,5 @@
 import React from "react";
-import { Puzzle, LogoPiece, HtmlLogo, Test } from "./Icons";
+import { Puzzle, LogoPuzzle } from "./Icons";
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
@@ -56,7 +56,7 @@ const SkillsSection = React.forwardRef((props, ref) => {
           />
         </figure>
       </div>
-      <Test />
+      <LogoPuzzle />
     </section>
   );
 });
