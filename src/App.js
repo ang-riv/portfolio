@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
+import ProjectsSection from "./ProjectsSection.js";
 
 function App() {
   const introRef = useRef(null);
@@ -24,6 +25,7 @@ function App() {
       <IntroSection ref={introRef} />
       <AboutSection ref={aboutRef} />
       <SkillsSection ref={skillsRef} />
+      <ProjectsSection ref={projectsRef} />
     </div>
   );
 }

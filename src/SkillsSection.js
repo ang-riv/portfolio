@@ -1,6 +1,6 @@
 import React from "react";
-import htmlPiece from "./assets/htmlPiece.svg";
 import { SkillsPuzzle } from "./Icons";
+
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
