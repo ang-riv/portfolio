@@ -59,12 +59,14 @@ export function Puzzle(props) {
 // puzzle in skill section
 export function SkillsPuzzle(props) {
   return (
-    <div style={{ outline: "1px dotted green" }}>
-      <img
-        styles={{ width: "15%", height: "15%" }}
-        src={htmlPiece}
-        alt="puzzle piece with the word HTML"
-      ></img>
+    <div
+      style={{
+        width: "95%",
+        display: "flex",
+        flexFlow: "row nowrap",
+      }}
+    >
+      <img src={htmlPiece} alt="puzzle piece with the word HTML"></img>
       <img src={cssPiece} alt="puzzle piece with the word CSS"></img>
       <img
         src={javascriptPiece}
@@ -75,7 +77,11 @@ export function SkillsPuzzle(props) {
         alt="puzzle piece with the word Bootstrap"
       ></img>
       <img src={reactPiece} alt="puzzle piece with the word React"></img>
-      <img src={githubPiece} alt="puzzle piece with the word Github"></img>
+      <img
+        className="test"
+        src={githubPiece}
+        alt="puzzle piece with the word Github"
+      ></img>
     </div>
   );
 }

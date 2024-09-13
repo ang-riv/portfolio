@@ -45,7 +45,12 @@ a {
   color: blue;
 }
 
+.test {
+  width: 16%;
+}
+
 img {
+  width: 20%;
 }
 
 /** keyframes (maybe) **/

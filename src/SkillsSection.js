@@ -6,7 +6,7 @@ const SkillsSection = React.forwardRef((props, ref) => {
     <section
       ref={ref}
       style={{
-        height: "64vh",
+        height: "44vh",
         width: "100%",
         paddingTop: "1vh",
         backgroundColor: "#9FD1FF",
@@ -16,8 +16,7 @@ const SkillsSection = React.forwardRef((props, ref) => {
       <div
         className="content-wrapper"
         style={{
-          outline: "1px dotted red",
-          height: "80%",
+          height: "60%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
