@@ -1,5 +1,6 @@
 import React from "react";
-import { Puzzle, LogoPuzzle, TestPuzzle } from "./Icons";
+import htmlPiece from "./assets/htmlPiece.svg";
+import { SkillsPuzzle } from "./Icons";
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
@@ -23,41 +24,8 @@ const SkillsSection = React.forwardRef((props, ref) => {
           gap: "5%",
         }}
       >
-        <figure
-          style={{
-            outline: "1px dotted pink",
-            width: "40%",
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <Puzzle
-            color1="orange"
-            color2="yellow"
-            color3="blue"
-            color4="purple"
-            size="12em"
-          />
-        </figure>
-        <figure
-          style={{
-            outline: "1px dotted green",
-            width: "40%",
-            margin: "0",
-            padding: "0",
-          }}
-        >
-          <Puzzle
-            color1="orange"
-            color2="yellow"
-            color3="blue"
-            color4="purple"
-            size="12em"
-          />
-        </figure>
+        <SkillsPuzzle />
       </div>
-      <LogoPuzzle />
-      <TestPuzzle />
     </section>
   );
 });
