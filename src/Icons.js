@@ -58,6 +58,12 @@ export function Puzzle(props) {
 
 // puzzle in skill section
 export function SkillsPuzzle(props) {
+  // potentially change so that they are all a random direction then move it onScroll
+  const num = 90;
+  const randomNum = `rotate(${num}deg)`;
+  const style = {
+    transform: randomNum,
+  };
   return (
     <div
       style={{
@@ -66,7 +72,11 @@ export function SkillsPuzzle(props) {
         flexFlow: "row nowrap",
       }}
     >
-      <img src={htmlPiece} alt="puzzle piece with the word HTML"></img>
+      <img
+        src={htmlPiece}
+        alt="puzzle piece with the word HTML"
+        style={style}
+      ></img>
       <img src={cssPiece} alt="puzzle piece with the word CSS"></img>
       <img
         src={javascriptPiece}
