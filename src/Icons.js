@@ -91,6 +91,7 @@ export function SkillsPuzzle(props) {
         className="test"
         src={githubPiece}
         alt="puzzle piece with the word Github"
+        style={{ width: "17%" }}
       ></img>
     </div>
   );

@@ -2,7 +2,6 @@ import React from "react";
 
 const AboutSection = React.forwardRef((props, ref) => {
   // each tiles innerStyle
-  const innerStyle = {};
   return (
     <section ref={ref} style={{ height: "85vh" }}>
       <h2>About</h2>
@@ -20,11 +19,13 @@ const AboutSection = React.forwardRef((props, ref) => {
             width: "75%",
             display: "flex",
             flexDirect: "row",
+            justifyContent: "center",
           }}
         >
           {/* section 1 */}
           <div
             style={{
+              maxWidth: "380px",
               width: "50%",
               height: "100%",
               display: "flex",
@@ -34,6 +35,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               gap: "3%",
             }}
           >
+            {/* image tile*/}
             <div
               style={{
                 backgroundColor: "white",
@@ -44,10 +46,12 @@ const AboutSection = React.forwardRef((props, ref) => {
                 boxShadow: "0px 4px 10px 0px #b5b5b5",
               }}
             ></div>
+
+            {/* history tile*/}
             <div
               style={{
                 backgroundColor: "#CCFFCC",
-                height: "35%",
+                height: "fit-content",
                 width: "95%",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px 0px #b5b5b5",
@@ -77,9 +81,11 @@ const AboutSection = React.forwardRef((props, ref) => {
               </div>
             </div>
           </div>
+
           {/* section 2 */}
           <div
             style={{
+              maxWidth: "380px",
               width: "55%",
               height: "100%",
               display: "flex",
@@ -89,10 +95,11 @@ const AboutSection = React.forwardRef((props, ref) => {
               gap: "3%",
             }}
           >
+            {/* introduction tile*/}
             <div
               style={{
                 backgroundColor: "#FFAFAF",
-                height: "25%",
+                height: "fit-content",
                 width: "90%",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px 0px #b5b5b5",
@@ -119,10 +126,12 @@ const AboutSection = React.forwardRef((props, ref) => {
                 </p>
               </div>
             </div>
+
+            {/* developer tile*/}
             <div
               style={{
                 backgroundColor: "#CCCCFF",
-                height: "39%",
+                height: "fit-content",
                 width: "90%",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px 0px #b5b5b5",
@@ -152,10 +161,12 @@ const AboutSection = React.forwardRef((props, ref) => {
                 </p>
               </div>
             </div>
+
+            {/* hobbies tile*/}
             <div
               style={{
                 backgroundColor: "#F2E589",
-                height: "25%",
+                height: "fit-content",
                 width: "90%",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 10px 0px #b5b5b5",

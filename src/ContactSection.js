@@ -9,6 +9,7 @@ const ContactSection = React.forwardRef((props, ref) => {
   const titleStyle = {
     textAlign: "left",
     padding: "2% 0 0 5%",
+    fontSize: "2.7em",
   };
   return (
     <section
