@@ -3,7 +3,7 @@ import ProjectTile from "./ProjectTile.js";
 
 const ProjectsSection = React.forwardRef((props, ref) => {
   return (
-    <section ref={ref} style={{ height: "90vh" }}>
+    <section ref={ref} style={{ height: "fit-content" }}>
       <h2>Projects</h2>
       <div
         className="content-wrapper"
@@ -16,11 +16,12 @@ const ProjectsSection = React.forwardRef((props, ref) => {
       >
         <div
           style={{
+            maxWidth: "1000px",
             width: "90%",
             display: "flex",
             flexFlow: "row wrap",
             justifyContent: "center",
-            gap: "5px 40px",
+            gap: "20px 40px",
           }}
         >
           <ProjectTile

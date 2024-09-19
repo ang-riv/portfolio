@@ -196,7 +196,12 @@ export function SocialLinks(props) {
         <GithubIcon style={{ marginLeft: "0.3em" }} />
         <p style={titleStyle}>Github</p>
       </a>
-      <a href="mailto: a.riveraa99@gmail.com" target="_blank" style={linkStyle}>
+      <a
+        href="mailto: a.riveraa99@gmail.com"
+        target="_blank"
+        rel="noreferrer"
+        style={linkStyle}
+      >
         <EmailIcon style={{ marginLeft: "0.3em" }} />
         <p style={titleStyle}>Email</p>
       </a>
