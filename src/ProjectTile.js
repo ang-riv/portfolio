@@ -6,26 +6,11 @@ function ProjectTile(props) {
     backgroundColor: props.color,
   };
   return (
-    <div
-      style={{
-        height: "340px",
-        width: "260px",
-        border: "1px solid #D6D6D6",
-        borderRadius: "5px",
-        padding: "1%",
-      }}
-    >
+    <div className="project-tile-container">
       {/* image */}
-      <div
-        style={{
-          height: "50%",
-          width: "100%",
-          backgroundColor: "lightGrey",
-          borderRadius: "5px",
-        }}
-      ></div>
+      <div className="project-image"></div>
       {/* text */}
-      <div style={{ height: "50%", padding: "1%" }}>
+      <div className="project-text-container">
         <h4>{props.title}</h4>
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
         <button style={buttonColor}>Live Site</button>
