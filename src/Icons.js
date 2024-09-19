@@ -181,8 +181,10 @@ export function SocialLinks(props) {
   };
 
   const linkStyle = {
+    padding: "5px",
     border: "1px solid #d9d9d9",
     height: "33%",
+    maxWidth: "400px",
     width: "40%",
     borderRadius: "10px",
     backgroundColor: "white",
@@ -192,7 +194,12 @@ export function SocialLinks(props) {
 
   return (
     <>
-      <a href="https://github.com/ang-riv" className="test">
+      <a
+        href="https://github.com/ang-riv"
+        target="_blank"
+        rel="noreferrer"
+        style={linkStyle}
+      >
         <GithubIcon style={{ marginLeft: "0.3em" }} />
         <p style={titleStyle}>Github</p>
       </a>

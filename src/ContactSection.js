@@ -25,18 +25,18 @@ const ContactSection = React.forwardRef((props, ref) => {
           style={{
             display: "flex",
             justifyContent: "center",
-            height: "70%",
+            height: "60%",
             width: "100%",
           }}
         >
           <div
             style={{
               marginTop: "1%",
-              height: "80%",
+              height: "85%",
               width: "70%",
               display: "flex",
               flexFlow: "row wrap",
-              justifyContent: "space-around",
+              justifyContent: "space-evenly",
             }}
           >
             <SocialLinks />
