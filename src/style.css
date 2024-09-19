@@ -2,6 +2,17 @@
 * {
   color: #001324;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+}
+
 h1,
 h2,
 h3,
@@ -103,6 +114,39 @@ nav ul li:last-of-type {
   font-size: 1.3em;
   list-style-type: none;
 }
+
+/** intro section styles **/
+.introSection {
+  height: 95vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.introPuzzleSize {
+  height: 28.75em;
+  width: 30em;
+}
+
 /** keyframes (maybe) **/
 
 /** media queries **/
+/* desktop views */
+@media (min-width: 1025px) {
+}
+
+@media (min-width: 800px) {
+  /* intro section container */
+  .introSection {
+    flex-direction: column;
+  }
+
+  h1 {
+    text-align: center;
+  }
+}
+
+@media (min-width: 600px) {
+  /* navigation styles*/
+}

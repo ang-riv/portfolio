@@ -7,15 +7,9 @@ const IntroSection = React.forwardRef((props, ref) => {
   const color3 = "#BCBCFF";
   const color4 = "#F2E589";
 
-  const containerStyle = {
-    height: "95vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  };
   return (
-    <section ref={ref} id="introSection" style={containerStyle}>
-      <figure style={{ height: "460px", width: "480px" }}>
+    <section ref={ref} id="introSection" className="introSection">
+      <figure className="introPuzzleSize">
         {/* destructure (?) into props */}
         <Puzzle
           color1={color1}
