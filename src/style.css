@@ -1,4 +1,7 @@
 /*** global styles ***/
+:root {
+}
+
 * {
   color: #001324;
 }
@@ -131,6 +134,48 @@ nav ul li:last-of-type {
 }
 
 /** about section styles **/
+.about-container {
+  height: 100%;
+  max-width: 45.25em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0.625em;
+}
+.tile-1,
+.tile-2,
+.tile-3,
+.tile-4,
+.tile-5,
+.tile-6 {
+  padding: 0.625em;
+  border-radius: 0.625em;
+}
+
+.tile-1 {
+  grid-row: span 4;
+  background-color: purple;
+}
+.tile-2 {
+  padding: 0.625em;
+  grid-row: span 2;
+  background-color: lightSalmon;
+}
+.tile-3 {
+  grid-row: span 3;
+  padding: 0.625em;
+  background-color: pink;
+}
+.tile-4 {
+  grid-row: span 2;
+  background-color: lavender;
+  padding: 1em;
+}
+.tile-5 {
+  grid-row: span 1;
+  background-color: lightBlue;
+  padding: 1em;
+}
 
 /** projects section styles **/
 .content-wrapper {

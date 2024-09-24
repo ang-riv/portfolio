@@ -19,31 +19,9 @@ const AboutSection = React.forwardRef((props, ref) => {
           justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            height: "100%",
-            maxWidth: "45.25em",
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gridTemplateRows: "repeat(6, 1fr)",
-            gap: "0.625em",
-          }}
-        >
-          <div
-            style={{
-              borderRadius: "0.625em",
-              gridRow: "span 4",
-              backgroundColor: "purple",
-            }}
-          ></div>
-          <div
-            style={{
-              borderRadius: "0.625em",
-              padding: "0.625em",
-              gridRow: "span 2",
-              background: "lightSalmon",
-            }}
-          >
+        <div className="about-container">
+          <div className="tile-1"></div>
+          <div className="tile-2">
             <h3>Title</h3>
             <p>
               Hi, I’m Angela!👋 I’m a Front End Developer located in the{" "}
@@ -52,14 +30,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               beautiful and accessible place.
             </p>
           </div>
-          <div
-            style={{
-              borderRadius: "0.625em",
-              gridRow: "span 3",
-              padding: "0.625em",
-              background: "pink",
-            }}
-          >
+          <div className="tile-3">
             <h3>Title</h3>
             <ul style={{ paddingLeft: "1.3em" }}>
               <li style={{ marginBottom: "0.5em" }}>
@@ -77,14 +48,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               </li>
             </ul>
           </div>
-          <div
-            style={{
-              borderRadius: "0.625em",
-              gridRow: "span 2",
-              background: "lavender",
-              padding: "1em",
-            }}
-          >
+          <div className="tile-4">
             <h3>Title</h3>
             <p>
               Coding became a part of my life back in high school after trying
@@ -96,14 +60,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               for it.
             </p>
           </div>
-          <div
-            style={{
-              borderRadius: "0.625em",
-              gridRow: "span 1",
-              background: "lightBlue",
-              padding: "1em",
-            }}
-          >
+          <div className="tile-5">
             <h3>Title</h3>
 
             <p>
