@@ -24,7 +24,7 @@ const AboutSection = React.forwardRef((props, ref) => {
           <div className="tile-2">
             <h3>Title</h3>
             <p>
-              Hi, I’m Angela!👋 I’m a Front End Developer located in the{" "}
+              Hi, I’m Angela!👋 I’m a Front End Developer located in the
               <s>Winterpeg </s>
               Winnipeg, Manitoba who is passionate about making the web a more
               beautiful and accessible place.
