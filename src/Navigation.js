@@ -8,22 +8,35 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   const size = useWindowSize();
   return (
-    <div className="navContainer">
+    <>
       {size.width > 600 ? (
-        <nav>
-          <ul>
-            <li onClick={() => scrollToSection(aboutRef)}>About</li>
-            <li onClick={() => scrollToSection(skillsRef)}>Skills</li>
-            <li onClick={() => scrollToSection(projectsRef)}>Projects</li>
-            <li onClick={() => scrollToSection(contactRef)}>Contact</li>
-          </ul>
-        </nav>
+        <div className="navContainer">
+          <nav>
+            <ul>
+              <li onClick={() => scrollToSection(aboutRef)}>About</li>
+              <li onClick={() => scrollToSection(skillsRef)}>Skills</li>
+              <li onClick={() => scrollToSection(projectsRef)}>Projects</li>
+              <li onClick={() => scrollToSection(contactRef)}>Contact</li>
+            </ul>
+          </nav>
+        </div>
       ) : (
-        <h2>mobile nav</h2>
+        <div
+          style={{
+            height: "7%",
+            width: "100%",
+            backgroundColor: "lavender",
+            position: "fixed",
+            bottom: "0",
+          }}
+        >
+          <p style={{ textAlign: "center" }}>mobile nav</p>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

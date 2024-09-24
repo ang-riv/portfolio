@@ -5,6 +5,7 @@ import javascriptPiece from "./assets/javascriptPiece.svg";
 import reactPiece from "./assets/reactPiece.svg";
 import bootstrapPiece from "./assets/bootstrapPiece.svg";
 import githubPiece from "./assets/githubPiece.svg";
+import useWindowSize from "./useWindowSize";
 
 // single puzzle piece for intro puzzle
 export function ColorPieces(props) {
@@ -27,26 +28,30 @@ export function ColorPieces(props) {
 
 // 2x2 puzzle
 export function Puzzle(props) {
+  const size = useWindowSize();
+  function puzzleSize() {
+    return size.width > 480 ? "13em" : "6em";
+  }
   return (
     <>
       <ColorPieces
         fillColor={props.color1}
-        size={props.size}
+        size={puzzleSize()}
         style={{ transform: "rotate(90deg)" }}
       />
       <ColorPieces
         fillColor={props.color2}
-        size={props.size}
+        size={puzzleSize()}
         style={{ transform: "rotate(-180deg)", marginBottom: "1.3em" }}
       />
       <ColorPieces
         fillColor={props.color3}
-        size={props.size}
+        size={puzzleSize()}
         style={{ marginLeft: "1.4em" }}
       />
       <ColorPieces
         fillColor={props.color4}
-        size={props.size}
+        size={puzzleSize()}
         style={{
           transform: "rotate(-90deg)",
           marginBottom: "1.3em",

@@ -9,14 +9,14 @@ const IntroSection = React.forwardRef((props, ref) => {
 
   return (
     <section ref={ref} id="introSection" className="introSection">
-      <figure className="introPuzzleSize">
+      <figure className="introPuzzleSize" style={{ outline: "1px solid pink" }}>
         {/* destructure (?) into props */}
         <Puzzle
           color1={color1}
           color2={color2}
           color3={color3}
           color4={color4}
-          size="14em"
+          size="13em"
         />
       </figure>
 

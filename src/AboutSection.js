@@ -20,8 +20,8 @@ const AboutSection = React.forwardRef((props, ref) => {
         }}
       >
         <div className="about-container">
-          <div className="tile-1"></div>
-          <div className="tile-2">
+          <div className="tile tile-1"></div>
+          <div className="tile tile-2">
             <h3>Title</h3>
             <p>
               Hi, I’m Angela!👋 I’m a Front End Developer located in the
@@ -30,7 +30,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               beautiful and accessible place.
             </p>
           </div>
-          <div className="tile-3">
+          <div className="tile tile-3">
             <h3>Title</h3>
             <ul style={{ paddingLeft: "1.3em" }}>
               <li style={{ marginBottom: "0.5em" }}>
@@ -48,7 +48,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               </li>
             </ul>
           </div>
-          <div className="tile-4">
+          <div className="tile tile-4">
             <h3>Title</h3>
             <p>
               Coding became a part of my life back in high school after trying
@@ -60,7 +60,7 @@ const AboutSection = React.forwardRef((props, ref) => {
               for it.
             </p>
           </div>
-          <div className="tile-5">
+          <div className="tile tile-5">
             <h3>Title</h3>
 
             <p>

@@ -142,12 +142,7 @@ nav ul li:last-of-type {
   grid-template-rows: repeat(6, 1fr);
   gap: 0.625em;
 }
-.tile-1,
-.tile-2,
-.tile-3,
-.tile-4,
-.tile-5,
-.tile-6 {
+.tile {
   padding: 0.625em;
   border-radius: 0.625em;
 }
@@ -250,4 +245,29 @@ nav ul li:last-of-type {
 
 /* mobile views */
 @media (min-width: 320px) and (max-width: 599px) {
+  /* intro section container */
+  .introSection {
+    flex-direction: column;
+  }
+
+  h1 {
+    color: blue;
+    text-align: center;
+    font-size: 1.8em;
+  }
+
+  .introPuzzleSize {
+    height: 2em;
+    width: 2em;
+  }
+
+  /* about section container */
+  .about-container {
+    display: block;
+    margin: 0 35px;
+  }
+
+  .tile {
+    margin-bottom: 1em;
+  }
 }
