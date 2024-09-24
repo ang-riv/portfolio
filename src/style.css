@@ -42,6 +42,7 @@ h2 {
 h3 {
   font-size: 1.7em;
   text-align: center;
+  margin: 0;
 }
 
 h4 {
@@ -49,7 +50,7 @@ h4 {
   margin: 0.5em 0 0 0;
 }
 
-li:hover,
+nav ul li:hover,
 button:hover {
   cursor: pointer;
 }
@@ -188,7 +189,7 @@ nav ul li:last-of-type {
 @media (min-width: 800px) {
 }
 
-/* mobile views */
+/* tablet views */
 @media (min-width: 600px) and (max-width: 1025px) {
   /* intro section container */
   .introSection {
@@ -200,4 +201,8 @@ nav ul li:last-of-type {
     text-align: center;
   }
   /* navigation styles*/
+}
+
+/* mobile views */
+@media (min-width: 320px) and (max-width: 599px) {
 }
