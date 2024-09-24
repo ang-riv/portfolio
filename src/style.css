@@ -174,19 +174,30 @@ nav ul li:last-of-type {
 /** media queries **/
 /* desktop views */
 @media (min-width: 1025px) {
+  /* intro section container */
+  .introSection {
+    flex-direction: row;
+  }
+
+  h1 {
+    color: purple;
+  }
 }
 
+/* tablet views */
 @media (min-width: 800px) {
+}
+
+/* mobile views */
+@media (min-width: 600px) and (max-width: 1025px) {
   /* intro section container */
   .introSection {
     flex-direction: column;
   }
 
   h1 {
+    color: blue;
     text-align: center;
   }
-}
-
-@media (min-width: 600px) {
   /* navigation styles*/
 }
