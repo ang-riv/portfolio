@@ -75,7 +75,7 @@ export function SkillsPuzzle(props) {
         maxWidth: "1400px",
         width: "95%",
         display: "flex",
-        flexFlow: "row nowrap",
+        flexFlow: "row wrap",
       }}
     >
       <img
@@ -102,12 +102,17 @@ export function SkillsPuzzle(props) {
   );
 }
 
+function SocialIconSize() {
+  const size = useWindowSize();
+  return size.width > 480 ? "4em" : "2.5em";
+}
+
 export function GithubIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="4em"
-      height="4em"
+      width={SocialIconSize()}
+      height={SocialIconSize()}
       viewBox="0 0 24 24"
       {...props}
     >
@@ -123,8 +128,8 @@ export function EmailIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="4em"
-      height="4em"
+      width={SocialIconSize()}
+      height={SocialIconSize()}
       viewBox="0 0 24 24"
       {...props}
     >
@@ -140,8 +145,8 @@ export function LinkedInIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="4em"
-      height="4em"
+      width={SocialIconSize()}
+      height={SocialIconSize()}
       viewBox="0 0 24 24"
       {...props}
     >
@@ -171,30 +176,11 @@ export function FrontEndMentorIcon(props) {
 }
 
 export function SocialLinks(props) {
-  const titleStyle = {
-    marginLeft: "0.5em",
-    fontFamily: "Alice, sans-serif",
-    fontSize: "2em",
-    fontWeight: "bold",
-  };
-
   const titleStyle2 = {
     marginLeft: "0.7em",
     fontFamily: "Alice, sans-serif",
     fontSize: "1.7em",
     fontWeight: "bold",
-  };
-
-  const linkStyle = {
-    padding: "5px",
-    border: "1px solid #d9d9d9",
-    height: "33%",
-    maxWidth: "400px",
-    width: "40%",
-    borderRadius: "10px",
-    backgroundColor: "white",
-    display: "flex",
-    alignItems: "center",
   };
 
   return (
@@ -203,25 +189,28 @@ export function SocialLinks(props) {
         href="https://github.com/ang-riv"
         target="_blank"
         rel="noreferrer"
-        style={linkStyle}
+        className="link-style"
       >
         <GithubIcon style={{ marginLeft: "0.3em" }} />
-        <p style={titleStyle}>Github</p>
+        <p className="link-title">Github</p>
       </a>
       <a
         href="mailto: a.riveraa99@gmail.com"
         target="_blank"
         rel="noreferrer"
-        style={linkStyle}
+        className="link-style"
       >
         <EmailIcon style={{ marginLeft: "0.3em" }} />
-        <p style={titleStyle}>Email</p>
+        <p className="link-title">Email</p>
       </a>
-      <a href="https://www.linkedin.com/in/ang-riv" style={linkStyle}>
+      <a href="https://www.linkedin.com/in/ang-riv" className="link-style">
         <LinkedInIcon style={{ marginLeft: "0.3em" }} />
-        <p style={titleStyle}>LinkedIn</p>
+        <p className="link-title">LinkedIn</p>
       </a>
-      <a href="https://www.frontendmentor.io/profile/ang-riv" style={linkStyle}>
+      <a
+        href="https://www.frontendmentor.io/profile/ang-riv"
+        className="link-style"
+      >
         <FrontEndMentorIcon style={{ marginLeft: "0.5em" }} />
         <p style={titleStyle2}>FrontEndMentor</p>
       </a>
