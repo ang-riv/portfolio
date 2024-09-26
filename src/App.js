@@ -27,7 +27,6 @@ function App() {
 
       {mobileTest && (
         <>
-          {" "}
           {/* change intro section size to fit mobile*/}
           <IntroSection ref={introRef} />
           <AboutSection ref={aboutRef} />

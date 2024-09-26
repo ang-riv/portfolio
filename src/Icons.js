@@ -102,6 +102,7 @@ export function SkillsPuzzle(props) {
   );
 }
 
+/* sizes for icons based on screen size */
 function SocialIconSize() {
   const size = useWindowSize();
   return size.width > 480 ? "4em" : "2.5em";
@@ -175,6 +176,7 @@ export function FrontEndMentorIcon(props) {
   );
 }
 
+/* groups together the social links + styles */
 export function SocialLinks(props) {
   const titleStyle2 = {
     marginLeft: "0.7em",
@@ -215,5 +217,78 @@ export function SocialLinks(props) {
         <p style={titleStyle2}>FrontEndMentor</p>
       </a>
     </>
+  );
+}
+
+/* mobile navigation icons */
+
+export function QuestionMarkIcon(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="4em"
+      height="4em"
+      viewBox="0 0 32 32"
+      {...props}
+    >
+      <path
+        fill="black"
+        d="M13.037 20.863c0 1.302 1.145 2.36 2.555 2.36s2.556-1.058 2.556-2.37V19.15c0-.111.073-.209.18-.242C21.676 17.85 24 14.919 24 11.562v-1.254c0-4.239-3.69-7.773-8.227-7.861c-2.28-.05-4.432.744-6.065 2.212c-1.622 1.469-2.523 3.447-2.523 5.552c0 1.311 1.155 2.369 2.566 2.369s2.555-1.058 2.555-2.36c0-.822.35-1.596.986-2.173a3.4 3.4 0 0 1 2.375-.872c1.78.04 3.223 1.45 3.223 3.143v1.244c0 1.468-1.124 2.731-2.683 2.996c-1.834.313-3.17 1.791-3.17 3.514zM15.5 30a2.5 2.5 0 1 0 0-5a2.5 2.5 0 0 0 0 5"
+      ></path>
+    </svg>
+  );
+}
+
+export function GearIcon(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="4em"
+      height="4em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="black"
+        d="M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5a3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97s-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1s.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64z"
+      ></path>
+    </svg>
+  );
+}
+
+export function CodeIcon(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="4em"
+      height="4em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <g fill="none">
+        <path d="M0 0h24v24H0z"></path>
+        <path
+          fill="black"
+          d="M14.62 2.662a1.5 1.5 0 0 1 1.04 1.85l-4.431 15.787a1.5 1.5 0 0 1-2.889-.81L12.771 3.7a1.5 1.5 0 0 1 1.85-1.039ZM7.56 6.697a1.5 1.5 0 0 1 0 2.12L4.38 12l3.182 3.182a1.5 1.5 0 1 1-2.122 2.121L1.197 13.06a1.5 1.5 0 0 1 0-2.12l4.242-4.243a1.5 1.5 0 0 1 2.122 0Zm8.88 2.12a1.5 1.5 0 1 1 2.12-2.12l4.243 4.242a1.5 1.5 0 0 1 0 2.121l-4.242 4.243a1.5 1.5 0 1 1-2.122-2.121L19.621 12z"
+        ></path>
+      </g>
+    </svg>
+  );
+}
+
+export function SpeechIcon(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="4em"
+      height="4em"
+      viewBox="0 0 26 26"
+      {...props}
+    >
+      <path
+        fill="black"
+        d="M13 .188C5.924.188.187 5.252.187 11.5c0 3.177 1.488 6.039 3.876 8.094c-.521 3.009-3.887 4.234-3.657 5.062c3.01 1.245 8.971-1.645 9.875-2.093c.874.166 1.789.25 2.719.25c7.076 0 12.813-5.065 12.813-11.313S20.075.187 13 .187z"
+      ></path>
+    </svg>
   );
 }

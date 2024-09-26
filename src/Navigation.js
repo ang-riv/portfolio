@@ -1,5 +1,6 @@
 import React from "react";
 import useWindowSize from "./useWindowSize";
+import { QuestionMarkIcon, GearIcon, CodeIcon, SpeechIcon } from "./Icons";
 
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // scrolling to a specific section using refs
@@ -13,7 +14,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   return (
     <>
       {size.width > 600 ? (
-        <div className="navContainer">
+        <div className="nav-container">
           <nav>
             <ul>
               <li onClick={() => scrollToSection(aboutRef)}>About</li>
@@ -24,16 +25,25 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
           </nav>
         </div>
       ) : (
-        <div
-          style={{
-            height: "7%",
-            width: "100%",
-            backgroundColor: "lavender",
-            position: "fixed",
-            bottom: "0",
-          }}
-        >
-          <p style={{ textAlign: "center" }}>mobile nav</p>
+        <div className="mobile-nav-container">
+          <ul>
+            <li onClick={() => scrollToSection(aboutRef)}>
+              <QuestionMarkIcon />
+              <p>About</p>
+            </li>
+            <li onClick={() => scrollToSection(skillsRef)}>
+              <GearIcon />
+              <p>Skills</p>
+            </li>
+            <li onClick={() => scrollToSection(projectsRef)}>
+              <CodeIcon />
+              <p>Projects</p>
+            </li>
+            <li onClick={() => scrollToSection(contactRef)}>
+              <SpeechIcon />
+              <p>Contact</p>
+            </li>
+          </ul>
         </div>
       )}
     </>
