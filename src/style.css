@@ -164,9 +164,13 @@ button {
   align-items: center;
 }
 
-.introPuzzleSize {
+.intro-puzzle-container {
   height: 28.75em;
   width: 30em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
 }
 
 /** about section styles **/
@@ -333,9 +337,10 @@ button {
     font-size: 1.8em;
   }
 
-  .introPuzzleSize {
-    height: 2em;
-    width: 2em;
+  .intro-puzzle-container {
+    height: 245px;
+    width: 245px;
+    margin-left: 2em;
   }
 
   /* about section container */
