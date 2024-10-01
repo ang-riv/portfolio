@@ -1,5 +1,7 @@
 /*** global styles ***/
 :root {
+  --grey: #d9d9d9;
+  --blue: #9fd1ff;
 }
 
 * {
@@ -179,6 +181,7 @@ button {
 .intro-piece {
   height: 15em;
   width: 15em;
+  filter: drop-shadow(6px 8px 6px var(--grey));
 }
 
 /** about section styles **/

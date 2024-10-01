@@ -11,61 +11,8 @@ import piece2 from "./assets/piece2.svg";
 import piece3 from "./assets/piece3.svg";
 import piece4 from "./assets/piece4.svg";
 
-// single puzzle piece for intro puzzle
-export function ColorPieces(props) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={props.size}
-      height={props.size}
-      viewBox="0 0 20 20"
-      {...props}
-    >
-      <circle cx={17} cy={10} r={3} fill={props.fillColor}></circle>
-      <path
-        fill={props.fillColor}
-        d="M10.58 3A3 3 0 0 1 11 4.5a3 3 0 0 1-6 0A3 3 0 0 1 5.42 3H1v12a2 2 0 0 0 2 2h12V3z"
-      ></path>
-    </svg>
-  );
-}
-
-// 2x2 puzzle
-export function Puzzle(props) {
-  const size = useWindowSize();
-  function puzzleSize() {
-    return size.width > 480 ? "13em" : "6em";
-  }
-  return (
-    <>
-      <ColorPieces
-        fillColor={props.color1}
-        size={puzzleSize()}
-        style={{ transform: "rotate(90deg)" }}
-      />
-      <ColorPieces
-        fillColor={props.color2}
-        size={puzzleSize()}
-        style={{ transform: "rotate(-180deg)", marginBottom: "1.3em" }}
-      />
-      <ColorPieces
-        fillColor={props.color3}
-        size={puzzleSize()}
-        style={{ marginLeft: "1.4em" }}
-      />
-      <ColorPieces
-        fillColor={props.color4}
-        size={puzzleSize()}
-        style={{
-          transform: "rotate(-90deg)",
-          marginBottom: "1.3em",
-        }}
-      />
-    </>
-  );
-}
-
-export function Puzzle2(props) {
+// 2x2 puzzle in introSection
+export function IntroPuzzle(props) {
   const size = useWindowSize();
   function puzzleMargins(size1, size2) {
     if (size.width > 480) {

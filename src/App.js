@@ -28,7 +28,6 @@ function App() {
       {mobileTest && (
         <>
           {/* change intro section size to fit mobile*/}
-
           <AboutSection ref={aboutRef} />
           <SkillsSection ref={skillsRef} />
           <ProjectsSection ref={projectsRef} />

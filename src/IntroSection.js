@@ -1,5 +1,5 @@
 import React from "react";
-import { Puzzle, Puzzle2 } from "./Icons";
+import { IntroPuzzle } from "./Icons";
 const IntroSection = React.forwardRef((props, ref) => {
   // puzzle colors
   const color1 = "#FFAFAF";
@@ -11,7 +11,7 @@ const IntroSection = React.forwardRef((props, ref) => {
     <section ref={ref} id="introSection" className="introSection">
       <figure className="intro-puzzle-container">
         {/* destructure (?) into props */}
-        <Puzzle2 />
+        <IntroPuzzle />
       </figure>
 
       <h1>
