@@ -67,26 +67,31 @@ export function Puzzle(props) {
 
 export function Puzzle2(props) {
   const size = useWindowSize();
-  function puzzleSize() {
-    return size.width > 480 ? "13em" : "40em";
+  function puzzleMargins(size1, size2) {
+    if (size.width > 480) {
+      return size1;
+    } else {
+      return size2;
+    }
   }
-  const style = {
-    size: puzzleSize(),
-  };
+
   return (
     <>
-      <img src={piece1} style={{ height: "7em", width: "7em" }} />
+      <img src={piece1} className="intro-piece" />
       <img
         src={piece2}
-        style={{ height: "7em", width: "7em", marginBottom: "1.2em" }}
+        className="intro-piece"
+        style={{ marginBottom: puzzleMargins("3em", "1.2em") }}
       />
       <img
         src={piece3}
-        style={{ height: "7em", width: "7em", marginLeft: "1.3em" }}
+        className="intro-piece"
+        style={{ marginLeft: puzzleMargins("3em", "1.3em") }}
       />
       <img
         src={piece4}
-        style={{ height: "7em", width: "7em", marginBottom: "1.3em" }}
+        className="intro-piece"
+        style={{ marginBottom: puzzleMargins("3em", "1.4em") }}
       />
     </>
   );

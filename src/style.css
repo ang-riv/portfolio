@@ -165,12 +165,19 @@ button {
 }
 
 .intro-puzzle-container {
-  height: 28.75em;
-  width: 30em;
+  height: 35em;
+  width: 35em;
+  margin-left: 1em;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
+}
+
+.intro-piece {
+  height: 15em;
+  width: 15em;
 }
 
 /** about section styles **/
@@ -341,6 +348,11 @@ button {
     height: 245px;
     width: 245px;
     margin-left: 2em;
+  }
+
+  .intro-piece {
+    height: 7em;
+    width: 7em;
   }
 
   /* about section container */
