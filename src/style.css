@@ -53,8 +53,9 @@ h4 {
   margin: 0.5em 0 0 0;
 }
 
-nav ul li:hover,
-button:hover {
+.nav-container nav ul li:hover,
+button:hover,
+.mobile-nav-container ul li:hover {
   cursor: pointer;
 }
 
