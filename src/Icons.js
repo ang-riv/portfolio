@@ -18,8 +18,8 @@ export function IntroPuzzle(props) {
     if (size.width < 600) {
       // if greater that
       // mobile size
-      return size2;
-    } else if (size.width > 600 && size.width < 800) {
+      return size1;
+    } else if (size.width > 600 && size.width < 1024) {
       // tablet size
       return size2;
     } else {
@@ -35,19 +35,19 @@ export function IntroPuzzle(props) {
         src={piece2}
         className="intro-piece"
         alt="green puzzle piece"
-        style={{ marginBottom: puzzleMargins("3em", "2.3em", "3em") }}
+        style={{ marginBottom: puzzleMargins("1.5em", "2.3em", "3em") }}
       />
       <img
         src={piece3}
         className="intro-piece"
         alt="yellow puzzle piece"
-        style={{ marginLeft: puzzleMargins("3em", "2.4em", "3em") }}
+        style={{ marginLeft: puzzleMargins("1.5em", "2.4em", "2.6em") }}
       />
       <img
         src={piece4}
         className="intro-piece"
         alt="yellow puzzle piece"
-        style={{ marginBottom: puzzleMargins("3em", "2.2em", "3em") }}
+        style={{ marginBottom: puzzleMargins("1.4em", "2.2em", "3em") }}
       />
     </>
   );

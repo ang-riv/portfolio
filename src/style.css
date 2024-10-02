@@ -173,7 +173,7 @@ button {
 
 .intro-puzzle-container {
   height: 35em;
-  width: 35em;
+  width: 40em;
   margin-left: 1em;
   margin-bottom: 0;
   display: flex;
@@ -310,7 +310,7 @@ button {
 
 /** media queries **/
 /* desktop views */
-@media (min-width: 1025px) {
+@media (min-width: 1024px) and (max-width: 1025px) {
   /* intro section container */
   .introSection {
     flex-direction: row;
@@ -322,7 +322,7 @@ button {
 }
 
 /* tablet views */
-@media (min-width: 601px) and (max-width: 800px) {
+@media (min-width: 601px) and (max-width: 1023px) {
   /* intro section container */
   .introSection {
     flex-direction: column;
