@@ -2,6 +2,10 @@
 :root {
   --grey: #d9d9d9;
   --blue: #9fd1ff;
+  --pink: #ffcccc;
+  --purple: #ccccff;
+  --green: #ccffcc;
+  --yellow: #f2e589;
 }
 
 * {
@@ -196,6 +200,7 @@ button {
 .tile {
   padding: 0.625em;
   border-radius: 0.625em;
+  box-shadow: 4px 6px 8px 0px var(--grey);
 }
 
 .tile-1 {
@@ -205,21 +210,21 @@ button {
 .tile-2 {
   padding: 0.625em;
   grid-row: span 2;
-  background-color: lightSalmon;
+  background-color: var(--pink);
 }
 .tile-3 {
   grid-row: span 3;
   padding: 0.625em;
-  background-color: pink;
+  background-color: var(--purple);
 }
 .tile-4 {
   grid-row: span 2;
-  background-color: lavender;
+  background-color: var(--yellow);
   padding: 1em;
 }
 .tile-5 {
   grid-row: span 1;
-  background-color: lightBlue;
+  background-color: var(--green);
   padding: 1em;
 }
 
@@ -317,14 +322,20 @@ button {
 }
 
 /* tablet views */
-@media (min-width: 800px) {
-}
-
-/* tablet views */
-@media (min-width: 600px) and (max-width: 1025px) {
+@media (min-width: 601px) and (max-width: 800px) {
   /* intro section container */
   .introSection {
     flex-direction: column;
+  }
+
+  .intro-puzzle-container {
+    height: 420px;
+    width: 400px;
+  }
+
+  .intro-piece {
+    height: 11em;
+    width: 11em;
   }
 
   h1 {
@@ -335,7 +346,7 @@ button {
 }
 
 /* mobile views */
-@media (min-width: 320px) and (max-width: 599px) {
+@media (min-width: 320px) and (max-width: 600px) {
   /* intro section container */
   .introSection {
     flex-direction: column;
@@ -349,8 +360,8 @@ button {
   }
 
   .intro-puzzle-container {
-    height: 245px;
-    width: 245px;
+    height: 300px;
+    width: 320px;
     margin-left: 2em;
   }
 
@@ -366,7 +377,7 @@ button {
   }
 
   .tile {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
   }
 
   /* skill section  */

@@ -14,31 +14,40 @@ import piece4 from "./assets/piece4.svg";
 // 2x2 puzzle in introSection
 export function IntroPuzzle(props) {
   const size = useWindowSize();
-  function puzzleMargins(size1, size2) {
-    if (size.width > 480) {
-      return size1;
-    } else {
+  function puzzleMargins(size1, size2, size3) {
+    if (size.width < 600) {
+      // if greater that
+      // mobile size
       return size2;
+    } else if (size.width > 600 && size.width < 800) {
+      // tablet size
+      return size2;
+    } else {
+      // desktop size
+      return size3;
     }
   }
 
   return (
     <>
-      <img src={piece1} className="intro-piece" />
+      <img src={piece1} className="intro-piece" alt="pink puzzle piece" />
       <img
         src={piece2}
         className="intro-piece"
-        style={{ marginBottom: puzzleMargins("3em", "1.2em") }}
+        alt="green puzzle piece"
+        style={{ marginBottom: puzzleMargins("3em", "2.3em", "3em") }}
       />
       <img
         src={piece3}
         className="intro-piece"
-        style={{ marginLeft: puzzleMargins("3em", "1.3em") }}
+        alt="yellow puzzle piece"
+        style={{ marginLeft: puzzleMargins("3em", "2.4em", "3em") }}
       />
       <img
         src={piece4}
         className="intro-piece"
-        style={{ marginBottom: puzzleMargins("3em", "1.4em") }}
+        alt="yellow puzzle piece"
+        style={{ marginBottom: puzzleMargins("3em", "2.2em", "3em") }}
       />
     </>
   );
