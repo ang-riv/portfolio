@@ -1,6 +1,5 @@
 import React from "react";
-import { MobileSkillsPuzzle, SkillsPuzzle } from "./Icons";
-
+import { SkillsSectionPuzzle } from "./Icons";
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
@@ -25,7 +24,7 @@ const SkillsSection = React.forwardRef((props, ref) => {
           gap: "5%",
         }}
       >
-        <MobileSkillsPuzzle />
+        <SkillsSectionPuzzle />
       </div>
     </section>
   );

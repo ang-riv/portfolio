@@ -1,5 +1,8 @@
 import React from "react";
 import useWindowSize from "./useWindowSize";
+// global variables
+
+// TODO: use a loop or something to lesson these imports
 // intro puzzle
 import piece1 from "./assets/intro-svgs/piece1.svg";
 import piece2 from "./assets/intro-svgs/piece2.svg";
@@ -20,6 +23,7 @@ import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiec
 import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
 import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
+/**** INTRO SECTION ****/
 // 2x2 puzzle in introSection
 export function IntroPuzzle(props) {
   const size = useWindowSize();
@@ -62,6 +66,7 @@ export function IntroPuzzle(props) {
   );
 }
 
+/**** SKILLS SECTION ****/
 // puzzle in skill section
 export function SkillsPuzzle(props) {
   // potentially change so that they are all a random direction then move it onScroll
@@ -153,6 +158,27 @@ export function MobileSkillsPuzzle(props) {
     </>
   );
 }
+
+/* will render one of the puzzles depending on the screen size */
+export function SkillsSectionPuzzle() {
+  const size = useWindowSize();
+  if (size.width < 700) {
+    // mobile size
+    return (
+      <>
+        <MobileSkillsPuzzle />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <SkillsPuzzle />
+      </>
+    );
+  }
+}
+
+/**** CONTACT SECTION ****/
 
 /* sizes for icons based on screen size */
 function SocialIconSize() {
@@ -272,7 +298,7 @@ export function SocialLinks(props) {
   );
 }
 
-/* mobile navigation icons */
+/**** MOBILE NAVIGATION SECTION ****/
 
 export function QuestionMarkIcon(props) {
   return (
