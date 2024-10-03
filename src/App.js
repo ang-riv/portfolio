@@ -25,12 +25,11 @@ function App() {
         contactRef={contactRef}
       />
       <IntroSection ref={introRef} />
-      <AboutSection ref={aboutRef} />
+      <SkillsSection ref={skillsRef} />
 
       {mobileTest && (
         <>
-          {/* change intro section size to fit mobile*/}
-          <SkillsSection ref={skillsRef} />
+          <AboutSection ref={aboutRef} />
           <ProjectsSection ref={projectsRef} />
           <ContactSection ref={contactRef} />
         </>

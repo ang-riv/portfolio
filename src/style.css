@@ -310,7 +310,7 @@ button {
 
 /** media queries **/
 /* desktop views */
-@media (min-width: 1024px) and (max-width: 1025px) {
+@media (min-width: 1024px) {
   /* intro section container */
   .introSection {
     flex-direction: row;
@@ -342,7 +342,8 @@ button {
     color: blue;
     text-align: center;
   }
-  /* navigation styles*/
+  /* about styles*/
+  /*TODO: make the tiles fit on tablet + add margins*/
 }
 
 /* mobile views */

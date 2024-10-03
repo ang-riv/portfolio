@@ -1,15 +1,22 @@
 import React from "react";
-import htmlPiece from "./assets/htmlPiece.svg";
-import cssPiece from "./assets/cssPiece.svg";
-import javascriptPiece from "./assets/javascriptPiece.svg";
-import reactPiece from "./assets/reactPiece.svg";
-import bootstrapPiece from "./assets/bootstrapPiece.svg";
-import githubPiece from "./assets/githubPiece.svg";
 import useWindowSize from "./useWindowSize";
-import piece1 from "./assets/piece1.svg";
-import piece2 from "./assets/piece2.svg";
-import piece3 from "./assets/piece3.svg";
-import piece4 from "./assets/piece4.svg";
+// intro puzzle
+import piece1 from "./assets/intro-svgs/piece1.svg";
+import piece2 from "./assets/intro-svgs/piece2.svg";
+import piece3 from "./assets/intro-svgs/piece3.svg";
+import piece4 from "./assets/intro-svgs/piece4.svg";
+// pieces for skill puzzle
+import htmlPiece from "./assets/desktop-skill-svgs/htmlPiece.svg";
+import cssPiece from "./assets/desktop-skill-svgs/cssPiece.svg";
+import javascriptPiece from "./assets/desktop-skill-svgs/javascriptPiece.svg";
+import reactPiece from "./assets/desktop-skill-svgs/reactPiece.svg";
+import bootstrapPiece from "./assets/desktop-skill-svgs/bootstrapPiece.svg";
+import githubPiece from "./assets/desktop-skill-svgs/githubPiece.svg";
+// pieces for mobile skill puzzle - uses the same pieces from css and react ^
+import mobileHtmlPiece from "./assets/mobile-skill-svgs/mobileHtmlPiece.svg";
+import mobileJavascriptPiece from "./assets/mobile-skill-svgs/mobileJavascriptPiece.svg";
+import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiece.svg";
+import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
 // 2x2 puzzle in introSection
 export function IntroPuzzle(props) {
@@ -91,6 +98,19 @@ export function SkillsPuzzle(props) {
         style={{ width: "17%" }}
       ></img>
     </div>
+  );
+}
+
+export function MobileSkillsPuzzle(props) {
+  return (
+    <div
+      style={{
+        maxWidth: "1400px",
+        width: "95%",
+        display: "flex",
+        flexFlow: "row wrap",
+      }}
+    ></div>
   );
 }
 
