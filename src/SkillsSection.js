@@ -1,14 +1,15 @@
 import React from "react";
-import { SkillsPuzzle } from "./Icons";
+import { MobileSkillsPuzzle, SkillsPuzzle } from "./Icons";
 
 const SkillsSection = React.forwardRef((props, ref) => {
   return (
     <section
       ref={ref}
       style={{
-        height: "44vh",
+        height: "50vh",
         width: "100%",
-        paddingTop: "1vh",
+        paddingTop: "0.5vh",
+        paddingBottom: "3vh",
         backgroundColor: "#9FD1FF",
       }}
     >
@@ -18,12 +19,13 @@ const SkillsSection = React.forwardRef((props, ref) => {
         style={{
           height: "60%",
           display: "flex",
+          flexFlow: "column nowrap",
           justifyContent: "center",
           alignItems: "center",
           gap: "5%",
         }}
       >
-        <SkillsPuzzle />
+        <MobileSkillsPuzzle />
       </div>
     </section>
   );

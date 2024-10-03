@@ -134,6 +134,8 @@ button {
   background-color: #9fd1ff;
   position: fixed;
   bottom: 0;
+  /* for pieces in skill puzzle that are relative, navbar will go over it*/
+  z-index: 1;
 }
 
 .mobile-nav-container ul {
@@ -382,6 +384,25 @@ button {
   }
 
   /* skill section  */
+  .mobile-puzzle-container {
+    max-width: 1400px;
+    width: 95%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-puzzle-container > img {
+    height: 100px;
+    width: 100px;
+    z-index: 0;
+  }
+
+  .mobile-puzzle-container:last-child > img:last-of-type {
+    height: 80px;
+    width: 80px;
+  }
 
   /* contact section */
   .contact-container h2 {

@@ -12,10 +12,12 @@ import javascriptPiece from "./assets/desktop-skill-svgs/javascriptPiece.svg";
 import reactPiece from "./assets/desktop-skill-svgs/reactPiece.svg";
 import bootstrapPiece from "./assets/desktop-skill-svgs/bootstrapPiece.svg";
 import githubPiece from "./assets/desktop-skill-svgs/githubPiece.svg";
-// pieces for mobile skill puzzle - uses the same pieces from css and react ^
+// pieces for mobile skill puzzle
 import mobileHtmlPiece from "./assets/mobile-skill-svgs/mobileHtmlPiece.svg";
+import mobileCssPiece from "./assets/mobile-skill-svgs/mobileCssPiece.svg";
 import mobileJavascriptPiece from "./assets/mobile-skill-svgs/mobileJavascriptPiece.svg";
 import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiece.svg";
+import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
 import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
 // 2x2 puzzle in introSection
@@ -102,15 +104,53 @@ export function SkillsPuzzle(props) {
 }
 
 export function MobileSkillsPuzzle(props) {
+  const containerSize = {
+    maxWidth: "1400px",
+    width: "95%",
+    display: "flex",
+    flexFlow: "row nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+  };
   return (
-    <div
-      style={{
-        maxWidth: "1400px",
-        width: "95%",
-        display: "flex",
-        flexFlow: "row wrap",
-      }}
-    ></div>
+    <>
+      <div className="mobile-puzzle-container" style={containerSize}>
+        <img
+          src={mobileHtmlPiece}
+          alt="puzzle piece with the word HTML"
+          style={{ position: "relative", left: "0.6em" }}
+        ></img>
+        <img
+          src={mobileCssPiece}
+          alt="puzzle piece with the word HTML"
+          style={{
+            position: "relative",
+            bottom: "0.6em",
+            left: "0.5em",
+            zIndex: "0",
+          }}
+        ></img>
+        <img
+          src={mobileJavascriptPiece}
+          alt="puzzle piece with the word HTML"
+        ></img>
+      </div>
+      <div className="mobile-puzzle-container" style={containerSize}>
+        <img
+          src={mobileBootstrapPiece}
+          alt="puzzle piece with the word HTML"
+        ></img>
+        <img
+          src={mobileReactPiece}
+          alt="puzzle piece with the word HTML"
+          style={{ position: "relative", bottom: "0.6em" }}
+        ></img>
+        <img
+          src={mobileGithubPiece}
+          alt="puzzle piece with the word HTML"
+        ></img>
+      </div>
+    </>
   );
 }
 
