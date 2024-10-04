@@ -1,31 +1,13 @@
 import React from "react";
 import useWindowSize from "./useWindowSize";
-// global variables
-
-// TODO: use a loop or something to lesson these imports
-// intro puzzle
-import piece1 from "./assets/intro-svgs/piece1.svg";
-import piece2 from "./assets/intro-svgs/piece2.svg";
-import piece3 from "./assets/intro-svgs/piece3.svg";
-import piece4 from "./assets/intro-svgs/piece4.svg";
-// pieces for skill puzzle
-import htmlPiece from "./assets/desktop-skill-svgs/htmlPiece.svg";
-import cssPiece from "./assets/desktop-skill-svgs/cssPiece.svg";
-import javascriptPiece from "./assets/desktop-skill-svgs/javascriptPiece.svg";
-import reactPiece from "./assets/desktop-skill-svgs/reactPiece.svg";
-import bootstrapPiece from "./assets/desktop-skill-svgs/bootstrapPiece.svg";
-import githubPiece from "./assets/desktop-skill-svgs/githubPiece.svg";
-// pieces for mobile skill puzzle
-import mobileHtmlPiece from "./assets/mobile-skill-svgs/mobileHtmlPiece.svg";
-import mobileCssPiece from "./assets/mobile-skill-svgs/mobileCssPiece.svg";
-import mobileJavascriptPiece from "./assets/mobile-skill-svgs/mobileJavascriptPiece.svg";
-import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiece.svg";
-import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
-import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
+// svgs for puzzle pieces
+import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
 /**** INTRO SECTION ****/
+
 // 2x2 puzzle in introSection
 export function IntroPuzzle(props) {
+  // uses introPieces svgs from the Imports.js
   const size = useWindowSize();
   function puzzleMargins(size1, size2, size3) {
     if (size.width < 600) {
@@ -43,21 +25,25 @@ export function IntroPuzzle(props) {
 
   return (
     <>
-      <img src={piece1} className="intro-piece" alt="pink puzzle piece" />
       <img
-        src={piece2}
+        src={introPieces.pinkPiece}
+        className="intro-piece"
+        alt="pink puzzle piece"
+      />
+      <img
+        src={introPieces.greenPiece}
         className="intro-piece"
         alt="green puzzle piece"
         style={{ marginBottom: puzzleMargins("1.5em", "2.3em", "3em") }}
       />
       <img
-        src={piece3}
+        src={introPieces.yellowPiece}
         className="intro-piece"
         alt="yellow puzzle piece"
         style={{ marginLeft: puzzleMargins("1.5em", "2.4em", "2.6em") }}
       />
       <img
-        src={piece4}
+        src={introPieces.purplePiece}
         className="intro-piece"
         alt="yellow puzzle piece"
         style={{ marginBottom: puzzleMargins("1.4em", "2.2em", "3em") }}
@@ -85,22 +71,25 @@ export function SkillsPuzzle(props) {
       }}
     >
       <img
-        src={htmlPiece}
+        src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
         style={style}
       ></img>
-      <img src={cssPiece} alt="puzzle piece with the word CSS"></img>
+      <img src={desktopPieces.css} alt="puzzle piece with the word CSS"></img>
       <img
-        src={javascriptPiece}
+        src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
       ></img>
       <img
-        src={bootstrapPiece}
+        src={desktopPieces.bootstrap}
         alt="puzzle piece with the word Bootstrap"
       ></img>
-      <img src={reactPiece} alt="puzzle piece with the word React"></img>
       <img
-        src={githubPiece}
+        src={desktopPieces.react}
+        alt="puzzle piece with the word React"
+      ></img>
+      <img
+        src={desktopPieces.github}
         alt="puzzle piece with the word Github"
         style={{ width: "17%" }}
       ></img>
@@ -121,13 +110,13 @@ export function MobileSkillsPuzzle(props) {
     <>
       <div className="mobile-puzzle-container" style={containerSize}>
         <img
-          src={mobileHtmlPiece}
+          src={mobilePieces.html}
           alt="puzzle piece with the word HTML"
           style={{ position: "relative", left: "0.6em" }}
         ></img>
         <img
-          src={mobileCssPiece}
-          alt="puzzle piece with the word HTML"
+          src={mobilePieces.css}
+          alt="puzzle piece with the word CSS"
           style={{
             position: "relative",
             bottom: "0.6em",
@@ -136,23 +125,23 @@ export function MobileSkillsPuzzle(props) {
           }}
         ></img>
         <img
-          src={mobileJavascriptPiece}
-          alt="puzzle piece with the word HTML"
+          src={mobilePieces.js}
+          alt="puzzle piece with the word JavaScript"
         ></img>
       </div>
       <div className="mobile-puzzle-container" style={containerSize}>
         <img
-          src={mobileBootstrapPiece}
-          alt="puzzle piece with the word HTML"
+          src={mobilePieces.bootstrap}
+          alt="puzzle piece with the word bootstrap"
         ></img>
         <img
-          src={mobileReactPiece}
-          alt="puzzle piece with the word HTML"
+          src={mobilePieces.react}
+          alt="puzzle piece with the word React"
           style={{ position: "relative", bottom: "0.6em" }}
         ></img>
         <img
-          src={mobileGithubPiece}
-          alt="puzzle piece with the word HTML"
+          src={mobilePieces.github}
+          alt="puzzle piece with the word Github"
         ></img>
       </div>
     </>
