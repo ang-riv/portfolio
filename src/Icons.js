@@ -67,7 +67,7 @@ export function SkillsPuzzle(props) {
         maxWidth: "1400px",
         width: "95%",
         display: "flex",
-        flexFlow: "row wrap",
+        flexFlow: "row nowrap",
       }}
     >
       <img

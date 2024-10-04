@@ -6,7 +6,6 @@ import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
-import { ImportTester } from "./Icons.js";
 
 function App() {
   const mobileTest = false;
@@ -26,9 +25,10 @@ function App() {
       />
       <IntroSection ref={introRef} />
       <SkillsSection ref={skillsRef} />
+      <ProjectsSection ref={projectsRef} />
+
       {mobileTest && (
         <>
-          <ProjectsSection ref={projectsRef} />
           <AboutSection ref={aboutRef} />
           <ContactSection ref={contactRef} />
         </>
