@@ -62,14 +62,7 @@ export function SkillsPuzzle(props) {
     transform: randomNum,
   };
   return (
-    <div
-      style={{
-        maxWidth: "1400px",
-        width: "95%",
-        display: "flex",
-        flexFlow: "row nowrap",
-      }}
-    >
+    <div className="skill-desktop-div">
       <img
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
@@ -108,7 +101,7 @@ export function MobileSkillsPuzzle(props) {
   };
   return (
     <>
-      <div className="mobile-puzzle-container" style={containerSize}>
+      <div className="skill-mobile-div">
         <img
           src={mobilePieces.html}
           alt="puzzle piece with the word HTML"
@@ -129,7 +122,7 @@ export function MobileSkillsPuzzle(props) {
           alt="puzzle piece with the word JavaScript"
         ></img>
       </div>
-      <div className="mobile-puzzle-container" style={containerSize}>
+      <div className="skill-mobile-div">
         <img
           src={mobilePieces.bootstrap}
           alt="puzzle piece with the word bootstrap"

@@ -230,6 +230,33 @@ button {
   padding: 1em;
 }
 
+/** skills section styles **/
+
+.skills-content-wrapper {
+  height: 60%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.skill-desktop-div {
+  max-width: 1400px;
+  width: 95%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.skill-mobile-div {
+  max-width: 1400px;
+  width: 95%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 /** projects section styles **/
 .content-wrapper {
   height: 100%;
@@ -384,7 +411,7 @@ button {
   }
 
   /* skill section  */
-  .mobile-puzzle-container {
+  .skill-mobile-div {
     max-width: 1400px;
     width: 95%;
     display: flex;
@@ -393,13 +420,13 @@ button {
     align-items: center;
   }
 
-  .mobile-puzzle-container > img {
+  .skill-mobile-div > img {
     height: 100px;
     width: 100px;
     z-index: 0;
   }
 
-  .mobile-puzzle-container:last-child > img:last-of-type {
+  .skill-mobile-div:last-child > img:last-of-type {
     height: 80px;
     width: 80px;
   }

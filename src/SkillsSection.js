@@ -13,17 +13,7 @@ const SkillsSection = React.forwardRef((props, ref) => {
       }}
     >
       <h2>Skills</h2>
-      <div
-        className="content-wrapper"
-        style={{
-          height: "60%",
-          display: "flex",
-          flexFlow: "column nowrap",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "5%",
-        }}
-      >
+      <div className="skills-content-wrapper">
         <SkillsSectionPuzzle />
       </div>
     </section>
