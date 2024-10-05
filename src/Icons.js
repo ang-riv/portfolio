@@ -165,7 +165,7 @@ export function SkillsSectionPuzzle() {
 /* sizes for icons based on screen size */
 function SocialIconSize() {
   const size = useWindowSize();
-  return size.width > 480 ? "4em" : "2.5em";
+  return size.width > 700 ? "3.8em" : "2.5em";
 }
 
 export function GithubIcon(props) {
@@ -223,8 +223,8 @@ export function FrontEndMentorIcon(props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="3.5em"
-      height="3.5em"
+      width={SocialIconSize()}
+      height={SocialIconSize()}
       viewBox="0 0 24 24"
       {...props}
     >
@@ -238,13 +238,6 @@ export function FrontEndMentorIcon(props) {
 
 /* groups together the social links + styles */
 export function SocialLinks(props) {
-  const titleStyle2 = {
-    marginLeft: "0.7em",
-    fontFamily: "Alice, sans-serif",
-    fontSize: "1.7em",
-    fontWeight: "bold",
-  };
-
   return (
     <>
       <a
@@ -274,7 +267,7 @@ export function SocialLinks(props) {
         className="link-style"
       >
         <FrontEndMentorIcon style={{ marginLeft: "0.5em" }} />
-        <p style={titleStyle2}>FrontEndMentor</p>
+        <p className="link-title last-link-title">FrontEndMentor</p>
       </a>
     </>
   );

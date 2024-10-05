@@ -26,11 +26,10 @@ function App() {
       <IntroSection ref={introRef} />
       <SkillsSection ref={skillsRef} />
       <ProjectsSection ref={projectsRef} />
-
+      <ContactSection ref={contactRef} />
       {mobileTest && (
         <>
           <AboutSection ref={aboutRef} />
-          <ContactSection ref={contactRef} />
         </>
       )}
     </div>

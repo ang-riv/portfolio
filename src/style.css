@@ -296,6 +296,10 @@ button {
   padding: 1%;
 }
 /** contact section styles **/
+.contact-section {
+  padding-top: 3em;
+  height: 40vh;
+}
 .contact-container {
   width: 100%;
   height: 100%;
@@ -326,6 +330,11 @@ button {
   font-family: "Alice", sans-serif;
   font-size: 2em;
   font-weight: bold;
+}
+
+.last-link-title {
+  margin-left: 0.7em;
+  font-size: 1.7em;
 }
 
 .social-links-container {
@@ -372,6 +381,10 @@ button {
   h1 {
     color: blue;
     text-align: center;
+  }
+
+  .last-link-title {
+    font-size: 1.2em;
   }
   /* about styles*/
   /*TODO: make the tiles fit on tablet + add margins*/
@@ -444,6 +457,7 @@ button {
 
   /* contact section */
   .contact-container h2 {
+    padding-top: 0.5em;
     margin-bottom: 0.5em;
     font-size: 2em;
   }
@@ -451,14 +465,23 @@ button {
     flex-flow: column nowrap;
     align-items: center;
   }
+  .contact-section {
+    height: 50vh;
+    margin-bottom: 5.5em;
+  }
 
   .link-style {
     width: 85%;
     height: 20%;
+    max-width: 270px;
     margin-bottom: 1em;
   }
 
   .link-title {
     font-size: 1.5em;
+  }
+
+  .last-link-title {
+    font-size: 1.2em;
   }
 }

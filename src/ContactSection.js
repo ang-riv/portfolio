@@ -2,13 +2,7 @@ import React from "react";
 import { SocialLinks } from "./Icons";
 const ContactSection = React.forwardRef((props, ref) => {
   return (
-    <section
-      ref={ref}
-      style={{
-        paddingTop: "3em",
-        height: "40vh",
-      }}
-    >
+    <section className="contact-section" ref={ref}>
       <div className="contact-container">
         <h2>Let's Connect</h2>
         <div
