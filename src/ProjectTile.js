@@ -13,8 +13,8 @@ function ProjectTile(props) {
       <div className="project-text-container">
         <h4>{props.title}</h4>
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
-        <button style={buttonColor}>Live Site</button>
       </div>
+      <button style={buttonColor}>Live Site</button>
     </div>
   );
 }
