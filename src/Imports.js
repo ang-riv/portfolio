@@ -25,20 +25,19 @@ import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
 import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
 /********** GLOBAL COLORS ************/
-
-// TODO: find a way to put these two together?
-export const colors = {
-  pink: "#ffcccc",
-  green: "#ccffcc",
-  purple: "#ccccff",
-  yellow: "#f2e589",
-  blue: "#9fd1ff",
-};
-
-// !needs to be used with the actual global colors in order to be using in an element's style prop!
-export function globalColor(color) {
+// if the color is being used in any style props, it needs to be in quotation marks, so this fcn does that
+export function quotationColors(color) {
   return `${color}`;
 }
+
+export const globalColors = {
+  pink: quotationColors("#ffcccc"),
+  green: quotationColors("#ccffcc"),
+  purple: quotationColors("#ccccff"),
+  yellow: quotationColors("#f2e589"),
+  blue: quotationColors("#9fd1ff"),
+};
+
 /********** SVG OBJECTS ************/
 export const introPieces = {
   pinkPiece: piece1,
