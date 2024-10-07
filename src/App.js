@@ -7,6 +7,16 @@ import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
 
+// global colors to keep things consistent
+
+const colors = {
+  pink: "#ffcccc",
+  green: "ccffcc",
+  purple: "#ccccff",
+  yellow: "#f2e589",
+  blue: "#9fd1ff",
+};
+
 function App() {
   const mobileTest = false;
   const introRef = useRef(null);
