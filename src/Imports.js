@@ -1,4 +1,4 @@
-// file dedicated to svg imports to condense the icons component
+// file dedicated to svg imports to condense the icons component and global colors to stay consistent throughout the portfolio
 
 /*** INTRO SECTION SVGS***/
 //intro
@@ -24,6 +24,22 @@ import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiec
 import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
 import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
+/********** GLOBAL COLORS ************/
+
+// TODO: find a way to put these two together?
+export const colors = {
+  pink: "#ffcccc",
+  green: "#ccffcc",
+  purple: "#ccccff",
+  yellow: "#f2e589",
+  blue: "#9fd1ff",
+};
+
+// !needs to be used with the actual global colors in order to be using in an element's style prop!
+export function globalColor(color) {
+  return `${color}`;
+}
+/********** SVG OBJECTS ************/
 export const introPieces = {
   pinkPiece: piece1,
   greenPiece: piece2,

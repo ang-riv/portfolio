@@ -1,13 +1,18 @@
 import React from "react";
-
+import { colors } from "./Imports";
 const AboutSection = React.forwardRef((props, ref) => {
   // each tiles innerStyle
-
+  //TODO: figure out how to make this work without needing to destructure it + maybe make it into a function?
+  function test(color) {
+    return `${color}`;
+  }
+  const green1 = `${colors.green}`;
+  console.log(green1);
   const aboutSections = [
-    { title: "Intro", color: "pink" },
-    { title: "Backstory", color: "green" },
-    { title: "Values", color: "purple" },
-    { title: "Hobbies", color: "orange" },
+    { title: "Intro", color: `${colors.pink}` },
+    { title: "Backstory", color: `${colors.green}` },
+    { title: "Values", color: `${colors.purple}` },
+    { title: "Hobbies", color: test(colors.yellow) },
   ];
   return (
     <section
