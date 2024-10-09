@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { globalColors } from "./Imports";
 const AboutSection = React.forwardRef((props, ref) => {
-  // each tiles innerStyle
-  //TODO: figure out how to make this work without needing to destructure it + maybe make it into a function?
-
+  let [activeTab, setActiveTab] = useState("");
+  console.log(activeTab);
   const aboutSections = [
     { title: "Intro", color: globalColors.pink },
     { title: "Backstory", color: globalColors.green },
     { title: "Values", color: globalColors.purple },
     { title: "Hobbies", color: globalColors.yellow },
   ];
+  console.log(activeTab);
+  // add in the onClick for info body/ which section to show
+  const handleClick = (currentTab) => {
+    setActiveTab(currentTab);
+  };
   return (
     <section
       ref={ref}
@@ -39,12 +43,15 @@ const AboutSection = React.forwardRef((props, ref) => {
                 <div
                   className="about-tab"
                   style={{ backgroundColor: tabSection.color }}
+                  onClick={() => handleClick(tabSection.title)}
                 >
                   <p className="about-tab-title">{tabSection.title}</p>
                 </div>
               ))}
             </div>
-            <div className="about-info-body"></div>
+            <div className="about-info-body">
+              {/* inside content, add in a function */}
+            </div>
           </div>
         </div>
       </div>
