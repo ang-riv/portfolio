@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { globalColors } from "./Imports";
+import AboutInfo from "./AboutInfo";
 const AboutSection = React.forwardRef((props, ref) => {
   let [activeTab, setActiveTab] = useState("");
   console.log(activeTab);
@@ -9,7 +10,7 @@ const AboutSection = React.forwardRef((props, ref) => {
     { title: "Values", color: globalColors.purple },
     { title: "Hobbies", color: globalColors.yellow },
   ];
-  console.log(activeTab);
+
   // add in the onClick for info body/ which section to show
   const handleClick = (currentTab) => {
     setActiveTab(currentTab);
@@ -49,8 +50,12 @@ const AboutSection = React.forwardRef((props, ref) => {
                 </div>
               ))}
             </div>
-            <div className="about-info-body">
+            <div
+              className="about-info-body"
+              style={{ backgroundColor: globalColors.pink }}
+            >
               {/* inside content, add in a function */}
+              <AboutInfo activeTab={activeTab} />
             </div>
           </div>
         </div>
