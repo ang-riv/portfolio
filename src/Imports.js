@@ -30,12 +30,15 @@ export function quotationColors(color) {
   return `${color}`;
 }
 
+export const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#f2e589", "#9fd1ff"];
+
+// adding quotes + adding names to the colors
 export const globalColors = {
-  pink: quotationColors("#ffcccc"),
-  green: quotationColors("#ccffcc"),
-  purple: quotationColors("#ccccff"),
-  yellow: quotationColors("#f2e589"),
-  blue: quotationColors("#9fd1ff"),
+  pink: quotationColors(colors[0]),
+  green: quotationColors(colors[1]),
+  purple: quotationColors(colors[2]),
+  yellow: quotationColors(colors[3]),
+  blue: quotationColors(colors[4]),
 };
 
 /********** SVG OBJECTS ************/
@@ -63,3 +66,74 @@ export const mobilePieces = {
   react: mobileReactPiece,
   github: mobileGithubPiece,
 };
+
+/********** ABOUT SECTION  ************/
+export const aboutSections = [
+  { title: "Intro", color: null },
+  { title: "Backstory", color: null },
+  { title: "Values", color: null },
+  { title: "Hobbies", color: null },
+];
+
+export const updatedAbout = [...aboutSections];
+
+Object.keys(updatedAbout).forEach((key) => {
+  updatedAbout[key].color = colors[key];
+});
+
+export const list = () => {
+  return (
+    <ul
+      className="about-values-tab"
+      style={{ margin: 0, padding: "0 0 0 15px" }}
+    >
+      <li>
+        loves bringing innovative ideas to life with clean and efficient code.
+      </li>
+      <li>
+        strives to create web experiences that are easy to navigate and are easy
+        on the eyes.
+      </li>
+      <li>values accessibility for everyone!</li>
+      <li>
+        admires all kinds of designs - from sleek and minimalistic, to quirky
+        and interactive, I want to be a part of creating them all!
+      </li>
+    </ul>
+  );
+};
+
+export const tabInfo = {
+  intro: {
+    title: "Who Am I?",
+    description:
+      "Hi, I’m Angela! I’m a Front End Developer located in Winnipeg, Manitoba who is passionate about making the web a more beautiful and accessible place.",
+    color: null,
+  },
+  values: {
+    title: "I'm a Developer Who...",
+    description: list(),
+    color: null,
+  },
+  backstory: {
+    title: "A Brief History",
+    description:
+      "Coding became a part of my life back in high school after trying out a computer science course. Being able to see the process behind building websites I use everyday captured my interest right away! When I went to university, I pursued a different path and after graduating, I revisited coding again with free tutorials online. It reminded me of how fun coding is and rekindled my love for it.",
+    color: null,
+  },
+  hobbies: {
+    title: "When I'm Not Coding:",
+    description:
+      "I’m scouring the streets for new sweets to try, piecing together jigsaw puzzles, or collecting fun and colorful art prints!",
+    color: null,
+  },
+};
+
+export const updatedInfo = { ...tabInfo };
+
+Object.keys(updatedInfo).forEach((key, val) => {
+  //console.log(updatedInfo[key].color);
+  updatedInfo[key].color = colors[val];
+});
+
+console.log(updatedInfo);

@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import { globalColors } from "./Imports";
+import { updatedAbout } from "./Imports";
 import AboutInfo from "./AboutInfo";
 const AboutSection = React.forwardRef((props, ref) => {
   let [activeTab, setActiveTab] = useState("Intro");
-  console.log(activeTab);
-  const aboutSections = [
-    { title: "Intro", color: globalColors.pink },
-    { title: "Backstory", color: globalColors.green },
-    { title: "Values", color: globalColors.purple },
-    { title: "Hobbies", color: globalColors.yellow },
-  ];
 
   // add in the onClick for info body/ which section to show
   const handleClick = (currentTab) => {
@@ -41,7 +34,7 @@ const AboutSection = React.forwardRef((props, ref) => {
           <div className="about-info">
             <div className="about-tabs-container">
               {/* change into a map or loop*/}
-              {aboutSections.map((tabSection) => (
+              {updatedAbout.map((tabSection) => (
                 <div
                   className="about-tab"
                   style={{ backgroundColor: tabSection.color }}
