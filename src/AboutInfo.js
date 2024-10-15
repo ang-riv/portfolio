@@ -1,13 +1,33 @@
 import React from "react";
+import { globalColors } from "./Imports";
+
+const list = () => {
+  return (
+    <ul>
+      <li>loves bringing</li>
+      <li>jdfklajsdf</li>
+      <li></li>
+    </ul>
+  );
+};
+
+const tabInfo = {
+  intro: {
+    title: "Who Am I?",
+    description: "Lorem Ipsum.",
+    color: globalColors.pink,
+  },
+  values: {
+    title: "I'm a developer who...",
+    description: list(),
+  },
+  backstory: {},
+  hobbies: {},
+};
 
 const AboutInfo = ({ activeTab }) => {
   const test = activeTab.toLowerCase();
-  const tabInfo = {
-    intro: { title: "Who Am I?", description: "Lorem Ipsum." },
-    backstory: {},
-    values: {},
-    hobbies: {},
-  };
+
   // holder variable?
   let currentTab = "";
 
@@ -18,6 +38,7 @@ const AboutInfo = ({ activeTab }) => {
       currentTab = tabInfo[tab];
     }
   }
+  // testing
   console.log(JSON.stringify(currentTab));
   return (
     <>
