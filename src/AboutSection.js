@@ -19,7 +19,7 @@ const AboutSection = React.forwardRef((props, ref) => {
     <section
       ref={ref}
       style={{
-        height: "85vh",
+        height: "75vh",
         marginBottom: "15%",
       }}
     >
@@ -27,9 +27,10 @@ const AboutSection = React.forwardRef((props, ref) => {
       <div
         className="about-content-wrapper"
         style={{
-          height: "80%",
+          height: "fit-content",
+          marginTop: "100px",
           display: "flex",
-          alignContent: "center",
+          alignItems: "center",
           justifyContent: "center",
         }}
       >
