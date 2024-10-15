@@ -193,38 +193,34 @@ button {
 
 /** about section styles **/
 .about-container {
-  height: 100%;
+  height: fit-content;
   width: 85%;
-  outline: 1px dotted purple;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .about-photo {
   outline: 1px dotted grey;
   border-radius: 5px;
-  height: 60%;
-  width: 40%;
+  height: 350px;
+  width: 280px;
 }
 
 .about-info {
-  outline: 1px dotted blue;
   border-radius: 5px;
   height: 55%;
-  width: 50%;
+  width: 55%;
 }
 
 .about-tabs-container {
-  outline: 1px dotted red;
   border-radius: 5px 5px 0px 0px;
   width: 100%;
-  height: 15%;
+  height: 40px;
   display: flex;
 }
 
 .about-tab {
-  outline: 1px dotted green;
   border-radius: 10px 10px 0px 0px;
   height: 100%;
   width: 25%;
@@ -237,45 +233,18 @@ button {
 .about-tab-title {
   font-family: "Alice", sans-serif;
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin: 0;
 }
 
 .about-info-body {
-  height: 85%;
+  height: fit-content;
   width: 100%;
-  background-color: #ccccff;
+  border-radius: 0 0 10px 10px;
 }
 
-.tile {
-  padding: 0.625em;
-  border-radius: 0.625em;
-  box-shadow: 4px 6px 8px 0px var(--grey);
-}
-
-.tile-1 {
-  grid-row: span 4;
-  background-color: purple;
-}
-.tile-2 {
-  padding: 0.625em;
-  grid-row: span 2;
-  background-color: var(--pink);
-}
-.tile-3 {
-  grid-row: span 3;
-  padding: 0.625em;
-  background-color: var(--purple);
-}
-.tile-4 {
-  grid-row: span 2;
-  background-color: var(--yellow);
-  padding: 1em;
-}
-.tile-5 {
-  grid-row: span 1;
-  background-color: var(--green);
-  padding: 1em;
+.about-values-tab > li:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 /** skills section styles **/

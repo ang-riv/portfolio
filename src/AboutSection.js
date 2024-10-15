@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { globalColors } from "./Imports";
 import AboutInfo from "./AboutInfo";
 const AboutSection = React.forwardRef((props, ref) => {
-  let [activeTab, setActiveTab] = useState("");
+  let [activeTab, setActiveTab] = useState("Intro");
   console.log(activeTab);
   const aboutSections = [
     { title: "Intro", color: globalColors.pink },
@@ -19,18 +19,18 @@ const AboutSection = React.forwardRef((props, ref) => {
     <section
       ref={ref}
       style={{
-        height: "80vh",
+        height: "85vh",
         marginBottom: "15%",
       }}
     >
       <h2>About</h2>
       <div
-        className="content-wrapper"
+        className="about-content-wrapper"
         style={{
-          height: "95%",
+          height: "80%",
           display: "flex",
+          alignContent: "center",
           justifyContent: "center",
-          outline: "1px dotted green",
         }}
       >
         <div className="about-container">
