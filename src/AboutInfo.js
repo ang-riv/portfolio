@@ -20,9 +20,17 @@ const tabInfo = {
   values: {
     title: "I'm a developer who...",
     description: list(),
+    color: globalColors.purple,
   },
-  backstory: {},
-  hobbies: {},
+  backstory: {
+    title: "jdsklfa",
+    color: globalColors.green,
+  },
+  hobbies: {
+    title: "dkjalkdjf",
+    description: "akjsdlfkjs",
+    color: globalColors.yellow,
+  },
 };
 
 const AboutInfo = ({ activeTab }) => {
@@ -41,12 +49,15 @@ const AboutInfo = ({ activeTab }) => {
   // testing
   console.log(JSON.stringify(currentTab));
   return (
-    <>
+    <div
+      className="about-info-body"
+      style={{ backgroundColor: currentTab.color }}
+    >
       <h4 style={{ margin: 0, padding: 0, textAlign: "center" }}>
         {currentTab.title}
       </h4>
       <p style={{ margin: 0, padding: 0 }}>{currentTab.description}</p>
-    </>
+    </div>
   );
 };
 

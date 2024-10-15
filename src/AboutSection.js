@@ -50,13 +50,7 @@ const AboutSection = React.forwardRef((props, ref) => {
                 </div>
               ))}
             </div>
-            <div
-              className="about-info-body"
-              style={{ backgroundColor: globalColors.pink }}
-            >
-              {/* inside content, add in a function */}
-              <AboutInfo activeTab={activeTab} />
-            </div>
+            <AboutInfo activeTab={activeTab} />
           </div>
         </div>
       </div>
