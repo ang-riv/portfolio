@@ -452,8 +452,7 @@ button {
   }
 
   .about-info {
-    width: 250px;
-    outline: 1px dotted blue;
+    min-width: 300px;
   }
 
   /* skill section  */

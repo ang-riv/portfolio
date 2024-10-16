@@ -18,7 +18,7 @@ const AboutInfo = ({ activeTab }) => {
   }
   return (
     <>
-      {size.width > 768 ? (
+      {size.width > 767 ? (
         <div
           className="about-info-body"
           style={{ backgroundColor: currentTab.color }}
@@ -42,12 +42,14 @@ const AboutInfo = ({ activeTab }) => {
             <div
               key={key}
               style={{
-                outline: "1px dotted red",
                 backgroundColor: value.color,
+                padding: " 5px 15px",
+                marginTop: "20px",
+                borderRadius: "10px",
               }}
             >
-              <h4>{value.title}</h4>
-              <p>{value.description}</p>
+              <h4 style={{ textAlign: "center" }}>{value.title}</h4>
+              <p style={{ textAlign: "justify" }}>{value.description}</p>
             </div>
           ))}
         </>
