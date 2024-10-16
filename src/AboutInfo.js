@@ -1,9 +1,11 @@
 import React from "react";
+import useWindowSize from "./useWindowSize";
 import { updatedInfo } from "./Imports";
 
 const AboutInfo = ({ activeTab }) => {
   const tabName = activeTab.toLowerCase();
 
+  const size = useWindowSize();
   // holder variable
   let currentTab = "";
 
@@ -16,23 +18,29 @@ const AboutInfo = ({ activeTab }) => {
   }
   // for desktop/tablet
   return (
-    <div
-      className="about-info-body"
-      style={{ backgroundColor: currentTab.color }}
-    >
-      <h4 style={{ margin: 0, padding: "5% 0 0 0", textAlign: "center" }}>
-        {currentTab.title}
-      </h4>
-      <p
-        style={{
-          margin: 0,
-          padding: "5%",
-          textAlign: "justify",
-        }}
-      >
-        {currentTab.description}
-      </p>
-    </div>
+    <>
+      {size.width > 768 ? (
+        <div
+          className="about-info-body"
+          style={{ backgroundColor: currentTab.color }}
+        >
+          <h4 style={{ margin: 0, padding: "5% 0 0 0", textAlign: "center" }}>
+            {currentTab.title}
+          </h4>
+          <p
+            style={{
+              margin: 0,
+              padding: "5%",
+              textAlign: "justify",
+            }}
+          >
+            {currentTab.description}
+          </p>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </>
   );
   // for mobile
 };

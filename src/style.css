@@ -446,9 +446,9 @@ button {
     width: 7em;
   }
 
-  /* about section container */
-  .about-container {
-    margin: 0 35px;
+  /* about section */
+  .about-tabs-container {
+    display: none;
   }
 
   /* skill section  */
