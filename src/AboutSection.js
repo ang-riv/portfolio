@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { updatedAbout } from "./Imports";
 import AboutInfo from "./AboutInfo";
+
 const AboutSection = React.forwardRef((props, ref) => {
   let [activeTab, setActiveTab] = useState("Intro");
 
-  // add in the onClick for info body/ which section to show
+  // for info body and which section to show
   const handleClick = (currentTab) => {
     setActiveTab(currentTab);
   };
@@ -17,23 +18,15 @@ const AboutSection = React.forwardRef((props, ref) => {
       }}
     >
       <h2>About</h2>
-      <div
-        className="about-content-wrapper"
-        style={{
-          height: "fit-content",
-          marginTop: "100px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="about-content-wrapper">
         <div className="about-container">
           <div className="about-photo">
             <div style={{ height: "100%", width: "100%" }}></div>
           </div>
+          {/* add mobile stuff here */}
           <div className="about-info">
             <div className="about-tabs-container">
-              {/* change into a map or loop*/}
+              {/* making the tabs*/}
               {updatedAbout.map((tabSection) => (
                 <div
                   className="about-tab"
@@ -44,6 +37,7 @@ const AboutSection = React.forwardRef((props, ref) => {
                 </div>
               ))}
             </div>
+            {/* inner content of each tab*/}
             <AboutInfo activeTab={activeTab} />
           </div>
         </div>

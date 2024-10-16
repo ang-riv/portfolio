@@ -32,7 +32,7 @@ export function quotationColors(color) {
 
 export const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#f2e589", "#9fd1ff"];
 
-// adding quotes + adding names to the colors
+// adding quotes + assigning names to the colors
 export const globalColors = {
   pink: quotationColors(colors[0]),
   green: quotationColors(colors[1]),
@@ -68,6 +68,7 @@ export const mobilePieces = {
 };
 
 /********** ABOUT SECTION  ************/
+// tabs
 export const aboutSections = [
   { title: "Intro", color: null },
   { title: "Backstory", color: null },
@@ -77,6 +78,7 @@ export const aboutSections = [
 
 export const updatedAbout = [...aboutSections];
 
+// add colors to tabs
 Object.keys(updatedAbout).forEach((key) => {
   updatedAbout[key].color = colors[key];
 });
@@ -110,17 +112,18 @@ export const tabInfo = {
       "Hi, I’m Angela! I’m a Front End Developer located in Winnipeg, Manitoba who is passionate about making the web a more beautiful and accessible place.",
     color: null,
   },
-  values: {
-    title: "I'm a Developer Who...",
-    description: list(),
-    color: null,
-  },
   backstory: {
     title: "A Brief History",
     description:
       "Coding became a part of my life back in high school after trying out a computer science course. Being able to see the process behind building websites I use everyday captured my interest right away! When I went to university, I pursued a different path and after graduating, I revisited coding again with free tutorials online. It reminded me of how fun coding is and rekindled my love for it.",
     color: null,
   },
+  values: {
+    title: "I'm a Developer Who...",
+    description: list(),
+    color: null,
+  },
+
   hobbies: {
     title: "When I'm Not Coding:",
     description:
@@ -131,9 +134,7 @@ export const tabInfo = {
 
 export const updatedInfo = { ...tabInfo };
 
+// add colors to tabInfo
 Object.keys(updatedInfo).forEach((key, val) => {
-  //console.log(updatedInfo[key].color);
   updatedInfo[key].color = colors[val];
 });
-
-console.log(updatedInfo);

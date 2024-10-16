@@ -2,18 +2,19 @@ import React from "react";
 import { updatedInfo } from "./Imports";
 
 const AboutInfo = ({ activeTab }) => {
-  const test = activeTab.toLowerCase();
+  const tabName = activeTab.toLowerCase();
 
-  // holder variable?
+  // holder variable
   let currentTab = "";
 
   // loop through tabInfo then return the appropriate title and description
   for (const tab in updatedInfo) {
     // if the tab matches the activeTab then assign them to variables
-    if (tab === test) {
+    if (tab === tabName) {
       currentTab = updatedInfo[tab];
     }
   }
+  // for desktop/tablet
   return (
     <div
       className="about-info-body"
@@ -33,6 +34,7 @@ const AboutInfo = ({ activeTab }) => {
       </p>
     </div>
   );
+  // for mobile
 };
 
 export default AboutInfo;
