@@ -16,7 +16,6 @@ const AboutInfo = ({ activeTab }) => {
       currentTab = updatedInfo[tab];
     }
   }
-  // for desktop/tablet
   return (
     <>
       {size.width > 768 ? (
@@ -38,7 +37,20 @@ const AboutInfo = ({ activeTab }) => {
           </p>
         </div>
       ) : (
-        <div></div>
+        <>
+          {Object.entries(updatedInfo).map(([key, value]) => (
+            <div
+              key={key}
+              style={{
+                outline: "1px dotted red",
+                backgroundColor: value.color,
+              }}
+            >
+              <h4>{value.title}</h4>
+              <p>{value.description}</p>
+            </div>
+          ))}
+        </>
       )}
     </>
   );

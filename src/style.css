@@ -451,6 +451,11 @@ button {
     display: none;
   }
 
+  .about-info {
+    width: 250px;
+    outline: 1px dotted blue;
+  }
+
   /* skill section  */
   .skill-mobile-div {
     max-width: 1400px;
