@@ -16,6 +16,18 @@ const AboutInfo = ({ activeTab }) => {
       currentTab = updatedInfo[tab];
     }
   }
+
+  // for showing the description of each section, prevents putting a value section's ul within a p element
+  function sectionDescription(key, value) {
+    let description =
+      key !== "values" ? (
+        <p style={{ textAlign: "justify" }}>{value.description}</p>
+      ) : (
+        <ul style={{ paddingLeft: "0" }}>{value.description}</ul>
+      );
+
+    return description;
+  }
   return (
     <>
       {size.width > 767 ? (
@@ -43,13 +55,13 @@ const AboutInfo = ({ activeTab }) => {
               key={key}
               style={{
                 backgroundColor: value.color,
-                padding: " 5px 15px",
+                padding: " 5px 20px",
                 marginTop: "20px",
                 borderRadius: "10px",
               }}
             >
               <h4 style={{ textAlign: "center" }}>{value.title}</h4>
-              <p style={{ textAlign: "justify" }}>{value.description}</p>
+              {sectionDescription(key, value)}
             </div>
           ))}
         </>

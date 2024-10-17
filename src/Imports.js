@@ -85,7 +85,7 @@ Object.keys(updatedAbout).forEach((key) => {
 
 export const list = () => {
   return (
-    <ul
+    <p
       className="about-values-tab"
       style={{ margin: 0, padding: "0 0 0 15px" }}
     >
@@ -101,7 +101,7 @@ export const list = () => {
         admires all kinds of designs - from sleek and minimalistic, to quirky
         and interactive, I want to be a part of creating them all!
       </li>
-    </ul>
+    </p>
   );
 };
 

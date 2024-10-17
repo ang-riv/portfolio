@@ -62,7 +62,8 @@ h4 {
 
 .nav-container nav ul li:hover,
 button:hover,
-.mobile-nav-container ul li:hover {
+.mobile-nav-container ul li:hover,
+.about-tab-title {
   cursor: pointer;
 }
 
