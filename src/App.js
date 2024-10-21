@@ -8,7 +8,6 @@ import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
 
 function App() {
-  const mobileTest = false;
   const introRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
@@ -28,8 +27,6 @@ function App() {
       <SkillsSection ref={skillsRef} />
       <ProjectsSection ref={projectsRef} />
       <ContactSection ref={contactRef} />
-
-      {mobileTest && <></>}
     </div>
   );
 }

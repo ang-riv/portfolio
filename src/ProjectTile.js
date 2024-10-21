@@ -9,9 +9,7 @@ function ProjectTile(props) {
     <div className="project-tile-container">
       <div className="tile-content-wrapper">
         {/* image */}
-        <div className="project-image">
-          <img src={props.img} />
-        </div>
+        <img src={props.img} className="project-image" />
         {/* text */}
         <div className="project-text-container">
           <h4>{props.title}</h4>

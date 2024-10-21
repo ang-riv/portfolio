@@ -1,5 +1,8 @@
 import React from "react";
 import ProjectTile from "./ProjectTile.js";
+import unplugged from "./assets/project-imgs/unplugged.png";
+import potluck from "./assets/project-imgs/potluck-generator.png";
+import rogue from "./assets/project-imgs/rogue-pickings.png";
 
 const ProjectsSection = React.forwardRef((props, ref) => {
   return (
@@ -10,13 +13,13 @@ const ProjectsSection = React.forwardRef((props, ref) => {
           <ProjectTile
             title="Unplugged"
             description="A multi-page website about Unplugged, a work retreat. Created with a mobile-first design in mind and with Flexbox and media queries."
-            img=""
+            img={unplugged}
             color="#9FD1FF"
           />
           <ProjectTile
             title="Potluck Generator"
             description="A website that takes guest names and assigns them a random recipe. Uses React Bootstrap for styling and the spoonacular API for the random recipes."
-            img=""
+            img={potluck}
             color="#FFAFAF"
           />
           <ProjectTile
@@ -34,7 +37,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
           <ProjectTile
             title="Rogue Pickings"
             description="A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography."
-            img=""
+            img={rogue}
             color="#BCBCFF"
           />
         </div>
