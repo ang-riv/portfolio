@@ -280,6 +280,14 @@ img {
   width: 100%;
   display: flex;
   justify-content: center;
+  display: none;
+}
+
+.project-content-wrapper2 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .project-container {
@@ -299,6 +307,27 @@ img {
   padding: 1%;
   display: grid;
 }
+.project-tile-container2 {
+  height: 400px;
+  width: 280px;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  padding: 1%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 180px auto 45px;
+}
+
+.project-image2 {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
+
+.project-text-container2 {
+  padding: 1%;
+}
 
 .project-image {
   height: 170px;
@@ -312,15 +341,13 @@ img {
   padding: 1%;
 }
 
-button {
-  margin-top: 3%;
+.btn2 {
   width: 100%;
-  height: 45px;
+  height: 100%;
   font-size: large;
   font-weight: bold;
   border-radius: 10px;
   border: none;
-  align-self: flex-end;
 }
 
 /** contact section styles **/
