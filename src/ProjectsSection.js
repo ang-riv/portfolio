@@ -5,7 +5,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
   return (
     <section ref={ref} style={{ height: "fit-content" }}>
       <h2>Projects</h2>
-      <div className="content-wrapper">
+      <div className="project-content-wrapper">
         <div className="project-container">
           <ProjectTile
             title="Unplugged"
@@ -15,7 +15,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
           />
           <ProjectTile
             title="Potluck Generator"
-            description="A website that takes in the names of each guest entered and assigned them a random recipe. Uses React Bootstrap for styling and the spoonacular API for the random recipes."
+            description="A website that takes guest names and assigns them a random recipe. Uses React Bootstrap for styling and the spoonacular API for the random recipes."
             img=""
             color="#FFAFAF"
           />
@@ -27,13 +27,13 @@ const ProjectsSection = React.forwardRef((props, ref) => {
           />
           <ProjectTile
             title="Sticky Note App"
-            description="An app that allows users to write on sticky notes and keep track of all their to-dos. Created with React and features a dynamic search bar to look for certain sticky notes with the entered word(s)."
+            description="An app that allows users to write on sticky notes and track of all their to-dos. Created with React and features a dynamic search bar to look for sticky notes with the entered word(s)."
             img=""
             color="#CCFFCC"
           />
           <ProjectTile
             title="Rogue Pickings"
-            description="A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography. Discover all that this food truck has to offer."
+            description="A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography."
             img=""
             color="#BCBCFF"
           />

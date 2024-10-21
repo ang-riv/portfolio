@@ -86,17 +86,6 @@ img {
   opacity: 1;
 }
 
-button {
-  margin-top: 3%;
-  width: 100%;
-  height: 14%;
-  font-size: large;
-  font-weight: bold;
-  border-radius: 10px;
-  border: none;
-  align-self: flex-end;
-}
-
 /*** desktop navigation styles***/
 .nav-container {
   margin-top: 1em;
@@ -286,7 +275,7 @@ button {
 }
 
 /** projects section styles **/
-.content-wrapper {
+.project-content-wrapper {
   height: 100%;
   width: 100%;
   display: flex;
@@ -295,34 +284,45 @@ button {
 
 .project-container {
   max-width: 62.5em;
-  width: 90%;
+  width: 95%;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 1.25em 2.5em;
+  gap: 1.25em 1.5em;
 }
 
 .project-tile-container {
-  height: 340px;
-  width: 260px;
+  height: 400px;
+  width: 280px;
   border: 1px solid #d6d6d6;
   border-radius: 5px;
   padding: 1%;
-  display: flex;
-  flex-flow: column nowrap;
+  display: grid;
 }
 
 .project-image {
-  height: 50%;
+  height: 170px;
   width: 100%;
   background-color: lightGrey;
   border-radius: 5px;
 }
 
 .project-text-container {
-  height: 50%;
+  height: fit-content;
   padding: 1%;
 }
+
+button {
+  margin-top: 3%;
+  width: 100%;
+  height: 45px;
+  font-size: large;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  align-self: flex-end;
+}
+
 /** contact section styles **/
 .contact-section {
   padding-top: 3em;
