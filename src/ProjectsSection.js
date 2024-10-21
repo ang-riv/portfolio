@@ -9,36 +9,31 @@ const ProjectsSection = React.forwardRef((props, ref) => {
         <div className="project-container">
           <ProjectTile
             title="Unplugged"
-            description="Short paragraph that has like one to three sentences. Cool sentence
-          here. Super cool sentence."
+            description="A multi-page website about Unplugged, a work retreat. Created with a mobile-first design in mind and with Flexbox and media queries."
             img=""
             color="#9FD1FF"
           />
           <ProjectTile
-            title="Unplugged"
-            description="Short paragraph that has like one to three sentences. Cool sentence
-          here. Super cool sentence."
+            title="Potluck Generator"
+            description="A website that takes in the names of each guest entered and assigned them a random recipe. Uses React Bootstrap for styling and the spoonacular API for the random recipes."
             img=""
             color="#FFAFAF"
           />
           <ProjectTile
-            title="Unplugged"
-            description="Short paragraph that has like one to three sentences. Cool sentence
-          here. Super cool sentence."
+            title="Github Repo Gallery"
+            description="A personalized website that showcases all my Github Repos. Want more information? Click on each repo to be taken to my Github."
             img=""
             color="#F2E589"
           />
           <ProjectTile
-            title="Unplugged"
-            description="Short paragraph that has like one to three sentences. Cool sentence
-          here. Super cool sentence."
+            title="Sticky Note App"
+            description="An app that allows users to write on sticky notes and keep track of all their to-dos. Created with React and features a dynamic search bar to look for certain sticky notes with the entered word(s)."
             img=""
             color="#CCFFCC"
           />
           <ProjectTile
-            title="Unplugged"
-            description="Short paragraph that has like one to three sentences. Cool sentence
-          here. Super cool sentence."
+            title="Rogue Pickings"
+            description="A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography. Discover all that this food truck has to offer."
             img=""
             color="#BCBCFF"
           />
