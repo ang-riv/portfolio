@@ -68,7 +68,6 @@ const AboutInfo = ({ activeTab }) => {
       )}
     </>
   );
-  // for mobile
 };
 
 export default AboutInfo;

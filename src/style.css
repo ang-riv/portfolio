@@ -271,7 +271,7 @@ button {
 
 .skill-desktop-div {
   max-width: 1400px;
-  width: 95%;
+  width: 96%;
   display: flex;
   flex-flow: row nowrap;
 }
@@ -391,7 +391,7 @@ button {
 
 /* tablet views */
 @media (min-width: 601px) and (max-width: 1023px) {
-  /* intro section container */
+  /* intro section */
   .introSection {
     flex-direction: column;
   }
@@ -415,7 +415,6 @@ button {
     font-size: 1.2em;
   }
   /* about styles*/
-  /*TODO: make the tiles fit on tablet + add margins*/
 
   /* project section */
 
@@ -448,9 +447,6 @@ button {
   }
 
   /* about section */
-  .about-tabs-container {
-    display: none;
-  }
 
   .about-info {
     min-width: 300px;

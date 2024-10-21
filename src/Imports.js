@@ -138,5 +138,3 @@ export const updatedInfo = { ...tabInfo };
 Object.keys(updatedInfo).forEach((key, val) => {
   updatedInfo[key].color = colors[val];
 });
-
-// about mobile views - use map?
