@@ -7,16 +7,16 @@ function ProjectTile(props) {
   };
   return (
     <div className="project-tile-container">
-      <div className="tile-content-wrapper">
-        {/* image */}
-        <img src={props.img} className="project-image" />
-        {/* text */}
-        <div className="project-text-container">
-          <h4>{props.title}</h4>
-          <p style={{ margin: "0.7em 0" }}>{props.description}</p>
-        </div>
+      {/* image */}
+      <img src={props.img} className="project-image" />
+      {/* text */}
+      <div className="project-text-container">
+        <h4>{props.title}</h4>
+        <p style={{ margin: "0.7em 0" }}>{props.description}</p>
       </div>
-      <button style={buttonColor}>Live Site</button>
+      <button style={buttonColor} className="project-btn">
+        Live Site
+      </button>
     </div>
   );
 }
