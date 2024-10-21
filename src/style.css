@@ -32,7 +32,7 @@ h4 {
 
 p,
 li,
-button {
+.project-btn {
   font-family: "Nunito", sans-serif;
 }
 
@@ -61,7 +61,7 @@ h4 {
 }
 
 .nav-container nav ul li:hover,
-button:hover,
+.project-btn:hover,
 .mobile-nav-container ul li:hover,
 .about-tab-title {
   cursor: pointer;
@@ -320,6 +320,9 @@ img {
   font-weight: bold;
   border-radius: 10px;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /** contact section styles **/

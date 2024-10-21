@@ -2,6 +2,7 @@ import React from "react";
 import unplugged from "./assets/project-imgs/unplugged.png";
 import potluck from "./assets/project-imgs/potluck-generator.png";
 import rogue from "./assets/project-imgs/rogue-pickings.png";
+import gallery from "./assets/project-imgs/gh-gallery.png";
 import ProjectTile from "./ProjectTile.js";
 
 const ProjectsSection = React.forwardRef((props, ref) => {
@@ -15,6 +16,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
             description="A multi-page website about Unplugged, a work retreat. Created with a mobile-first design in mind and with Flexbox and media queries."
             img={unplugged}
             color="#9FD1FF"
+            link="https://ang-riv.github.io/unplugged/"
           />
           <ProjectTile
             title="Potluck Generator"
@@ -25,8 +27,9 @@ const ProjectsSection = React.forwardRef((props, ref) => {
           <ProjectTile
             title="Github Repo Gallery"
             description="A personalized website that showcases all my Github Repos. Want more information? Click on each repo to be taken to my Github."
-            img=""
+            img={gallery}
             color="#F2E589"
+            link="https://ang-riv.github.io/gh-repo-gallery/"
           />
           <ProjectTile
             title="Sticky Note App"
@@ -39,6 +42,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
             description="A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography."
             img={rogue}
             color="#BCBCFF"
+            link="https://ang-riv.github.io/responsive-rouge-pickings/"
           />
         </div>
       </div>

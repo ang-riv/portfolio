@@ -14,9 +14,14 @@ function ProjectTile(props) {
         <h4>{props.title}</h4>
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
       </div>
-      <button style={buttonColor} className="project-btn">
+      <a
+        href={props.link}
+        target="_blank"
+        style={buttonColor}
+        className="project-btn"
+      >
         Live Site
-      </button>
+      </a>
     </div>
   );
 }
