@@ -79,9 +79,6 @@ export const aboutSections = [
 export const updatedAbout = [...aboutSections];
 
 // add colors to tabs
-Object.keys(updatedAbout).forEach((key) => {
-  updatedAbout[key].color = colors[key];
-});
 
 // for about section value tab to make a list
 export const list = () => {
@@ -135,7 +132,11 @@ export const tabInfo = {
 
 export const updatedInfo = { ...tabInfo };
 
-// add colors to tabInfo
-Object.keys(updatedInfo).forEach((key, val) => {
-  updatedInfo[key].color = colors[val];
-});
+// add colors to different sections
+export const addColors = (object) =>
+  Object.keys(object).forEach((key, val) => {
+    object[key].color = colors[val];
+  });
+
+addColors(updatedInfo);
+addColors(updatedAbout);
