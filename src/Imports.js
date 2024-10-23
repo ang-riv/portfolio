@@ -1,4 +1,8 @@
-// file dedicated to svg imports to condense the icons component and global colors to stay consistent throughout the portfolio
+/* component dedicated to: 
+-svg imports to condense the icons component
+-global colors to stay consistent throughout the portfolio
+- imgs for project tiles
+*/
 
 /*** INTRO SECTION SVGS***/
 //intro
@@ -41,11 +45,12 @@ export const globalColors = {
   blue: quotationColors(colors[4]),
 };
 
-// function to add colors to different sections
-export const addColors = (object) =>
-  Object.keys(object).forEach((key, val) => {
+// fcn to add colors to different sections
+export function addColors(object) {
+  return Object.keys(object).forEach((key, val) => {
     object[key].color = colors[val];
   });
+}
 
 /********** SVG OBJECTS ************/
 export const introPieces = {
