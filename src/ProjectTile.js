@@ -8,7 +8,7 @@ function ProjectTile(props) {
   return (
     <div className="project-tile-container">
       {/* image */}
-      <img src={props.img} className="project-image" />
+      <img src={props.img} alt={props.imgAlt} className="project-image" />
       {/* text */}
       <div className="project-text-container">
         <h4>{props.title}</h4>
@@ -17,6 +17,7 @@ function ProjectTile(props) {
       <a
         href={props.link}
         target="_blank"
+        rel="noreferrer"
         style={buttonColor}
         className="project-btn"
       >

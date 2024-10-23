@@ -3,6 +3,7 @@ import unplugged from "./assets/project-imgs/unplugged.png";
 import potluck from "./assets/project-imgs/potluck-generator.png";
 import rogue from "./assets/project-imgs/rogue-pickings.png";
 import gallery from "./assets/project-imgs/gh-gallery.png";
+import notes from "./assets/project-imgs/sticky-notes.png";
 import ProjectTile from "./ProjectTile.js";
 
 const ProjectsSection = React.forwardRef((props, ref) => {
@@ -17,12 +18,15 @@ const ProjectsSection = React.forwardRef((props, ref) => {
             img={unplugged}
             color="#9FD1FF"
             link="https://ang-riv.github.io/unplugged/"
+            imgAlt="image preview of work retreat website"
           />
           <ProjectTile
             title="Potluck Generator"
             description="A website that takes guest names and assigns them a random recipe. Uses React Bootstrap for styling and the spoonacular API for the random recipes."
             img={potluck}
             color="#FFAFAF"
+            link=""
+            imgAlt="image preview of potluck recipe generator website"
           />
           <ProjectTile
             title="Github Repo Gallery"
@@ -30,12 +34,14 @@ const ProjectsSection = React.forwardRef((props, ref) => {
             img={gallery}
             color="#F2E589"
             link="https://ang-riv.github.io/gh-repo-gallery/"
+            imgAlt="image preview of github repo gallery"
           />
           <ProjectTile
             title="Sticky Note App"
             description="An app that allows users to write on sticky notes and track of all their to-dos. Created with React and features a dynamic search bar to look for sticky notes with the entered word(s)."
-            img=""
+            img={notes}
             color="#CCFFCC"
+            imgAlt="image preview of sticky note application"
           />
           <ProjectTile
             title="Rogue Pickings"
@@ -43,6 +49,7 @@ const ProjectsSection = React.forwardRef((props, ref) => {
             img={rogue}
             color="#BCBCFF"
             link="https://ang-riv.github.io/responsive-rouge-pickings/"
+            imgAlt="image preview of a website for a food truck"
           />
         </div>
       </div>

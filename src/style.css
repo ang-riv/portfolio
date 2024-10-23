@@ -454,6 +454,10 @@ img {
     min-width: 300px;
   }
 
+  .about-content-wrapper {
+    margin-top: 0;
+  }
+
   /* skill section  */
   .skill-mobile-div {
     max-width: 1400px;

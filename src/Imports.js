@@ -83,6 +83,7 @@ Object.keys(updatedAbout).forEach((key) => {
   updatedAbout[key].color = colors[key];
 });
 
+// for about section value tab to make a list
 export const list = () => {
   return (
     <p
