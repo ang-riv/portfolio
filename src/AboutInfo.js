@@ -1,6 +1,6 @@
 import React from "react";
 import useWindowSize from "./useWindowSize";
-import { updatedInfo } from "./Imports";
+import { addColors } from "./Imports";
 
 const AboutInfo = ({ activeTab }) => {
   const tabName = activeTab.toLowerCase();
@@ -9,11 +9,67 @@ const AboutInfo = ({ activeTab }) => {
   // holder variable
   let currentTab = "";
 
-  // loop through tabInfo then return the appropriate title and description
-  for (const tab in updatedInfo) {
+  // list for the values tab
+  const list = () => {
+    return (
+      <p
+        className="about-values-tab"
+        style={{ margin: 0, padding: "0 0 0 15px" }}
+      >
+        <li>
+          loves bringing innovative ideas to life with clean and efficient code.
+        </li>
+        <li>
+          strives to create web experiences that are easy to navigate and are
+          easy on the eyes.
+        </li>
+        <li>values accessibility for everyone!</li>
+        <li>
+          admires all kinds of designs - from sleek and minimalistic, to quirky
+          and interactive, I want to be a part of creating them all!
+        </li>
+      </p>
+    );
+  };
+
+  // contains the content for each tab
+  const tabInfo = {
+    intro: {
+      title: "Who Am I?",
+      description:
+        "Hi, I’m Angela! I’m a Front End Developer located in Winnipeg, Manitoba who is passionate about making the web a more beautiful and accessible place.",
+      color: null,
+    },
+    backstory: {
+      title: "A Brief History",
+      description:
+        "Coding became a part of my life back in high school after trying out a computer science course. Being able to see the process behind building websites I use everyday captured my interest right away! When I went to university, I pursued a different path and after graduating, I revisited coding again with free tutorials online. It reminded me of how fun coding is and rekindled my love for it.",
+      color: null,
+    },
+    values: {
+      title: "I'm a Developer Who...",
+      description: list(),
+      color: null,
+    },
+
+    hobbies: {
+      title: "When I'm Not Coding:",
+      description:
+        "I’m scouring the streets for new sweets to try, piecing together jigsaw puzzles, or collecting fun and colorful art prints!",
+      color: null,
+    },
+  };
+
+  const tabCopy = { ...tabInfo };
+
+  // add colors to the sections
+  addColors(tabCopy);
+
+  // loop through tabInfo then return the appropriate title and description, color
+  for (const tab in tabCopy) {
     // if the tab matches the activeTab then assign them to variables
     if (tab === tabName) {
-      currentTab = updatedInfo[tab];
+      currentTab = tabCopy[tab];
     }
   }
 
@@ -50,7 +106,7 @@ const AboutInfo = ({ activeTab }) => {
         </div>
       ) : (
         <>
-          {Object.entries(updatedInfo).map(([key, value]) => (
+          {Object.entries(tabInfo).map(([key, value]) => (
             <div
               key={key}
               style={{
