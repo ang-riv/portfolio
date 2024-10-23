@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updatedAbout } from "./Imports";
+import { addColors } from "./Imports";
 import AboutInfo from "./AboutInfo";
 import useWindowSize from "./useWindowSize";
 
@@ -11,6 +11,19 @@ const AboutSection = React.forwardRef((props, ref) => {
   const handleClick = (currentTab) => {
     setActiveTab(currentTab);
   };
+
+  const aboutSections = [
+    { title: "Intro", color: null },
+    { title: "Backstory", color: null },
+    { title: "Values", color: null },
+    { title: "Hobbies", color: null },
+  ];
+
+  const aboutCopy = [...aboutSections];
+
+  // adds colors to the tabs
+  addColors(aboutCopy);
+
   return (
     <section
       ref={ref}
@@ -30,7 +43,7 @@ const AboutSection = React.forwardRef((props, ref) => {
             {size.width > 767 ? (
               <div className="about-tabs-container">
                 {/* making the tabs*/}
-                {updatedAbout.map((tabSection) => (
+                {aboutCopy.map((tabSection) => (
                   <div
                     className="about-tab"
                     style={{ backgroundColor: tabSection.color }}

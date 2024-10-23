@@ -68,18 +68,6 @@ export const mobilePieces = {
 };
 
 /********** ABOUT SECTION  ************/
-// tabs
-export const aboutSections = [
-  { title: "Intro", color: null },
-  { title: "Backstory", color: null },
-  { title: "Values", color: null },
-  { title: "Hobbies", color: null },
-];
-
-export const updatedAbout = [...aboutSections];
-
-// add colors to tabs
-
 // for about section value tab to make a list
 export const list = () => {
   return (
@@ -139,4 +127,3 @@ export const addColors = (object) =>
   });
 
 addColors(updatedInfo);
-addColors(updatedAbout);
