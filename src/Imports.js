@@ -28,6 +28,13 @@ import mobileBootstrapPiece from "./assets/mobile-skill-svgs/mobileBootstrapPiec
 import mobileReactPiece from "./assets/mobile-skill-svgs/mobileReactPiece.svg";
 import mobileGithubPiece from "./assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
+// project imgs
+import unplugged from "./assets/project-imgs/unplugged.png";
+import potluck from "./assets/project-imgs/potluck-generator.png";
+import rogue from "./assets/project-imgs/rogue-pickings.png";
+import gallery from "./assets/project-imgs/gh-gallery.png";
+import notes from "./assets/project-imgs/sticky-notes.png";
+
 /********** GLOBAL COLORS ************/
 // if the color is being used in any style props, it needs to be in quotation marks, so this fcn does that
 export function quotationColors(color) {
@@ -77,3 +84,13 @@ export const mobilePieces = {
   react: mobileReactPiece,
   github: mobileGithubPiece,
 };
+
+/********** PROJECT IMGS ************/
+export const imgArr = [unplugged, potluck, gallery, notes, rogue];
+
+// fcn to add imgs to project tiles
+export function addImgs(object) {
+  return Object.keys(object).forEach((key, val) => {
+    object[key].img = imgArr[val];
+  });
+}
