@@ -2,7 +2,7 @@ import React from "react";
 import ProjectTile from "./ProjectTile.js";
 import { addColors, addImgs } from "./Imports.js";
 
-const ProjectsSection = React.forwardRef((props, ref) => {
+const ProjectsSection = React.forwardRef((_, ref) => {
   // individual project info
   const projectInfo = [
     {

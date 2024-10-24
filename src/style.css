@@ -147,7 +147,7 @@ img {
 }
 
 /** intro section styles **/
-.introSection {
+.intro-section {
   height: 95vh;
   width: 100vw;
   display: flex;
@@ -192,7 +192,7 @@ img {
 }
 
 .about-photo {
-  outline: 1px dotted grey;
+  outline: 1px dotted var(--grey);
   border-radius: var(--b-radius-value);
   height: 21.875em;
   width: 16.25em;
@@ -304,7 +304,7 @@ img {
 .project-image {
   height: 100%;
   width: 100%;
-  border: 1px solid #d6d6d6;
+  border: 1px solid var(--grey);
   border-radius: var(--b-radius-value);
 }
 
@@ -386,7 +386,7 @@ img {
 /* tablet views */
 @media (min-width: 601px) and (max-width: 1023px) {
   /* intro section */
-  .introSection {
+  .intro-section {
     flex-direction: column;
   }
 
@@ -407,17 +407,12 @@ img {
   .last-link-title {
     font-size: 1.2em;
   }
-  /* about styles*/
-
-  /* project section */
-
-  /* contact section */
 }
 
 /* mobile views */
 @media (min-width: 320px) and (max-width: 600px) {
   /* intro section container */
-  .introSection {
+  .intro-section {
     flex-direction: column;
     width: 100%;
   }

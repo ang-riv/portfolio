@@ -1,6 +1,6 @@
 import React from "react";
 import { SocialLinks } from "./Icons";
-const ContactSection = React.forwardRef((props, ref) => {
+const ContactSection = React.forwardRef((_, ref) => {
   return (
     <section className="contact-section" ref={ref}>
       <div className="contact-container">

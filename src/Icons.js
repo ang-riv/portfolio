@@ -6,7 +6,7 @@ import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 /**** INTRO SECTION ****/
 
 // 2x2 puzzle in introSection
-export function IntroPuzzle(props) {
+export function IntroPuzzle() {
   // uses introPieces svgs from the Imports.js
   const size = useWindowSize();
   function puzzleMargins(size1, size2, size3) {
@@ -54,7 +54,7 @@ export function IntroPuzzle(props) {
 
 /**** SKILLS SECTION ****/
 // puzzle in skill section
-export function SkillsPuzzle(props) {
+export function SkillsPuzzle() {
   // potentially change so that they are all a random direction then move it onScroll
   const num = 0;
   const randomNum = `rotate(${num}deg)`;
@@ -90,15 +90,7 @@ export function SkillsPuzzle(props) {
   );
 }
 
-export function MobileSkillsPuzzle(props) {
-  const containerSize = {
-    maxWidth: "1400px",
-    width: "95%",
-    display: "flex",
-    flexFlow: "row nowrap",
-    justifyContent: "center",
-    alignItems: "center",
-  };
+export function MobileSkillsPuzzle() {
   return (
     <>
       <div className="skill-mobile-div">
@@ -237,7 +229,7 @@ export function FrontEndMentorIcon(props) {
 }
 
 /* groups together the social links + styles */
-export function SocialLinks(props) {
+export function SocialLinks() {
   return (
     <>
       <a
