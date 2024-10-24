@@ -102,15 +102,14 @@ const AboutInfo = ({ activeTab }) => {
       ) : (
         <>
           {/* mobile styles */}
-
           {Object.entries(tabCopy).map(([key, value]) => (
             <div
               key={key}
               style={{
                 backgroundColor: value.color,
-                padding: " 5px 20px",
-                marginTop: "20px",
-                borderRadius: "10px",
+                padding: "0.313em 1.25em",
+                marginTop: "1.25em",
+                borderRadius: "0.625em",
               }}
             >
               <h4 style={{ textAlign: "center" }}>{value.title}</h4>

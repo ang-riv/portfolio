@@ -1,7 +1,6 @@
 import React from "react";
 
 function ProjectTile(props) {
-  // return in a loop to make all of the tiles with different titles, descriptions, imgs, and colors
   const buttonColor = {
     backgroundColor: props.color,
   };
@@ -14,6 +13,7 @@ function ProjectTile(props) {
         <h4>{props.title}</h4>
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
       </div>
+      {/* button */}
       <a
         href={props.link}
         target="_blank"

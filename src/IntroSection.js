@@ -1,6 +1,6 @@
 import React from "react";
 import { IntroPuzzle } from "./Icons";
-const IntroSection = React.forwardRef((props, ref) => {
+const IntroSection = React.forwardRef((_, ref) => {
   return (
     <section ref={ref} id="introSection" className="introSection">
       <figure className="intro-puzzle-container">
