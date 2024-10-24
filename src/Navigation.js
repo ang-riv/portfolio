@@ -10,39 +10,40 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     }
   };
 
+  // for mobile or desktop nav
   const size = useWindowSize();
+
+  const sectionRefs = [
+    { title: "About", ref: aboutRef, icon: <QuestionMarkIcon /> },
+    { title: "Skills", ref: skillsRef, icon: <GearIcon /> },
+    { title: "Projects", ref: projectsRef, icon: <CodeIcon /> },
+    { title: "Contact", ref: contactRef, icon: <SpeechIcon /> },
+  ];
+
+  const refCopy = [...sectionRefs];
   return (
     <>
       {size.width > 600 ? (
         <div className="nav-container">
           <nav>
             <ul>
-              <li onClick={() => scrollToSection(aboutRef)}>About</li>
-              <li onClick={() => scrollToSection(skillsRef)}>Skills</li>
-              <li onClick={() => scrollToSection(projectsRef)}>Projects</li>
-              <li onClick={() => scrollToSection(contactRef)}>Contact</li>
+              {refCopy.map((section) => (
+                <li onClick={() => scrollToSection(section.ref)}>
+                  {section.title}
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
       ) : (
         <div className="mobile-nav-container">
           <ul>
-            <li onClick={() => scrollToSection(aboutRef)}>
-              <QuestionMarkIcon />
-              <p>About</p>
-            </li>
-            <li onClick={() => scrollToSection(skillsRef)}>
-              <GearIcon />
-              <p>Skills</p>
-            </li>
-            <li onClick={() => scrollToSection(projectsRef)}>
-              <CodeIcon />
-              <p>Projects</p>
-            </li>
-            <li onClick={() => scrollToSection(contactRef)}>
-              <SpeechIcon />
-              <p>Contact</p>
-            </li>
+            {refCopy.map((section) => (
+              <li onClick={() => scrollToSection(section.ref)}>
+                {section.icon}
+                <p>{section.title}</p>
+              </li>
+            ))}
           </ul>
         </div>
       )}

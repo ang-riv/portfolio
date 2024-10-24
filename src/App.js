@@ -1,6 +1,6 @@
 import "./style.css";
-import Navigation from "./Navigation.js";
 import React, { useRef } from "react";
+import Navigation from "./Navigation.js";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
