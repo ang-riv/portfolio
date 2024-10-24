@@ -3,8 +3,8 @@ import { addColors } from "./Imports";
 import AboutInfo from "./AboutInfo";
 import useWindowSize from "./useWindowSize";
 
-const AboutSection = React.forwardRef((props, ref) => {
-  let [activeTab, setActiveTab] = useState("Intro");
+const AboutSection = React.forwardRef((_, ref) => {
+  const [activeTab, setActiveTab] = useState("Intro");
   const size = useWindowSize();
 
   // for info body and which section to show

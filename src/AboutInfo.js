@@ -12,7 +12,7 @@ const AboutInfo = ({ activeTab }) => {
   // list for the values tab
   const list = () => {
     return (
-      <p
+      <ul
         className="about-values-tab"
         style={{ margin: 0, padding: "0 0 0 15px" }}
       >
@@ -28,7 +28,7 @@ const AboutInfo = ({ activeTab }) => {
           admires all kinds of designs - from sleek and minimalistic, to quirky
           and interactive, I want to be a part of creating them all!
         </li>
-      </p>
+      </ul>
     );
   };
 
@@ -86,6 +86,7 @@ const AboutInfo = ({ activeTab }) => {
   }
   return (
     <>
+      {/* desktop styles */}
       {size.width > 767 ? (
         <div
           className="about-info-body"
@@ -94,19 +95,15 @@ const AboutInfo = ({ activeTab }) => {
           <h4 style={{ margin: 0, padding: "5% 0 0 0", textAlign: "center" }}>
             {currentTab.title}
           </h4>
-          <p
-            style={{
-              margin: 0,
-              padding: "5%",
-              textAlign: "justify",
-            }}
-          >
-            {currentTab.description}
-          </p>
+          <div style={{ padding: "1% 5%", margin: 0 }}>
+            {sectionDescription(currentTab.title, currentTab)}
+          </div>
         </div>
       ) : (
         <>
-          {Object.entries(tabInfo).map(([key, value]) => (
+          {/* mobile styles */}
+
+          {Object.entries(tabCopy).map(([key, value]) => (
             <div
               key={key}
               style={{

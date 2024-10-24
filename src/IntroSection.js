@@ -4,7 +4,6 @@ const IntroSection = React.forwardRef((props, ref) => {
   return (
     <section ref={ref} id="introSection" className="introSection">
       <figure className="intro-puzzle-container">
-        {/* destructure (?) into props */}
         <IntroPuzzle />
       </figure>
 
