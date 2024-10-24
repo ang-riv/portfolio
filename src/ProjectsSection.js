@@ -51,8 +51,10 @@ const ProjectsSection = React.forwardRef((props, ref) => {
     },
   ];
 
+  // add in the colors + imgs to the tiles
   addColors(projectInfo);
   addImgs(projectInfo);
+
   return (
     <section ref={ref} style={{ height: "fit-content" }}>
       <h2>Projects</h2>

@@ -249,6 +249,13 @@ img {
 }
 
 /** skills section styles **/
+.skill-section {
+  height: 40vh;
+  width: 100%;
+  padding-top: 0.5vh;
+  padding-bottom: 3vh;
+  background-color: #9fd1ff;
+}
 .skills-content-wrapper {
   height: 60%;
   display: flex;
@@ -300,6 +307,7 @@ img {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 180px auto 45px;
+  box-shadow: 6px 8px 10px var(--grey);
 }
 
 .project-image {
@@ -459,6 +467,10 @@ img {
   }
 
   /* skill section  */
+  .skill-section {
+    height: 50vh;
+  }
+
   .skill-mobile-div {
     max-width: 1400px;
     width: 95%;
