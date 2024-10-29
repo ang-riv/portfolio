@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import useWindowSize from "./useWindowSize";
 import { QuestionMarkIcon, GearIcon, CodeIcon, SpeechIcon } from "./Icons";
 
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
+  // hover effects
+  const [isHovered, setIsHovered] = useState("");
+
   // scrolling to a specific section using refs
   const scrollToSection = (ref) => {
     if (ref.current) {
@@ -21,6 +25,12 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   ];
 
   const refCopy = [...sectionRefs];
+  const styles = {
+    width: "calc-size(fit-content, size + 25px)",
+    textAlign: "center",
+    position: "relative",
+    top: "3px",
+  };
   return (
     <>
       {size.width > 600 ? (
@@ -28,9 +38,25 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
           <nav>
             <ul>
               {refCopy.map((section) => (
-                <li onClick={() => scrollToSection(section.ref)}>
+                <motion.li
+                  style={styles}
+                  onClick={() => scrollToSection(section.ref)}
+                  onHoverStart={() => setIsHovered(section.title)}
+                  onHoverEnd={() => setIsHovered("")}
+                >
                   {section.title}
-                </li>
+                  <motion.div
+                    style={{
+                      height: "3px",
+                      width: "100%",
+                      backgroundColor: "#9fd1ff",
+                      transformOrigin: "left",
+                    }}
+                    initial={false}
+                    animate={{ scaleX: isHovered === section.title ? 1 : 0 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                </motion.li>
               ))}
             </ul>
           </nav>

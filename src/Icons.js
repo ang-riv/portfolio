@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { animate, delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -8,71 +8,57 @@ import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
 // 2x2 puzzle in introSection
 export function IntroPuzzle() {
-  // uses introPieces svgs from the Imports.js
-  const size = useWindowSize();
-  function puzzleMargins(size1, size2, size3) {
-    if (size.width < 600) {
-      // if greater that
-      // mobile size
-      return size1;
-    } else if (size.width > 600 && size.width < 1024) {
-      // tablet size
-      return size2;
-    } else {
-      // desktop size
-      return size3;
+  // calulating the distance between the pieces on the left and right
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const [distance, setDistance] = useState(null);
+
+  useEffect(() => {
+    if (leftRef.current && rightRef.current) {
+      const rect1 = leftRef.current.getBoundingClientRect();
+      const rect2 = rightRef.current.getBoundingClientRect();
+
+      const dx = rect2.left - rect1.left;
+      const dy = rect2.top - rect1.top;
+      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
+      setDistance(calculatedDistance);
     }
-  }
-
-  const connect = {
-    animate: { x: 26 },
-    transition: { delay: 1, duration: 1 },
-  };
-
-  const connect2 = {
-    animate: { x: -26 },
-    transition: { delay: 1, duration: 1 },
-  };
-
-  const connect3 = {
-    animate: { x: 26 },
-    transition: { delay: 2, duration: 1 },
-  };
-
-  const connect4 = {
-    animate: { x: -26 },
-    transition: { delay: 2, duration: 1 },
-  };
-
-  const transitions = {
-    delay: 1,
-    duration: 1.5,
-  };
-
-  const animations = {
-    scale: [1, 1.2],
-  };
+  }, []);
+  // calculates the distance required for each piece to connect with each other
+  const move = Math.ceil(distance) / 4;
   return (
     <>
       <motion.img
         src={introPieces.pinkPiece}
         className="intro-piece"
         alt="pink puzzle piece"
+        animate={{ x: move, y: move }}
+        transition={{ delay: 1, duration: 1.5 }}
+        ref={leftRef}
       />
       <motion.img
         src={introPieces.greenPiece}
         className="intro-piece"
         alt="green puzzle piece"
+        animate={{ x: -move, y: move }}
+        transition={{ delay: 1, duration: 1.5 }}
+        ref={rightRef}
       />
       <motion.img
         src={introPieces.yellowPiece}
         className="intro-piece"
         alt="yellow puzzle piece"
+        animate={{ x: move, y: -move }}
+        transition={{ delay: 1, duration: 1.5 }}
+        ref={leftRef}
       />
       <motion.img
         src={introPieces.purplePiece}
         className="intro-piece"
-        alt="yellow puzzle piece"
+        alt="purple puzzle piece"
+        animate={{ x: -move, y: -move }}
+        transition={{ delay: 1, duration: 1.5 }}
+        ref={rightRef}
       />
     </>
   );
