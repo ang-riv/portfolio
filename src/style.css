@@ -72,11 +72,6 @@ a {
   text-decoration: none;
 }
 
-/* for imgs in the introSection*/
-img {
-  width: 20%;
-}
-
 /*** desktop navigation styles***/
 .nav-container {
   margin-top: 1em;
@@ -164,11 +159,12 @@ img {
   justify-content: center;
   align-items: center;
   flex-flow: row wrap;
+  outline: 1px solid lavender;
 }
 
 .intro-piece {
-  height: 15em;
-  width: 15em;
+  height: 17em;
+  width: 17em;
   filter: drop-shadow(0.375em 0.5em 0.375em var(--grey));
 }
 
@@ -391,13 +387,13 @@ img {
   }
 
   .intro-puzzle-container {
-    height: 26.25em;
-    width: 25em;
+    height: 28em;
+    width: 28em;
   }
 
   .intro-piece {
-    height: 11em;
-    width: 11em;
+    height: 13em;
+    width: 13em;
   }
 
   h1 {
@@ -429,8 +425,8 @@ img {
   }
 
   .intro-piece {
-    height: 7em;
-    width: 7em;
+    height: 9em;
+    width: 9em;
   }
 
   /* about section */

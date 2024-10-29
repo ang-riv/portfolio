@@ -1,5 +1,6 @@
 import React from "react";
 import useWindowSize from "./useWindowSize";
+import { animate, delay, motion } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -23,30 +24,55 @@ export function IntroPuzzle() {
     }
   }
 
+  const connect = {
+    animate: { x: 26 },
+    transition: { delay: 1, duration: 1 },
+  };
+
+  const connect2 = {
+    animate: { x: -26 },
+    transition: { delay: 1, duration: 1 },
+  };
+
+  const connect3 = {
+    animate: { x: 26 },
+    transition: { delay: 2, duration: 1 },
+  };
+
+  const connect4 = {
+    animate: { x: -26 },
+    transition: { delay: 2, duration: 1 },
+  };
+
+  const transitions = {
+    delay: 1,
+    duration: 1.5,
+  };
+
+  const animations = {
+    scale: [1, 1.2],
+  };
   return (
     <>
-      <img
+      <motion.img
         src={introPieces.pinkPiece}
         className="intro-piece"
         alt="pink puzzle piece"
       />
-      <img
+      <motion.img
         src={introPieces.greenPiece}
         className="intro-piece"
         alt="green puzzle piece"
-        style={{ marginBottom: puzzleMargins("1.5em", "2.3em", "3em") }}
       />
-      <img
+      <motion.img
         src={introPieces.yellowPiece}
         className="intro-piece"
         alt="yellow puzzle piece"
-        style={{ marginLeft: puzzleMargins("1.5em", "2.4em", "2.6em") }}
       />
-      <img
+      <motion.img
         src={introPieces.purplePiece}
         className="intro-piece"
         alt="yellow puzzle piece"
-        style={{ marginBottom: puzzleMargins("1.4em", "2.2em", "3em") }}
       />
     </>
   );

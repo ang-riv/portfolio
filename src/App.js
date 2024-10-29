@@ -9,7 +9,7 @@ import ContactSection from "./ContactSection.js";
 import { motion } from "framer-motion";
 
 function App() {
-  const [animateTest, setAnimateTest] = useState(false);
+  const animateTest = false;
   const introRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
@@ -27,64 +27,125 @@ function App() {
             projectsRef={projectsRef}
             contactRef={contactRef}
           />
-          <IntroSection ref={introRef} />
           <AboutSection ref={aboutRef} />
           <SkillsSection ref={skillsRef} />
           <ProjectsSection ref={projectsRef} />
           <ContactSection ref={contactRef} />
         </>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100vh",
-          }}
-        >
-          <motion.div
+        <>
+          <IntroSection ref={introRef} />
+          <div
             style={{
-              height: "150px",
-              width: "150px",
-              backgroundColor: "lavender",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100vh",
+              flexDirection: "column",
             }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          ></motion.div>
-          <motion.h2
-            style={{ width: "calc-size(fit-content, size + 50px)" }}
-            whileHover={{ borderBottom: "3px solid lightBlue" }}
           >
-            Testing
-          </motion.h2>
-          <motion.h3
-            style={{
-              position: "relative",
-              display: "inline-block",
-              fontSize: "24px",
-              color: "#333",
-              paddingBottom: "4px",
-            }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-          >
-            Hover over me
-            <motion.div
+            {/* maybe animate this when they are all connected*/}
+            <div
               style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                height: "2px",
-                width: "100%",
-                backgroundColor: " blue",
-                transformOrigin: "left",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "35px",
               }}
-              animate={{ scaleX: isHovered ? 1 : 0 }}
-              transition={{ duration: 0.4 }}
-            />
-          </motion.h3>
-        </div>
+            >
+              <motion.div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  columnGap: "35px",
+                }}
+                animate={{ y: 17.5 }}
+                transition={{ delay: 1, duration: 1 }}
+              >
+                <motion.div
+                  style={{
+                    outline: "3px solid black",
+                    height: "100px",
+                    width: "100px",
+                    backgroundColor: "cornflowerBlue",
+                  }}
+                  animate={{ x: 17.5 }}
+                  transition={{ delay: 1, duration: 1 }}
+                ></motion.div>
+                <motion.div
+                  style={{
+                    outline: "3px solid black",
+                    height: "100px",
+                    width: "100px",
+                    backgroundColor: "lavender",
+                  }}
+                  animate={{ x: -17.5 }}
+                  transition={{ delay: 1, duration: 1 }}
+                ></motion.div>
+              </motion.div>
+              <motion.div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  columnGap: "35px",
+                }}
+                animate={{ y: -17.5 }}
+                transition={{ delay: 1, duration: 1 }}
+              >
+                <motion.div
+                  style={{
+                    outline: "3px solid black",
+
+                    height: "100px",
+                    width: "100px",
+                    backgroundColor: "blanchedAlmond",
+                  }}
+                  animate={{ x: 17.5 }}
+                  transition={{ delay: 1, duration: 1 }}
+                ></motion.div>
+                <motion.div
+                  style={{
+                    outline: "3px solid black",
+                    height: "100px",
+                    width: "100px",
+                    backgroundColor: "lightPink",
+                  }}
+                  animate={{ x: -17.5 }}
+                  transition={{ delay: 1, duration: 1 }}
+                ></motion.div>
+              </motion.div>
+            </div>
+            <div>
+              <motion.h3
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  fontSize: "24px",
+                  color: "#333",
+                  paddingBottom: "4px",
+                  width: "calc-size(fit-content, size + 35px)",
+                }}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+              >
+                Hover over me
+                <motion.div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    height: "2px",
+                    width: "100%",
+                    backgroundColor: " lightBlue",
+                    transformOrigin: "left",
+                  }}
+                  initial={false}
+                  animate={{ scaleX: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.4 }}
+                />
+              </motion.h3>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
