@@ -73,6 +73,8 @@ export function SkillsPuzzle() {
   const style = {
     transform: randomNum,
   };
+  const regularWidth = desktopPieces.react;
+  console.log(regularWidth);
   return (
     <div className="skill-desktop-div">
       <img

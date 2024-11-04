@@ -7,20 +7,6 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // hover effects to check which element is being hovered
   const [isHovered, setIsHovered] = useState("");
 
-  // contact background style + hover effects
-  const contactStyle = {
-    width: "calc-size(fit-content, size + 25px)",
-    textAlign: "center",
-    position: "relative",
-    top: "3px",
-    backgroundColor: "var(--blue)",
-    marginRight: "2.5em",
-    padding: " 0.25em 1.3em",
-    borderRadius: "0.938em",
-    fontWeight: "bolder",
-    fontSize: "1.3em",
-    listStyleType: "none",
-  };
   // scrolling to a specific section using refs
   const scrollToSection = (ref) => {
     if (ref.current) {
@@ -39,12 +25,6 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   ];
 
   const refCopy = [...sectionRefs];
-  const styles = {
-    width: "calc-size(fit-content, size + 25px)",
-    textAlign: "center",
-    position: "relative",
-    top: "3px",
-  };
   return (
     <>
       {size.width > 600 ? (
@@ -54,7 +34,6 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
               {refCopy.map((section) =>
                 section.title !== "Contact" ? (
                   <motion.li
-                    style={styles}
                     key={section.title}
                     onClick={() => scrollToSection(section.ref)}
                     onHoverStart={() => setIsHovered(section.title)}
@@ -75,14 +54,16 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                   </motion.li>
                 ) : (
                   <motion.li
-                    style={contactStyle}
+                    className="contact-style"
                     key={section.title}
                     onClick={() => scrollToSection(section.ref)}
-                    whileHover={{
-                      backgroundColor: [
-                        "hsl(208.8, 100, 81.2)",
-                        "hsl(208.5, 100, 56.3)",
-                      ],
+                    onHoverStart={() => setIsHovered(section.title)}
+                    onHoverEnd={() => setIsHovered("")}
+                    animate={{
+                      backgroundColor:
+                        isHovered === section.title
+                          ? ["hsl(208.8, 100, 81.2)", "hsl(208.5, 100, 56.3)"]
+                          : "hsl(208.8, 100, 81.2)",
                     }}
                   >
                     {section.title}

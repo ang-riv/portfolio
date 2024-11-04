@@ -25,7 +25,6 @@ function App() {
       {animateTest ? (
         <>
           <AboutSection ref={aboutRef} />
-          <SkillsSection ref={skillsRef} />
           <ProjectsSection ref={projectsRef} />
           <ContactSection ref={contactRef} />
         </>
@@ -38,6 +37,8 @@ function App() {
             contactRef={contactRef}
           />
           <IntroSection ref={introRef} />
+          <SkillsSection ref={skillsRef} />
+
           <div
             style={{
               display: "flex",
