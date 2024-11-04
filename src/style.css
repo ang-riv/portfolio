@@ -94,16 +94,6 @@ a {
   list-style-type: none;
 }
 
-.nav-container nav ul li:last-of-type {
-  background-color: var(--blue);
-  margin-right: 2.5em;
-  padding: 0.25em 1.3em;
-  border-radius: 0.938em;
-  font-weight: bolder;
-  font-size: 1.3em;
-  list-style-type: none;
-}
-
 /** mobile navigation styles**/
 .mobile-nav-container {
   height: 10%;
@@ -119,7 +109,7 @@ a {
   height: 100%;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0.5em 0 0 0;
   display: flex;
   flex-flow: row nowrap;
   column-gap: 2%;
@@ -133,7 +123,6 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  padding-top: 0.5em;
 }
 
 .mobile-nav-container ul li p {
