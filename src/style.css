@@ -249,14 +249,24 @@ a {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  gap: 5%;
 }
 
 .skill-desktop-div {
   max-width: 87.5em;
   width: 96%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-flow: row nowrap;
+  flex-basis: 100%;
+}
+
+.skill-desktop-div > img {
+  width: 10em;
+}
+
+.skill-desktop-div > img:last-child {
+  width: calc-size(max-content, size + 2em);
 }
 
 .skill-mobile-div {
@@ -401,6 +411,12 @@ a {
     text-align: center;
   }
 
+  .skill-mobile-div > img {
+    max-height: 8em;
+    max-width: 8em;
+    z-index: 0;
+  }
+
   .last-link-title {
     font-size: 1.2em;
   }
@@ -455,14 +471,9 @@ a {
   }
 
   .skill-mobile-div > img {
-    height: 6.25em;
-    width: 6.25em;
+    min-height: 6.5em;
+    min-width: 6.5em;
     z-index: 0;
-  }
-
-  .skill-mobile-div:last-child > img:last-of-type {
-    height: 5em;
-    width: 5em;
   }
 
   /* project section */

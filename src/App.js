@@ -48,6 +48,7 @@ function App() {
               flexDirection: "column",
             }}
           >
+            <SkillsSection ref={skillsRef} />
             {/* maybe animate this when they are all connected*/}
             <div
               style={{
