@@ -233,7 +233,6 @@ a {
 }
 .skills-content-wrapper {
   height: 60%;
-  outline: 1px solid lightgreen;
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
@@ -242,7 +241,6 @@ a {
 }
 
 .skill-desktop-div {
-  outline: 1px dotted blue;
   max-width: 87.5em;
   width: 96%;
   display: flex;
@@ -402,6 +400,12 @@ a {
     text-align: center;
   }
 
+  .skill-mobile-div > img {
+    max-height: 8em;
+    max-width: 8em;
+    z-index: 0;
+  }
+
   .last-link-title {
     font-size: 1.2em;
   }
@@ -456,14 +460,9 @@ a {
   }
 
   .skill-mobile-div > img {
-    height: 6.25em;
-    width: 6.25em;
+    min-height: 6.5em;
+    min-width: 6.5em;
     z-index: 0;
-  }
-
-  .skill-mobile-div:last-child > img:last-of-type {
-    height: 5em;
-    width: 5em;
   }
 
   /* project section */

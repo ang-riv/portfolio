@@ -109,18 +109,8 @@ export function MobileSkillsPuzzle() {
         <img
           src={mobilePieces.html}
           alt="puzzle piece with the word HTML"
-          style={{ position: "relative", left: "0.6em" }}
         ></img>
-        <img
-          src={mobilePieces.css}
-          alt="puzzle piece with the word CSS"
-          style={{
-            position: "relative",
-            bottom: "0.6em",
-            left: "0.5em",
-            zIndex: "0",
-          }}
-        ></img>
+        <img src={mobilePieces.css} alt="puzzle piece with the word CSS"></img>
         <img
           src={mobilePieces.js}
           alt="puzzle piece with the word JavaScript"
@@ -134,7 +124,6 @@ export function MobileSkillsPuzzle() {
         <img
           src={mobilePieces.react}
           alt="puzzle piece with the word React"
-          style={{ position: "relative", bottom: "0.6em" }}
         ></img>
         <img
           src={mobilePieces.github}
