@@ -233,19 +233,31 @@ a {
 }
 .skills-content-wrapper {
   height: 60%;
+  outline: 1px solid lightgreen;
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  gap: 5%;
 }
 
 .skill-desktop-div {
+  outline: 1px dotted blue;
   max-width: 87.5em;
   width: 96%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-flow: row nowrap;
+  flex-basis: 100%;
+}
+
+.skill-desktop-div > img {
+  width: 10em;
+}
+
+.skill-desktop-div > img:last-child {
+  width: calc-size(max-content, size + 2em);
 }
 
 .skill-mobile-div {
@@ -444,7 +456,7 @@ a {
   }
 
   .skill-mobile-div > img {
-    height: 6.25emx;
+    height: 6.25em;
     width: 6.25em;
     z-index: 0;
   }

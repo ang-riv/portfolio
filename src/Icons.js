@@ -73,6 +73,7 @@ export function SkillsPuzzle() {
   const style = {
     transform: randomNum,
   };
+
   return (
     <div className="skill-desktop-div">
       <img
@@ -96,7 +97,6 @@ export function SkillsPuzzle() {
       <img
         src={desktopPieces.github}
         alt="puzzle piece with the word Github"
-        style={{ width: "17%" }}
       ></img>
     </div>
   );

@@ -25,7 +25,6 @@ function App() {
       {animateTest ? (
         <>
           <AboutSection ref={aboutRef} />
-          <SkillsSection ref={skillsRef} />
           <ProjectsSection ref={projectsRef} />
           <ContactSection ref={contactRef} />
         </>
@@ -47,6 +46,7 @@ function App() {
               flexDirection: "column",
             }}
           >
+            <SkillsSection ref={skillsRef} />
             {/* maybe animate this when they are all connected*/}
             <div
               style={{
