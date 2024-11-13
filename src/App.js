@@ -1,19 +1,12 @@
 import "./style.css";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, createContext, useContext } from "react";
+import TitleContext from "./TitleContext.js";
 import Navigation from "./Navigation.js";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
-import {
-  motion,
-  useInView,
-  useAnimation,
-  inView,
-  animate,
-} from "framer-motion";
-import SectionTitles from "./SectionTitles.js";
 
 function App() {
   const animateTest = false;
@@ -22,8 +15,8 @@ function App() {
   const skillsRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
-  const scrollRef = useRef(null);
 
+  const scrollRef = useRef(null);
   return (
     <div className="App">
       {animateTest ? (
@@ -39,8 +32,10 @@ function App() {
             projectsRef={projectsRef}
             contactRef={contactRef}
           />
+
           <IntroSection ref={introRef} />
-          <SkillsSection ref={skillsRef} scrollRef={scrollRef} />
+
+          <SkillsSection ref={skillsRef} />
           <AboutSection ref={aboutRef} />
         </>
       )}

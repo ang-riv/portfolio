@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
-import { div } from "framer-motion/client";
+import TitleContext from "./TitleContext.js";
 
-const SectionTitles = React.forwardRef((props, scrollRef) => {
+const SectionTitles = React.forwardRef((props) => {
+  const ref = useContext(TitleContext);
   const styles = {
     textAlign: "center",
     width: "calc-size(fit-content, size + 50px)",
@@ -16,7 +17,7 @@ const SectionTitles = React.forwardRef((props, scrollRef) => {
   };
   return (
     <div style={divStyles}>
-      <motion.h2 ref={scrollRef} style={styles}>
+      <motion.h2 ref={ref} style={styles}>
         {props.title}
         <motion.div
           style={{
@@ -32,7 +33,7 @@ const SectionTitles = React.forwardRef((props, scrollRef) => {
           initial="hidden"
           whileInView="visible"
           transition={{ duration: 1 }}
-          viewport={{ root: scrollRef }}
+          viewport={{ root: ref }}
         />
       </motion.h2>
     </div>

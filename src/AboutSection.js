@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { addColors } from "./Imports";
 import AboutInfo from "./AboutInfo";
 import useWindowSize from "./useWindowSize";
+import TitleContext from "./TitleContext";
+import SectionTitles from "./SectionTitles";
 
 const AboutSection = React.forwardRef((_, ref) => {
   const [activeTab, setActiveTab] = useState("Intro");
@@ -32,7 +34,7 @@ const AboutSection = React.forwardRef((_, ref) => {
         marginBottom: "20%",
       }}
     >
-      <h2>About</h2>
+      <SectionTitles title="About" />
       <div className="about-content-wrapper">
         <div className="about-container">
           <div className="about-photo">
