@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import TitleContext from "./TitleContext.js";
 
 const SectionTitles = React.forwardRef((props) => {
-  const ref = useContext(TitleContext);
+  const ref = useRef(null);
   const styles = {
     textAlign: "center",
     width: "calc-size(fit-content, size + 50px)",

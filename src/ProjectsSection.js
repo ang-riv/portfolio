@@ -1,6 +1,7 @@
 import React from "react";
 import ProjectTile from "./ProjectTile.js";
 import { addColors, addImgs } from "./Imports.js";
+import SectionTitles from "./SectionTitles.js";
 
 const ProjectsSection = React.forwardRef((_, ref) => {
   // individual project info
@@ -57,7 +58,7 @@ const ProjectsSection = React.forwardRef((_, ref) => {
 
   return (
     <section ref={ref} style={{ height: "fit-content" }}>
-      <h2>Projects</h2>
+      <SectionTitles title="Projects" />
       <div className="project-content-wrapper">
         <div className="project-container">
           {projectInfo.map((project) => (

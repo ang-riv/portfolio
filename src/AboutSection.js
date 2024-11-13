@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { addColors } from "./Imports";
 import AboutInfo from "./AboutInfo";
 import useWindowSize from "./useWindowSize";
-import TitleContext from "./TitleContext";
 import SectionTitles from "./SectionTitles";
 
 const AboutSection = React.forwardRef((_, ref) => {

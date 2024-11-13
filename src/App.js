@@ -1,6 +1,5 @@
 import "./style.css";
-import React, { useRef, createContext, useContext } from "react";
-import TitleContext from "./TitleContext.js";
+import React, { useRef } from "react";
 import Navigation from "./Navigation.js";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
@@ -21,7 +20,6 @@ function App() {
     <div className="App">
       {animateTest ? (
         <>
-          <ProjectsSection ref={projectsRef} />
           <ContactSection ref={contactRef} />
         </>
       ) : (
@@ -32,11 +30,10 @@ function App() {
             projectsRef={projectsRef}
             contactRef={contactRef}
           />
-
           <IntroSection ref={introRef} />
-
           <SkillsSection ref={skillsRef} />
           <AboutSection ref={aboutRef} />
+          <ProjectsSection ref={projectsRef} />
         </>
       )}
     </div>
