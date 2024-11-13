@@ -1,9 +1,10 @@
 import React from "react";
 import { SkillsSectionPuzzle } from "./Icons";
-const SkillsSection = React.forwardRef((_, ref) => {
+import SectionTitles from "./SectionTitles";
+const SkillsSection = React.forwardRef((_, ref, scrollRef) => {
   return (
     <section ref={ref} className="skill-section">
-      <h2>Skills</h2>
+      <SectionTitles title="Skills" ref={scrollRef} />
       <div className="skills-content-wrapper">
         <SkillsSectionPuzzle />
       </div>
