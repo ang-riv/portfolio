@@ -15,13 +15,10 @@ function App() {
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
 
-  const scrollRef = useRef(null);
   return (
     <div className="App">
       {animateTest ? (
-        <>
-          <ContactSection ref={contactRef} />
-        </>
+        <></>
       ) : (
         <>
           <Navigation
@@ -34,6 +31,7 @@ function App() {
           <SkillsSection ref={skillsRef} />
           <AboutSection ref={aboutRef} />
           <ProjectsSection ref={projectsRef} />
+          <ContactSection ref={contactRef} />
         </>
       )}
     </div>
