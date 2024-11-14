@@ -343,7 +343,7 @@ a {
 
 .contact-container h2 {
   text-align: left;
-  padding: 2% 0 0 5%;
+  padding-left: 2%;
   font-size: 2.7em;
 }
 
@@ -374,7 +374,7 @@ a {
 
 .social-links-container {
   margin-top: 1%;
-  height: 85%;
+  height: 90%;
   width: 70%;
   display: flex;
   flex-flow: row wrap;

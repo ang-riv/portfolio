@@ -1,15 +1,16 @@
 import React from "react";
 import { SocialLinks } from "./Icons";
+import SectionTitles from "./SectionTitles";
 const ContactSection = React.forwardRef((_, ref) => {
   return (
     <section className="contact-section" ref={ref}>
       <div className="contact-container">
-        <h2>Let's Connect</h2>
+        <SectionTitles title="Let's Connect" />
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            height: "60%",
+            height: "59%",
             width: "100%",
           }}
         >

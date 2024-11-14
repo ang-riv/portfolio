@@ -2,22 +2,31 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { globalColors } from "./Imports";
 
-const SectionTitles = React.forwardRef((props) => {
+const SectionTitles = (props) => {
   const ref = useRef(null);
   const styles = {
     textAlign: "center",
     width: "calc-size(fit-content, size + 50px)",
     height: "fit-content",
   };
+
+  const position = () => {
+    if (props.title === "Let's Connect") {
+      return "flex-start";
+    } else {
+      return "center";
+    }
+  };
+
   const divStyles = {
     width: "100%",
     height: "fit-content",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: position(),
   };
 
   const underlineColor = () => {
-    if (props.title === "Skills") {
+    if (props.title === "Skills" || props.title === "Let's Connect") {
       return "#FFFFFF";
     } else {
       return globalColors.blue;
@@ -47,6 +56,6 @@ const SectionTitles = React.forwardRef((props) => {
       </motion.h2>
     </div>
   );
-});
+};
 
 export default SectionTitles;
