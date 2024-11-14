@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
+import { globalColors } from "./Imports";
 
 const SectionTitles = React.forwardRef((props) => {
   const ref = useRef(null);
@@ -14,15 +15,24 @@ const SectionTitles = React.forwardRef((props) => {
     display: "flex",
     justifyContent: "center",
   };
+
+  const underlineColor = () => {
+    if (props.title === "Skills") {
+      return "#FFFFFF";
+    } else {
+      return globalColors.blue;
+    }
+  };
+
   return (
     <div style={divStyles}>
       <motion.h2 ref={ref} style={styles}>
         {props.title}
         <motion.div
           style={{
-            height: "2px",
+            height: "3px",
             width: "100%",
-            backgroundColor: "cornflowerBlue",
+            backgroundColor: underlineColor(),
             transformOrigin: "left",
           }}
           variants={{

@@ -24,8 +24,6 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     { title: "Contact", ref: contactRef, icon: <SpeechIcon /> },
   ];
 
-  // contact styles
-
   const refCopy = [...sectionRefs];
   return (
     <>
