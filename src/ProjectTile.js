@@ -1,8 +1,15 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 function ProjectTile(props) {
   const buttonColor = {
+    outline: `3px solid ${props.color}`,
+    backgroundColor: "#FFFFFF",
+  };
+
+  const hoverColor = {
     backgroundColor: props.color,
+    outline: `3px solid ${props.color}`,
   };
   return (
     <div className="project-tile-container">
@@ -14,15 +21,17 @@ function ProjectTile(props) {
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
       </div>
       {/* button */}
-      <a
+      <motion.a
         href={props.link}
         target="_blank"
         rel="noreferrer"
         style={buttonColor}
         className="project-btn"
+        whileHover={hoverColor}
+        transition={{ duration: 0.5 }}
       >
         Live Site
-      </a>
+      </motion.a>
     </div>
   );
 }
