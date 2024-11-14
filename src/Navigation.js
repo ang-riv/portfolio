@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import useWindowSize from "./useWindowSize";
 import { QuestionMarkIcon, GearIcon, CodeIcon, SpeechIcon } from "./Icons";
-
+import { globalColors } from "./Imports";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // hover effects to check which element is being hovered
   const [isHovered, setIsHovered] = useState("");
@@ -23,6 +23,8 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     { title: "Projects", ref: projectsRef, icon: <CodeIcon /> },
     { title: "Contact", ref: contactRef, icon: <SpeechIcon /> },
   ];
+
+  // contact styles
 
   const refCopy = [...sectionRefs];
   return (
@@ -62,8 +64,8 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                     animate={{
                       backgroundColor:
                         isHovered === section.title
-                          ? ["hsl(208.8, 100, 81.2)", "hsl(208.5, 100, 56.3)"]
-                          : "hsl(208.8, 100, 81.2)",
+                          ? `${globalColors.blue}`
+                          : "#FFFFFF",
                     }}
                   >
                     {section.title}

@@ -99,7 +99,7 @@ a {
 }
 
 .contact-style {
-  background-color: var(--blue);
+  outline: 3px solid var(--blue);
   margin-right: 2.5em;
   padding: 0.25em 1.3em;
   border-radius: 0.938em;

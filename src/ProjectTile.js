@@ -2,11 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 
 function ProjectTile(props) {
+  // initial button style
   const buttonColor = {
     outline: `3px solid ${props.color}`,
     backgroundColor: "#FFFFFF",
   };
 
+  // hover style
   const hoverColor = {
     backgroundColor: props.color,
     outline: `3px solid ${props.color}`,
