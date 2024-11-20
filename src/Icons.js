@@ -68,18 +68,19 @@ export function IntroPuzzle() {
 // puzzle in skill section
 export function SkillsPuzzle() {
   // potentially change so that they are all a random direction then move it onScroll
-  const num = 0;
-  const randomNum = `rotate(${num}deg)`;
-  const style = {
-    transform: randomNum,
+  const variants = {
+    start: { rotate: Math.floor(Math.random() * 361) },
+    end: { rotate: 0, transition: { delay: 2, duration: 1.5 } },
   };
   return (
     <div className="skill-desktop-div">
-      <img
+      <motion.img
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
-        style={style}
-      ></img>
+        variants={variants}
+        initial="start"
+        animate="end"
+      ></motion.img>
       <img src={desktopPieces.css} alt="puzzle piece with the word CSS"></img>
       <img
         src={desktopPieces.js}
@@ -102,33 +103,88 @@ export function SkillsPuzzle() {
 }
 
 export function MobileSkillsPuzzle() {
+  const sideRef = useRef(null);
+  const centerRef = useRef(null);
+
+  const topRef = useRef(null);
+  const botRef = useRef(null);
+  const [distance, setDistance] = useState(null);
+  const [distanceY, setDistanceY] = useState(null);
+
+  useEffect(() => {
+    if (sideRef.current && centerRef.current) {
+      const rect1 = sideRef.current.getBoundingClientRect();
+      const rect2 = centerRef.current.getBoundingClientRect();
+
+      const dx = rect2.left - rect1.left;
+      const dy = rect2.top - rect1.top;
+      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
+      setDistance(calculatedDistance);
+    }
+    if (topRef.current && botRef.current) {
+      const rect1 = topRef.current.getBoundingClientRect();
+      const rect2 = botRef.current.getBoundingClientRect();
+
+      const dx = rect2.left - rect1.left;
+      const dy = rect2.top - rect1.top;
+      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
+      setDistanceY(calculatedDistance);
+    }
+  }, []);
+  const move = Math.ceil(distance) / 3;
+  const moveY = Math.round(distanceY * 100) / 100 / 4;
   return (
     <>
-      <div className="skill-mobile-div">
-        <img
+      <motion.div
+        className="skill-mobile-div"
+        animate={{ y: moveY }}
+        transition={{ delay: 3, duration: 1.5 }}
+      >
+        <motion.img
           src={mobilePieces.html}
           alt="puzzle piece with the word HTML"
-        ></img>
-        <img src={mobilePieces.css} alt="puzzle piece with the word CSS"></img>
-        <img
+          animate={{ x: move }}
+          transition={{ delay: 1, duration: 1.5 }}
+          ref={sideRef}
+        ></motion.img>
+        <motion.img
+          src={mobilePieces.css}
+          alt="puzzle piece with the word CSS"
+          ref={centerRef}
+        ></motion.img>
+        <motion.img
           src={mobilePieces.js}
           alt="puzzle piece with the word JavaScript"
-        ></img>
-      </div>
-      <div className="skill-mobile-div">
-        <img
+          ref={topRef}
+          animate={{ x: -move }}
+          transition={{ delay: 1, duration: 1.5 }}
+        ></motion.img>
+      </motion.div>
+      <motion.div
+        className="skill-mobile-div"
+        animate={{ y: -moveY }}
+        transition={{ delay: 3, duration: 1.5 }}
+      >
+        <motion.img
           src={mobilePieces.bootstrap}
           alt="puzzle piece with the word bootstrap"
-        ></img>
-        <img
+          animate={{ x: move }}
+          transition={{ delay: 1, duration: 1.5 }}
+          ref={sideRef}
+        ></motion.img>
+        <motion.img
           src={mobilePieces.react}
           alt="puzzle piece with the word React"
-        ></img>
-        <img
+          ref={centerRef}
+        ></motion.img>
+        <motion.img
           src={mobilePieces.github}
           alt="puzzle piece with the word Github"
-        ></img>
-      </div>
+          ref={botRef}
+          animate={{ x: -move }}
+          transition={{ delay: 1, duration: 1.5 }}
+        ></motion.img>
+      </motion.div>
     </>
   );
 }
