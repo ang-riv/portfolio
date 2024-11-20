@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { motion } from "framer-motion";
+import { useAnimation, motion } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -67,25 +67,63 @@ export function IntroPuzzle() {
 /**** SKILLS SECTION ****/
 // puzzle in skill section
 export function SkillsPuzzle() {
-  // potentially change so that they are all a random direction then move it onScroll
-  const variants = {
-    start: { rotate: Math.floor(Math.random() * 361) },
-    end: { rotate: 0, transition: { delay: 2, duration: 1.5 } },
+  const controls = useAnimation();
+  const sideRef = useRef(null);
+  const centerRef = useRef(null);
+  const [distance, setDistance] = useState(null);
+
+  // create a random direction to rotate the piece
+  const randomNum = () => {
+    return Math.floor(Math.random() * 361);
   };
+
+  useEffect(() => {
+    // calculating distance
+    if (sideRef.current && centerRef.current) {
+      const rect1 = sideRef.current.getBoundingClientRect();
+      const rect2 = centerRef.current.getBoundingClientRect();
+
+      const dx = rect2.left - rect1.left;
+      const dy = rect2.top - rect1.top;
+      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
+      setDistance(calculatedDistance);
+    }
+    // chaining animations
+    controls
+      .start({
+        rotate: randomNum(),
+      })
+      .then(() => {
+        controls
+          .start({
+            rotate: 0,
+            transition: { delay: 2, duration: 1.5 },
+          })
+          .then(() => {
+            controls.start({
+              x: distance,
+            });
+          });
+      });
+  }, [controls]);
+  console.log(distance);
   return (
     <div className="skill-desktop-div">
       <motion.img
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
-        variants={variants}
-        initial="start"
-        animate="end"
+        animate={controls}
+        ref={sideRef}
       ></motion.img>
-      <img src={desktopPieces.css} alt="puzzle piece with the word CSS"></img>
-      <img
+      <motion.img
+        src={desktopPieces.css}
+        alt="puzzle piece with the word CSS"
+        ref={centerRef}
+      ></motion.img>
+      <motion.img
         src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
-      ></img>
+      ></motion.img>
       <img
         src={desktopPieces.bootstrap}
         alt="puzzle piece with the word Bootstrap"
