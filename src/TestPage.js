@@ -33,7 +33,6 @@ const TestPage = () => {
   };
 
   // testing
-  console.log(outerDistance);
   return (
     <>
       <h1>Finding Distance</h1>

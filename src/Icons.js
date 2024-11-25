@@ -69,29 +69,32 @@ export function IntroPuzzle() {
 export function SkillsPuzzle() {
   const controlsOuter = useAnimation();
   const controlsInner = useAnimation();
-  const midRef = useRef(null);
   const centerRef = useRef(null);
-  const [distance, setDistance] = useState(null);
+  const [width, setWidth] = useState(null);
+
+  // math
+  const [distance, setDistance] = useState(0);
+  const [outerDistance, setOuterDistance] = useState(0);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
     return Math.floor(Math.random() * 361);
   };
 
+  //recalculate distances when puzzle width changes
   useEffect(() => {
-    // calculating distance
-    if (midRef.current && centerRef.current) {
-      const rect1 = midRef.current.getBoundingClientRect();
-      const rect2 = centerRef.current.getBoundingClientRect();
+    if (width) {
+      const divisor = (width / 125).toFixed(2);
+      const calculatedDistance = (25 * divisor).toFixed(2);
+      const calculatedOuterDistance = (calculatedDistance * 2).toFixed(2);
 
-      const dx = rect2.left - rect1.left;
-      const dy = rect2.top - rect1.top;
-      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
-      setDistance(calculatedDistance);
+      setDistance(Number(calculatedDistance));
+      setOuterDistance(Number(calculatedOuterDistance));
     }
-  }, []);
+  }, [width]);
 
-  inView(".skill-desktop-div", () => {
+  // trigger animations
+  const triggerAnimations = () => {
     controlsInner
       .start({
         rotate: 0,
@@ -99,7 +102,8 @@ export function SkillsPuzzle() {
       })
       .then(() => {
         controlsInner.start({
-          x: distance / 5,
+          x: distance,
+          transition: { duration: 0.5 },
         });
       });
     controlsOuter
@@ -109,10 +113,21 @@ export function SkillsPuzzle() {
       })
       .then(() => {
         controlsOuter.start({
-          x: distance / 2,
+          x: outerDistance,
+          transition: { duration: 0.5 },
         });
       });
-  });
+  };
+
+  useEffect(() => {
+    // calculating width
+    const rect1 = centerRef.current.getBoundingClientRect();
+    setWidth(rect1.width.toFixed(2));
+
+    // trigger onscroll into view
+    inView(".skill-desktop-div", triggerAnimations);
+  }, []);
+
   console.log(distance);
   return (
     <div className="skill-desktop-div">
@@ -127,9 +142,7 @@ export function SkillsPuzzle() {
         alt="puzzle piece with the word CSS"
         initial={{ rotate: randomNum() }}
         animate={controlsInner}
-        ref={midRef}
       ></motion.img>
-      {console.log(distance)}
       <motion.img
         src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
