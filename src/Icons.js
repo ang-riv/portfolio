@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { useAnimation, motion } from "framer-motion";
+import { useAnimation, motion, inView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -67,8 +67,9 @@ export function IntroPuzzle() {
 /**** SKILLS SECTION ****/
 // puzzle in skill section
 export function SkillsPuzzle() {
-  const controls = useAnimation();
-  const sideRef = useRef(null);
+  const controlsOuter = useAnimation();
+  const controlsInner = useAnimation();
+  const midRef = useRef(null);
   const centerRef = useRef(null);
   const [distance, setDistance] = useState(null);
 
@@ -79,8 +80,8 @@ export function SkillsPuzzle() {
 
   useEffect(() => {
     // calculating distance
-    if (sideRef.current && centerRef.current) {
-      const rect1 = sideRef.current.getBoundingClientRect();
+    if (midRef.current && centerRef.current) {
+      const rect1 = midRef.current.getBoundingClientRect();
       const rect2 = centerRef.current.getBoundingClientRect();
 
       const dx = rect2.left - rect1.left;
@@ -88,41 +89,51 @@ export function SkillsPuzzle() {
       const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
       setDistance(calculatedDistance);
     }
-    // chaining animations
-    controls
+  }, []);
+
+  inView(".skill-desktop-div", () => {
+    controlsInner
       .start({
-        rotate: randomNum(),
+        rotate: 0,
+        transition: { delay: 1, duration: 1.5 },
       })
       .then(() => {
-        controls
-          .start({
-            rotate: 0,
-            transition: { delay: 2, duration: 1.5 },
-          })
-          .then(() => {
-            controls.start({
-              x: distance,
-            });
-          });
+        controlsInner.start({
+          x: distance / 5,
+        });
       });
-  }, [controls]);
+    controlsOuter
+      .start({
+        rotate: 0,
+        transition: { delay: 1, duration: 1.5 },
+      })
+      .then(() => {
+        controlsOuter.start({
+          x: distance / 2,
+        });
+      });
+  });
   console.log(distance);
   return (
     <div className="skill-desktop-div">
       <motion.img
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
-        animate={controls}
-        ref={sideRef}
+        initial={{ rotate: randomNum() }}
+        animate={controlsOuter}
       ></motion.img>
       <motion.img
         src={desktopPieces.css}
         alt="puzzle piece with the word CSS"
-        ref={centerRef}
+        initial={{ rotate: randomNum() }}
+        animate={controlsInner}
+        ref={midRef}
       ></motion.img>
+      {console.log(distance)}
       <motion.img
         src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
+        ref={centerRef}
       ></motion.img>
       <img
         src={desktopPieces.bootstrap}

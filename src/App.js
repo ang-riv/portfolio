@@ -6,9 +6,10 @@ import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
+import TestPage from "./TestPage.js";
 
 function App() {
-  const animateTest = false;
+  const animateTest = true;
   const introRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
@@ -18,7 +19,7 @@ function App() {
   return (
     <div className="App">
       {animateTest ? (
-        <></>
+        <TestPage />
       ) : (
         <>
           <Navigation
