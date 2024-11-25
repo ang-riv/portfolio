@@ -1,20 +1,25 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { desktopPieces } from "./Imports";
 
 const TestPage = () => {
   // math variables
   // grab the width
   const [width, setWidth] = useState(0);
-
+  const controlsOuter = useAnimation();
+  const controlsInner = useAnimation();
   //divide it by the original size
   const divisor = (width / 125).toFixed();
-  const innerDistance = (divisor * 25).toFixed();
+  const innerDistance = Number((divisor * 25).toFixed());
   const outerDistance = innerDistance * 2;
   const outerRef = useRef(null);
 
+  const randomNum = () => {
+    return Math.floor(Math.random() * 361);
+  };
+
+  const styleSize = { width: "125px", height: "100px" };
   // this grabs the measurements when the page initially loads
-  // need to change to onScroll stuff
   useEffect(() => {
     const rect1 = outerRef.current.getBoundingClientRect();
 
@@ -23,13 +28,24 @@ const TestPage = () => {
   }, []);
 
   // distance
-  const inner = {
-    x: outerDistance / 2,
-    transition: { delay: 1 },
+  const inner = async () => {
+    await controlsInner.start({
+      rotate: 0,
+      transition: { delay: 1, duration: 1.5 },
+    });
+    await controlsInner.start({
+      x: innerDistance,
+    });
   };
-  const outer = {
-    x: outerDistance,
-    transition: { delay: 1.5 },
+
+  const outer = async () => {
+    await controlsOuter.start({
+      rotate: 0,
+      transition: { delay: 1, duration: 1.5 },
+    });
+    await controlsOuter.start({
+      x: outerDistance,
+    });
   };
 
   // testing
@@ -51,19 +67,20 @@ const TestPage = () => {
         >
           <motion.img
             src={desktopPieces.html}
-            animate={outer}
-            style={{ width: "247px", height: "198px" }}
+            initial={{ rotate: randomNum() }}
+            whileInView={() => outer()}
+            animate={controlsOuter}
+            style={styleSize}
             ref={outerRef}
           />
           <motion.img
             src={desktopPieces.css}
-            animate={inner}
-            style={{ width: "247px", height: "198px" }}
+            whileInView={() => inner()}
+            initial={{ rotate: randomNum() }}
+            animate={controlsInner}
+            style={styleSize}
           />
-          <motion.img
-            src={desktopPieces.js}
-            style={{ width: "247px", height: "198px" }}
-          />
+          <motion.img src={desktopPieces.js} style={styleSize} />
         </div>
       </div>
     </>

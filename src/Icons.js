@@ -73,28 +73,22 @@ export function SkillsPuzzle() {
   const [width, setWidth] = useState(null);
 
   // math
-  const [distance, setDistance] = useState(0);
-  const [outerDistance, setOuterDistance] = useState(0);
+  const divisor = (width / 125).toFixed(2);
+  const distance = (25 * divisor).toFixed(2);
+  const outerDistance = (distance * 2).toFixed(2);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
     return Math.floor(Math.random() * 361);
   };
 
-  //recalculate distances when puzzle width changes
   useEffect(() => {
-    if (width) {
-      const divisor = (width / 125).toFixed(2);
-      const calculatedDistance = (25 * divisor).toFixed(2);
-      const calculatedOuterDistance = (calculatedDistance * 2).toFixed(2);
+    // calculating distance
+    const rect1 = centerRef.current.getBoundingClientRect();
+    setWidth(rect1.width.toFixed(2));
+  }, []);
 
-      setDistance(Number(calculatedDistance));
-      setOuterDistance(Number(calculatedOuterDistance));
-    }
-  }, [width]);
-
-  // trigger animations
-  const triggerAnimations = () => {
+  const inner = () => {
     controlsInner
       .start({
         rotate: 0,
@@ -102,10 +96,13 @@ export function SkillsPuzzle() {
       })
       .then(() => {
         controlsInner.start({
-          x: distance,
+          x: Number(distance),
           transition: { duration: 0.5 },
         });
       });
+  };
+
+  const outer = () => {
     controlsOuter
       .start({
         rotate: 0,
@@ -113,20 +110,11 @@ export function SkillsPuzzle() {
       })
       .then(() => {
         controlsOuter.start({
-          x: outerDistance,
+          x: Number(outerDistance),
           transition: { duration: 0.5 },
         });
       });
   };
-
-  useEffect(() => {
-    // calculating width
-    const rect1 = centerRef.current.getBoundingClientRect();
-    setWidth(rect1.width.toFixed(2));
-
-    // trigger onscroll into view
-    inView(".skill-desktop-div", triggerAnimations);
-  }, []);
 
   console.log(distance);
   return (
@@ -135,13 +123,17 @@ export function SkillsPuzzle() {
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
         initial={{ rotate: randomNum() }}
+        whileInView={() => outer()}
         animate={controlsOuter}
+        style={{ x: 0 }}
       ></motion.img>
       <motion.img
         src={desktopPieces.css}
         alt="puzzle piece with the word CSS"
         initial={{ rotate: randomNum() }}
+        whileInView={() => inner()}
         animate={controlsInner}
+        style={{ x: 0 }}
       ></motion.img>
       <motion.img
         src={desktopPieces.js}
