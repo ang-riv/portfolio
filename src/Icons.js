@@ -67,6 +67,7 @@ export function IntroPuzzle() {
 /**** SKILLS SECTION ****/
 // puzzle in skill section
 export function SkillsPuzzle() {
+  const ref = useRef(null);
   const controlsOuter = useAnimation();
   const controlsInner = useAnimation();
   const centerRef = useRef(null);
@@ -74,8 +75,8 @@ export function SkillsPuzzle() {
 
   // math
   const divisor = (width / 125).toFixed(2);
-  const distance = (25 * divisor).toFixed(2);
-  const outerDistance = (distance * 2).toFixed(2);
+  const innerDistance = (25 * divisor).toFixed(2);
+  const outerDistance = (innerDistance * 2).toFixed(2);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
@@ -88,52 +89,57 @@ export function SkillsPuzzle() {
     setWidth(rect1.width.toFixed(2));
   }, []);
 
-  const inner = () => {
-    controlsInner
-      .start({
-        rotate: 0,
-        transition: { delay: 1, duration: 1.5 },
-      })
-      .then(() => {
-        controlsInner.start({
-          x: Number(distance),
-          transition: { duration: 0.5 },
-        });
-      });
+  const inner = async () => {
+    await controlsInner.start({
+      rotate: 0,
+      transition: { delay: 1, duration: 1.5 },
+    });
+
+    await controlsInner.start({
+      x: Number(innerDistance),
+      transition: { duration: 0.5 },
+    });
   };
 
-  const outer = () => {
-    controlsOuter
-      .start({
-        rotate: 0,
-        transition: { delay: 1, duration: 1.5 },
-      })
-      .then(() => {
-        controlsOuter.start({
-          x: Number(outerDistance),
-          transition: { duration: 0.5 },
-        });
-      });
+  const outer = async () => {
+    await controlsOuter.start({
+      rotate: 0,
+      transition: { delay: 1, duration: 1.5 },
+    });
+
+    await controlsOuter.start({
+      x: Number(outerDistance),
+      transition: { duration: 0.5 },
+    });
   };
 
-  console.log(distance);
+  const leave = async () => {
+    await controlsOuter.start({
+      x: 0,
+    });
+    await controlsInner.start({
+      x: 0,
+    });
+  };
+
   return (
-    <div className="skill-desktop-div">
+    <div className="skill-desktop-div" ref={ref}>
       <motion.img
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
         initial={{ rotate: randomNum() }}
-        whileInView={() => outer()}
+        onViewportEnter={() => outer()}
+        onViewportLeave={() => leave()}
+        viewport={{ root: ref }}
         animate={controlsOuter}
-        style={{ x: 0 }}
       ></motion.img>
       <motion.img
         src={desktopPieces.css}
         alt="puzzle piece with the word CSS"
         initial={{ rotate: randomNum() }}
-        whileInView={() => inner()}
+        onViewportEnter={() => inner()}
+        onViewportLeave={() => leave()}
         animate={controlsInner}
-        style={{ x: 0 }}
       ></motion.img>
       <motion.img
         src={desktopPieces.js}
