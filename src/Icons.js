@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { useAnimation, motion, inView } from "framer-motion";
+import { useAnimation, motion, inView, distance } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -68,8 +68,9 @@ export function IntroPuzzle() {
 // puzzle in skill section
 export function SkillsPuzzle() {
   const ref = useRef(null);
-  const controlsOuter = useAnimation();
-  const controlsInner = useAnimation();
+  const controls = useAnimation();
+  const controls1 = useAnimation();
+  const controls2 = useAnimation();
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
 
@@ -90,38 +91,26 @@ export function SkillsPuzzle() {
   }, []);
 
   // kind of works, just need to know where to put it
-  async function joinPieces(position, move) {
+  async function joinPieces(multiplier = 0) {
     // determines where the piece should move
-    let xLocation = 0;
-    let puzzleLocation = "";
-
-    // if inner piece
-    if (position === "inner") {
-      puzzleLocation = controlsInner;
-      if (move === "moveLeft") xLocation = -Number(innerDistance);
-      else if (move === "moveRight") xLocation = Number(innerDistance);
-    } else if (position === "outer") {
-      // if outer
-      puzzleLocation = controlsOuter;
-      if (move === "moveLeft") xLocation = -Number(outerDistance);
-      else if (move === "moveRight") xLocation = Number(outerDistance);
-    }
-
-    await puzzleLocation.start({
+    let xLocation = Number(innerDistance) * multiplier;
+    console.log(multiplier);
+    await controls.start({
       rotate: 0,
       transition: { delay: 1, duration: 1.5 },
     });
-    await puzzleLocation.start({
+    await controls.start({
       x: xLocation,
       transition: { duration: 0.5 },
     });
+    controls.stop();
   }
 
   const resetPieces = async () => {
-    await controlsOuter.start({
+    await controls.start({
       x: 0,
     });
-    await controlsInner.start({
+    await controls.start({
       x: 0,
     });
   };
@@ -132,43 +121,48 @@ export function SkillsPuzzle() {
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces("outer", "moveRight")}
+        onViewportEnter={() => joinPieces(5)}
         onViewportLeave={() => resetPieces()}
         viewport={{ root: ref }}
-        animate={controlsOuter}
+        animate={controls}
       ></motion.img>
       <motion.img
         src={desktopPieces.css}
         alt="puzzle piece with the word CSS"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces("inner", "moveRight")}
+        onViewportEnter={() => joinPieces(4)}
         onViewportLeave={() => resetPieces()}
-        animate={controlsInner}
+        animate={controls}
       ></motion.img>
       <motion.img
         src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
         ref={centerRef}
+        initial={{ rotate: randomNum() }}
+        onViewportEnter={() => joinPieces(3)}
+        onViewportLeave={() => resetPieces()}
+        animate={controls}
       ></motion.img>
-      <img
+      <motion.img
         src={desktopPieces.bootstrap}
         alt="puzzle piece with the word Bootstrap"
-      ></img>
+        initial={{ rotate: randomNum() }}
+        onViewportEnter={() => joinPieces(3)}
+        onViewportLeave={() => resetPieces()}
+        animate={controls}
+      ></motion.img>
       <motion.img
         src={desktopPieces.react}
         alt="puzzle piece with the word React"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces("inner", "moveLeft")}
+        onViewportEnter={() => joinPieces(1)}
         onViewportLeave={() => resetPieces()}
-        animate={controlsInner}
+        animate={controls}
       ></motion.img>
       <motion.img
         src={desktopPieces.github}
         alt="puzzle piece with the word Github"
-        initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces("outer", "moveLeft")}
         onViewportLeave={() => resetPieces()}
-        animate={controlsOuter}
       ></motion.img>
     </div>
   );
