@@ -5,28 +5,21 @@ import { desktopPieces } from "./Imports";
 const TestPage = () => {
   const ref = useRef(null);
 
-  const controls1 = useAnimation();
-  const controls2 = useAnimation();
-  const controls3 = useAnimation();
-  const controls4 = useAnimation();
-  const controls5 = useAnimation();
-  const controls6 = useAnimation();
-
   const controls = [
-    controls1,
-    controls2,
-    controls3,
-    controls4,
-    controls5,
-    controls6,
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
   ];
+
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
 
   // math
   const divisor = (width / 125).toFixed(2);
   const distance = (25 * divisor).toFixed(2);
-  const outerDistance = (distance * 2).toFixed(2);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
@@ -40,7 +33,7 @@ const TestPage = () => {
   }, []);
 
   const variants = {
-    start: { x: 0, rotate: 0, transition: { delay: 0.5, duration: 1 } },
+    start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
     move: (custom) => ({
       x: custom.xDistance,
       transition: { duration: 0.5 },
@@ -55,11 +48,32 @@ const TestPage = () => {
     }
 
     // then move
-    for (let i = 0; i < controlsArr.length; i++) {
+    for (let i = 1; i < controlsArr.length; i++) {
       await controlsArr[i].start({
-        x: (i + 1) * distance,
+        x: i * distance,
         transition: { duration: 0.5 },
       });
+    }
+
+    // then move to the center
+    // 0 is moving too far + almost there! just need to include github
+    for (let i = 0; i < controlsArr.length; i++) {
+      let holder = 0;
+      if (i > 0) {
+        holder = i * distance - distance * 2;
+      } else if (i === 0) {
+        holder = -distance * 2;
+      }
+      controlsArr[i].start({
+        x: holder,
+        transition: { duration: 0.5 },
+      });
+    }
+  };
+
+  const resetAnimations = async (controlsArr) => {
+    for (let i = 0; i < controlsArr.length; i++) {
+      controlsArr[i].start("reset");
     }
   };
 
@@ -83,14 +97,14 @@ const TestPage = () => {
           alt="puzzle piece with the word HTML"
           initial={{ rotate: randomNum() }}
           viewport={{ root: ref }}
-          animate={controls[0]}
+          animate={controls[5]}
         ></motion.img>
         <motion.img
           variants={variants}
           src={desktopPieces.css}
           alt="puzzle piece with the word CSS"
           initial={{ rotate: randomNum() }}
-          animate={controls[1]}
+          animate={controls[4]}
         ></motion.img>
         <motion.img
           src={desktopPieces.js}
@@ -98,36 +112,54 @@ const TestPage = () => {
           alt="puzzle piece with the word JavaScript"
           ref={centerRef}
           initial={{ rotate: randomNum() }}
+          animate={controls[3]}
         ></motion.img>
         <motion.img
           src={desktopPieces.bootstrap}
           variants={variants}
           alt="puzzle piece with the word Bootstrap"
           initial={{ rotate: randomNum() }}
+          animate={controls[2]}
         ></motion.img>
         <motion.img
           src={desktopPieces.react}
           variants={variants}
           alt="puzzle piece with the word React"
           initial={{ rotate: randomNum() }}
+          animate={controls[1]}
         ></motion.img>
         <motion.img
           src={desktopPieces.github}
           variants={variants}
           alt="puzzle piece with the word Github"
+          initial={{ rotate: randomNum() }}
+          animate={controls[0]}
         ></motion.img>
       </div>
-      <button
-        style={{
-          height: "100px",
-          width: "200px",
-          borderRadius: "20px",
-          border: "1px solid blue",
-        }}
-        onClick={() => runAnimations(controls)}
-      >
-        Run animations
-      </button>
+      <div>
+        <button
+          style={{
+            height: "100px",
+            width: "200px",
+            borderRadius: "20px",
+            border: "1px solid red",
+          }}
+          onClick={() => resetAnimations(controls)}
+        >
+          Reset animations
+        </button>
+        <button
+          style={{
+            height: "100px",
+            width: "200px",
+            borderRadius: "20px",
+            border: "1px solid blue",
+          }}
+          onClick={() => runAnimations(controls)}
+        >
+          Run animations
+        </button>
+      </div>
     </div>
   );
 };
