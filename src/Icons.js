@@ -68,16 +68,20 @@ export function IntroPuzzle() {
 // puzzle in skill section
 export function SkillsPuzzle() {
   const ref = useRef(null);
-  const controls = useAnimation();
-  const controls1 = useAnimation();
-  const controls2 = useAnimation();
+  const controls = [
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+  ];
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
 
   // math
   const divisor = (width / 125).toFixed(2);
-  const innerDistance = (25 * divisor).toFixed(2);
-  const outerDistance = (innerDistance * 2).toFixed(2);
+  const distance = (25 * divisor).toFixed(2);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
@@ -90,29 +94,49 @@ export function SkillsPuzzle() {
     setWidth(rect1.width.toFixed(2));
   }, []);
 
-  // kind of works, just need to know where to put it
-  async function joinPieces(multiplier = 0) {
-    // determines where the piece should move
-    let xLocation = Number(innerDistance) * multiplier;
-    console.log(multiplier);
-    await controls.start({
-      rotate: 0,
-      transition: { delay: 1, duration: 1.5 },
-    });
-    await controls.start({
-      x: xLocation,
+  const variants = {
+    start: { x: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
+    move: (custom) => ({
+      x: custom.xDistance,
       transition: { duration: 0.5 },
-    });
-    controls.stop();
-  }
+    }),
+    reset: { x: 0 },
+  };
 
-  const resetPieces = async () => {
-    await controls.start({
-      x: 0,
-    });
-    await controls.start({
-      x: 0,
-    });
+  const runAnimations = async (controlsArr) => {
+    // rotate to correct position first
+    for (let i = 0; i < controlsArr.length; i++) {
+      await controlsArr[i].start("start");
+    }
+
+    // then move
+    for (let i = 1; i < controlsArr.length; i++) {
+      await controlsArr[i].start({
+        x: i * distance,
+        transition: { duration: 0.4 },
+      });
+    }
+
+    // then move to the center
+    // 0 is moving too far + almost there! just need to include github
+    for (let i = 0; i < controlsArr.length; i++) {
+      let holder = 0;
+      if (i > 0) {
+        holder = i * distance - distance * 2.5;
+      } else if (i === 0) {
+        holder = -distance * 2.5;
+      }
+      controlsArr[i].start({
+        x: holder,
+        transition: { duration: 0.5 },
+      });
+    }
+  };
+
+  const resetAnimations = async (controlsArr) => {
+    for (let i = 0; i < controlsArr.length; i++) {
+      controlsArr[i].start("reset");
+    }
   };
 
   return (
@@ -121,48 +145,56 @@ export function SkillsPuzzle() {
         src={desktopPieces.html}
         alt="puzzle piece with the word HTML"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces(5)}
-        onViewportLeave={() => resetPieces()}
+        variants={variants}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
         viewport={{ root: ref }}
-        animate={controls}
+        animate={controls[5]}
       ></motion.img>
       <motion.img
         src={desktopPieces.css}
         alt="puzzle piece with the word CSS"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces(4)}
-        onViewportLeave={() => resetPieces()}
-        animate={controls}
+        variants={variants}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
+        animate={controls[4]}
       ></motion.img>
       <motion.img
         src={desktopPieces.js}
         alt="puzzle piece with the word JavaScript"
+        variants={variants}
         ref={centerRef}
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces(3)}
-        onViewportLeave={() => resetPieces()}
-        animate={controls}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
+        animate={controls[3]}
       ></motion.img>
       <motion.img
         src={desktopPieces.bootstrap}
         alt="puzzle piece with the word Bootstrap"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces(3)}
-        onViewportLeave={() => resetPieces()}
-        animate={controls}
+        variants={variants}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
+        animate={controls[2]}
       ></motion.img>
       <motion.img
         src={desktopPieces.react}
         alt="puzzle piece with the word React"
         initial={{ rotate: randomNum() }}
-        onViewportEnter={() => joinPieces(1)}
-        onViewportLeave={() => resetPieces()}
-        animate={controls}
+        variants={variants}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
+        animate={controls[1]}
       ></motion.img>
       <motion.img
         src={desktopPieces.github}
         alt="puzzle piece with the word Github"
-        onViewportLeave={() => resetPieces()}
+        variants={variants}
+        onViewportEnter={() => runAnimations(controls)}
+        onViewportLeave={() => resetAnimations(controls)}
+        animate={controls[0]}
       ></motion.img>
     </div>
   );
