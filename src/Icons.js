@@ -78,10 +78,9 @@ export function SkillsPuzzle() {
   ];
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
-
   // math
-  const divisor = (width / 125).toFixed(2);
-  const distance = (25 * divisor).toFixed(2);
+  const divisor = (width / 125).toFixed(5);
+  const distance = (25 * divisor).toFixed(5);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
@@ -91,7 +90,8 @@ export function SkillsPuzzle() {
   useEffect(() => {
     // calculating distance
     const rect1 = centerRef.current.getBoundingClientRect();
-    setWidth(rect1.width.toFixed(2));
+
+    setWidth(rect1.width.toFixed(5));
   }, []);
 
   const variants = {
@@ -122,9 +122,9 @@ export function SkillsPuzzle() {
     for (let i = 0; i < controlsArr.length; i++) {
       let holder = 0;
       if (i > 0) {
-        holder = i * distance - distance * 2.5;
+        holder = i * distance - distance * 2;
       } else if (i === 0) {
-        holder = -distance * 2.5;
+        holder = -distance * 2;
       }
       controlsArr[i].start({
         x: holder,
@@ -138,7 +138,6 @@ export function SkillsPuzzle() {
       controlsArr[i].start("reset");
     }
   };
-
   return (
     <div className="skill-desktop-div" ref={ref}>
       <motion.img
