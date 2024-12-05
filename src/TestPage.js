@@ -3,6 +3,7 @@ import { useInView, motion, useAnimation } from "framer-motion";
 import useWindowSize from "./useWindowSize";
 import { desktopPieces } from "./Imports";
 
+//! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
   const size = useWindowSize();
   const ref = useRef(null);
@@ -30,19 +31,12 @@ const TestPage = () => {
   };
 
   React.useEffect(() => {
-    // calculating distance
-    let rect1 = 0;
-    if (centerRef.current) {
-      rect1 = centerRef.current.getBoundingClientRect();
-      console.log(rect1.width);
-    }
-
     if (isInView) {
-      setWidth(rect1.width.toFixed(2));
+      runAnimations(controls);
     } else {
-      setWidth(0);
+      resetAnimations(controls);
     }
-  }, [isInView]);
+  }, [isInView, controls]);
 
   const variants = {
     start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
@@ -54,9 +48,17 @@ const TestPage = () => {
   };
 
   const runAnimations = async (controlsArr) => {
+    let rect = 0;
     // rotate to correct position first
     for (let i = 0; i < controlsArr.length; i++) {
       await controlsArr[i].start("start");
+    }
+
+    // calculate
+    if (centerRef.current) {
+      rect = centerRef.current.getBoundingClientRect();
+      console.log(rect.width);
+      setWidth(rect.width.toFixed(2));
     }
 
     // then move
@@ -86,16 +88,17 @@ const TestPage = () => {
     for (let i = 0; i < controlsArr.length; i++) {
       controlsArr[i].start("reset");
     }
+
+    for (let i = 0; i < controlsArr.length; i++) {
+      controlsArr[i].start({ rotate: randomNum() });
+    }
+    setWidth(0);
   };
 
   const holder1 = [];
   let counter = Object.keys(desktopPieces).length;
-  let imgSize = "4em";
-  if (size.width > 800) {
-    imgSize = "13em";
-  } else if (size.width <= 650) {
-    imgSize = "4em";
-  }
+  let imgSize = "12em";
+
   for (const [key, value] of Object.entries(desktopPieces)) {
     const word = "puzzle piece with the word " + key;
     counter--;
@@ -106,10 +109,10 @@ const TestPage = () => {
           src={value}
           alt={word}
           variants={variants}
-          onViewportEnter={() => runAnimations(controls)}
-          onViewportLeave={() => resetAnimations(controls)}
+          // !ASSIGN A DIV THE REF TO MAKE CONTROLS WORK (?)
           viewport={{ root: ref }}
           ref={centerRef}
+          initial={{ rotate: randomNum() }}
           animate={controls[counter]}
         ></motion.img>
       </>
@@ -130,9 +133,11 @@ const TestPage = () => {
           flexFlow: "column",
         }}
       >
-        <motion.h3 className="header">InView Working</motion.h3>
-        <div className="skill-desktop-div" ref={ref}></div>
-        <div>{holder1}</div>
+        <motion.h3 className="header" ref={titleRef}>
+          InView Working
+        </motion.h3>
+        <div className="skill-desktop-div"></div>
+        <div ref={ref}>{holder1}</div>
         <div>
           <button
             style={{
@@ -160,7 +165,6 @@ const TestPage = () => {
       </div>
       <div style={{ height: "100vh" }}>
         <motion.h3
-          ref={titleRef}
           initial={{ x: 0 }}
           animate={
             isInView
