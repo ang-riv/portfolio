@@ -1,10 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
-import { delay, motion, useAnimation } from "framer-motion";
+import { useInView, motion, useAnimation } from "framer-motion";
+import useWindowSize from "./useWindowSize";
 import { desktopPieces } from "./Imports";
 
 const TestPage = () => {
+  const size = useWindowSize();
   const ref = useRef(null);
-
+  const titleRef = useRef(null);
+  const isInView = useInView(titleRef, { threshold: 0.5 });
   const controls = [
     useAnimation(),
     useAnimation(),
@@ -15,7 +18,7 @@ const TestPage = () => {
   ];
 
   const centerRef = useRef(null);
-  const [width, setWidth] = useState(null);
+  const [width, setWidth] = useState(0);
 
   // math
   const divisor = (width / 125).toFixed(2);
@@ -26,11 +29,20 @@ const TestPage = () => {
     return Math.floor(Math.random() * 361);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     // calculating distance
-    const rect1 = centerRef.current.getBoundingClientRect();
-    setWidth(rect1.width.toFixed(2));
-  }, []);
+    let rect1 = 0;
+    if (centerRef.current) {
+      rect1 = centerRef.current.getBoundingClientRect();
+      console.log(rect1.width);
+    }
+
+    if (isInView) {
+      setWidth(rect1.width.toFixed(2));
+    } else {
+      setWidth(0);
+    }
+  }, [isInView]);
 
   const variants = {
     start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
@@ -56,7 +68,6 @@ const TestPage = () => {
     }
 
     // then move to the center
-    // 0 is moving too far + almost there! just need to include github
     for (let i = 0; i < controlsArr.length; i++) {
       let holder = 0;
       if (i > 0) {
@@ -79,21 +90,26 @@ const TestPage = () => {
 
   const holder1 = [];
   let counter = Object.keys(desktopPieces).length;
-  let testerArr = ["hello", "hi", "howdy", "hey", "morning", "hey hey"];
-  console.log(counter);
+  let imgSize = "4em";
+  if (size.width > 800) {
+    imgSize = "13em";
+  } else if (size.width <= 650) {
+    imgSize = "4em";
+  }
   for (const [key, value] of Object.entries(desktopPieces)) {
     const word = "puzzle piece with the word " + key;
     counter--;
     holder1.push(
       <>
         <motion.img
+          style={{ height: imgSize, width: imgSize }}
           src={value}
           alt={word}
-          initial={{ rotate: randomNum() }}
           variants={variants}
           onViewportEnter={() => runAnimations(controls)}
           onViewportLeave={() => resetAnimations(controls)}
           viewport={{ root: ref }}
+          ref={centerRef}
           animate={controls[counter]}
         ></motion.img>
       </>
@@ -101,89 +117,65 @@ const TestPage = () => {
   }
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100wh",
-        outline: "1px dotted pink",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#88E788",
-        flexFlow: "column",
-      }}
-    >
-      <div className="skill-desktop-div" ref={ref}>
-        <motion.img
-          variants={variants}
-          src={desktopPieces.html}
-          alt="puzzle piece with the word HTML"
-          initial={{ rotate: randomNum() }}
-          viewport={{ root: ref }}
-          animate={controls[5]}
-        ></motion.img>
-        <motion.img
-          variants={variants}
-          src={desktopPieces.css}
-          alt="puzzle piece with the word CSS"
-          initial={{ rotate: randomNum() }}
-          animate={controls[4]}
-        ></motion.img>
-        <motion.img
-          src={desktopPieces.js}
-          variants={variants}
-          alt="puzzle piece with the word JavaScript"
-          ref={centerRef}
-          initial={{ rotate: randomNum() }}
-          animate={controls[3]}
-        ></motion.img>
-        <motion.img
-          src={desktopPieces.bootstrap}
-          variants={variants}
-          alt="puzzle piece with the word Bootstrap"
-          initial={{ rotate: randomNum() }}
-          animate={controls[2]}
-        ></motion.img>
-        <motion.img
-          src={desktopPieces.react}
-          variants={variants}
-          alt="puzzle piece with the word React"
-          initial={{ rotate: randomNum() }}
-          animate={controls[1]}
-        ></motion.img>
-        <motion.img
-          src={desktopPieces.github}
-          variants={variants}
-          alt="puzzle piece with the word Github"
-          initial={{ rotate: randomNum() }}
-          animate={controls[0]}
-        ></motion.img>
+    <div>
+      <div
+        style={{
+          height: "100vh",
+          width: "100wh",
+          outline: "1px dotted pink",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#88E788",
+          flexFlow: "column",
+        }}
+      >
+        <motion.h3 className="header">InView Working</motion.h3>
+        <div className="skill-desktop-div" ref={ref}></div>
+        <div>{holder1}</div>
+        <div>
+          <button
+            style={{
+              height: "100px",
+              width: "200px",
+              borderRadius: "20px",
+              border: "1px solid red",
+            }}
+            onClick={() => resetAnimations(controls)}
+          >
+            Reset animations
+          </button>
+          <button
+            style={{
+              height: "100px",
+              width: "200px",
+              borderRadius: "20px",
+              border: "1px solid blue",
+            }}
+            onClick={() => runAnimations(controls)}
+          >
+            Run animations
+          </button>
+        </div>
       </div>
-      <div>{holder1}</div>
-      <div>
-        <button
-          style={{
-            height: "100px",
-            width: "200px",
-            borderRadius: "20px",
-            border: "1px solid red",
-          }}
-          onClick={() => resetAnimations(controls)}
+      <div style={{ height: "100vh" }}>
+        <motion.h3
+          ref={titleRef}
+          initial={{ x: 0 }}
+          animate={
+            isInView
+              ? {
+                  x: 100,
+                  transition: { delay: 1 },
+                }
+              : { x: 0 }
+          }
         >
-          Reset animations
-        </button>
-        <button
-          style={{
-            height: "100px",
-            width: "200px",
-            borderRadius: "20px",
-            border: "1px solid blue",
-          }}
-          onClick={() => runAnimations(controls)}
-        >
-          Run animations
-        </button>
+          useInView Working {width}
+        </motion.h3>
       </div>
+      <div style={{ height: "200vh" }}></div>
+      <h3>{width}</h3>
     </div>
   );
 };
