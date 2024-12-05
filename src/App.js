@@ -9,7 +9,7 @@ import ContactSection from "./ContactSection.js";
 import TestPage from "./TestPage.js";
 
 function App() {
-  const animateTest = true;
+  const animateTest = false;
   const introRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);

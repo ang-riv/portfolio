@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
-import { useAnimation, motion, inView, distance } from "framer-motion";
+import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
@@ -68,6 +68,7 @@ export function IntroPuzzle() {
 // puzzle in skill section
 export function SkillsPuzzle() {
   const ref = useRef(null);
+  const isInView = useInView(ref, { threshold: 0.5 });
   const controls = [
     useAnimation(),
     useAnimation(),
@@ -88,11 +89,12 @@ export function SkillsPuzzle() {
   };
 
   useEffect(() => {
-    // calculating distance
-    const rect1 = centerRef.current.getBoundingClientRect();
-
-    setWidth(rect1.width.toFixed(5));
-  }, []);
+    if (isInView) {
+      runAnimations(controls);
+    } else {
+      resetAnimations(controls);
+    }
+  }, [isInView, controls]);
 
   const variants = {
     start: { x: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
@@ -104,9 +106,17 @@ export function SkillsPuzzle() {
   };
 
   const runAnimations = async (controlsArr) => {
+    let rect = 0;
     // rotate to correct position first
     for (let i = 0; i < controlsArr.length; i++) {
       await controlsArr[i].start("start");
+    }
+
+    // calculate distance
+    if (centerRef.current) {
+      rect = centerRef.current.getBoundingClientRect();
+      console.log(rect.width);
+      setWidth(rect.width.toFixed(2));
     }
 
     // then move
@@ -118,7 +128,6 @@ export function SkillsPuzzle() {
     }
 
     // then move to the center
-    // 0 is moving too far + almost there! just need to include github
     for (let i = 0; i < controlsArr.length; i++) {
       let holder = 0;
       if (i > 0) {
@@ -137,6 +146,11 @@ export function SkillsPuzzle() {
     for (let i = 0; i < controlsArr.length; i++) {
       controlsArr[i].start("reset");
     }
+
+    for (let i = 0; i < controlsArr.length; i++) {
+      controlsArr[i].start({ rotate: randomNum() });
+    }
+    setWidth(0);
   };
 
   // condensing imgs
@@ -153,8 +167,6 @@ export function SkillsPuzzle() {
           alt={word}
           initial={{ rotate: randomNum() }}
           variants={variants}
-          onViewportEnter={() => runAnimations(controls)}
-          onViewportLeave={() => resetAnimations(controls)}
           viewport={{ root: ref }}
           ref={centerRef}
           animate={controls[counter]}

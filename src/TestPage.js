@@ -5,7 +5,6 @@ import { desktopPieces } from "./Imports";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
-  const size = useWindowSize();
   const ref = useRef(null);
   const titleRef = useRef(null);
   const isInView = useInView(titleRef, { threshold: 0.5 });
@@ -30,7 +29,7 @@ const TestPage = () => {
     return Math.floor(Math.random() * 361);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isInView) {
       runAnimations(controls);
     } else {
@@ -97,7 +96,7 @@ const TestPage = () => {
 
   const holder1 = [];
   let counter = Object.keys(desktopPieces).length;
-  let imgSize = "12em";
+  let imgSize = "9em";
 
   for (const [key, value] of Object.entries(desktopPieces)) {
     const word = "puzzle piece with the word " + key;
