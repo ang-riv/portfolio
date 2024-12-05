@@ -77,6 +77,29 @@ const TestPage = () => {
     }
   };
 
+  const holder1 = [];
+  let counter = Object.keys(desktopPieces).length;
+  let testerArr = ["hello", "hi", "howdy", "hey", "morning", "hey hey"];
+  console.log(counter);
+  for (const [key, value] of Object.entries(desktopPieces)) {
+    const word = "puzzle piece with the word " + key;
+    counter--;
+    holder1.push(
+      <>
+        <motion.img
+          src={value}
+          alt={word}
+          initial={{ rotate: randomNum() }}
+          variants={variants}
+          onViewportEnter={() => runAnimations(controls)}
+          onViewportLeave={() => resetAnimations(controls)}
+          viewport={{ root: ref }}
+          animate={controls[counter]}
+        ></motion.img>
+      </>
+    );
+  }
+
   return (
     <div
       style={{
@@ -136,6 +159,7 @@ const TestPage = () => {
           animate={controls[0]}
         ></motion.img>
       </div>
+      <div>{holder1}</div>
       <div>
         <button
           style={{

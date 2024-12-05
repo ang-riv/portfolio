@@ -138,63 +138,34 @@ export function SkillsPuzzle() {
       controlsArr[i].start("reset");
     }
   };
+
+  // condensing imgs
+  const imgArr = [];
+  let counter = Object.keys(desktopPieces).length;
+
+  for (const [key, value] of Object.entries(desktopPieces)) {
+    const word = "puzzle piece with the word " + key;
+    counter--;
+    imgArr.push(
+      <>
+        <motion.img
+          src={value}
+          alt={word}
+          initial={{ rotate: randomNum() }}
+          variants={variants}
+          onViewportEnter={() => runAnimations(controls)}
+          onViewportLeave={() => resetAnimations(controls)}
+          viewport={{ root: ref }}
+          ref={centerRef}
+          animate={controls[counter]}
+        ></motion.img>
+      </>
+    );
+  }
+
   return (
     <div className="skill-desktop-div" ref={ref}>
-      <motion.img
-        src={desktopPieces.html}
-        alt="puzzle piece with the word HTML"
-        initial={{ rotate: randomNum() }}
-        variants={variants}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        viewport={{ root: ref }}
-        animate={controls[5]}
-      ></motion.img>
-      <motion.img
-        src={desktopPieces.css}
-        alt="puzzle piece with the word CSS"
-        initial={{ rotate: randomNum() }}
-        variants={variants}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        animate={controls[4]}
-      ></motion.img>
-      <motion.img
-        src={desktopPieces.js}
-        alt="puzzle piece with the word JavaScript"
-        variants={variants}
-        ref={centerRef}
-        initial={{ rotate: randomNum() }}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        animate={controls[3]}
-      ></motion.img>
-      <motion.img
-        src={desktopPieces.bootstrap}
-        alt="puzzle piece with the word Bootstrap"
-        initial={{ rotate: randomNum() }}
-        variants={variants}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        animate={controls[2]}
-      ></motion.img>
-      <motion.img
-        src={desktopPieces.react}
-        alt="puzzle piece with the word React"
-        initial={{ rotate: randomNum() }}
-        variants={variants}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        animate={controls[1]}
-      ></motion.img>
-      <motion.img
-        src={desktopPieces.github}
-        alt="puzzle piece with the word Github"
-        variants={variants}
-        onViewportEnter={() => runAnimations(controls)}
-        onViewportLeave={() => resetAnimations(controls)}
-        animate={controls[0]}
-      ></motion.img>
+      {imgArr}
     </div>
   );
 }
