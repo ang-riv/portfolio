@@ -68,7 +68,10 @@ export function IntroPuzzle() {
 // puzzle in skill section
 export function SkillsPuzzle() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { threshold: 0.5 });
+  const isInView = useInView(ref, {
+    threshold: 1.0,
+    margin: "-40% 0px",
+  });
   const controls = [
     useAnimation(),
     useAnimation(),
@@ -91,17 +94,15 @@ export function SkillsPuzzle() {
   useEffect(() => {
     if (isInView) {
       runAnimations(controls);
+      console.log("is in view");
     } else {
       resetAnimations(controls);
+      console.log("is not in view");
     }
   }, [isInView, controls]);
 
   const variants = {
-    start: { x: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
-    move: (custom) => ({
-      x: custom.xDistance,
-      transition: { duration: 0.5 },
-    }),
+    start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
     reset: { x: 0 },
   };
 
@@ -123,7 +124,6 @@ export function SkillsPuzzle() {
     for (let i = 1; i < controlsArr.length; i++) {
       await controlsArr[i].start({
         x: i * distance,
-        transition: { duration: 0.4 },
       });
     }
 
@@ -148,7 +148,10 @@ export function SkillsPuzzle() {
     }
 
     for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start({ rotate: randomNum() });
+      controlsArr[i].start({
+        rotate: randomNum(),
+        transition: { duration: 0.5 },
+      });
     }
     setWidth(0);
   };
