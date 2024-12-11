@@ -72,6 +72,7 @@ export function SkillsPuzzle() {
     threshold: 1.0,
     margin: "-40% 0px",
   });
+  // wrap this in useMemo???
   const controls = [
     useAnimation(),
     useAnimation(),
@@ -82,79 +83,80 @@ export function SkillsPuzzle() {
   ];
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
-  // math
-  const divisor = (width / 125).toFixed(5);
-  const distance = (25 * divisor).toFixed(5);
+
+  // 125 is the originalwidth of the puzzle piece image and 25 is the original distance between them
+  const originalWidth = 125;
+  const originalDistance = 25;
+  const divisor = (width / originalWidth).toFixed(5);
+  const distance = (originalDistance * divisor).toFixed(5);
 
   // create a random direction to rotate the piece
   const randomNum = () => {
     return Math.floor(Math.random() * 361);
   };
 
-  useEffect(() => {
-    if (isInView) {
-      runAnimations(controls);
-      console.log("is in view");
-    } else {
-      resetAnimations(controls);
-      console.log("is not in view");
-    }
-  }, [isInView, controls]);
-
   const variants = {
     start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
     reset: { x: 0 },
   };
 
-  const runAnimations = async (controlsArr) => {
-    let rect = 0;
-    // rotate to correct position first
-    for (let i = 0; i < controlsArr.length; i++) {
-      await controlsArr[i].start("start");
-    }
-
-    // calculate distance
-    if (centerRef.current) {
-      rect = centerRef.current.getBoundingClientRect();
-      console.log(rect.width);
-      setWidth(rect.width.toFixed(2));
-    }
-
-    // then move
-    for (let i = 1; i < controlsArr.length; i++) {
-      await controlsArr[i].start({
-        x: i * distance,
-      });
-    }
-
-    // then move to the center
-    for (let i = 0; i < controlsArr.length; i++) {
-      let holder = 0;
-      if (i > 0) {
-        holder = i * distance - distance * 2;
-      } else if (i === 0) {
-        holder = -distance * 2;
+  useEffect(() => {
+    // move the pieces
+    const runAnimations = async (controlsArr) => {
+      let rect = 0;
+      // rotate to correct position first
+      for (let i = 0; i < controlsArr.length; i++) {
+        await controlsArr[i].start("start");
       }
-      controlsArr[i].start({
-        x: holder,
-        transition: { duration: 0.5 },
-      });
-    }
-  };
 
-  const resetAnimations = async (controlsArr) => {
-    for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start("reset");
-    }
+      // calculate distance
+      if (centerRef.current) {
+        rect = centerRef.current.getBoundingClientRect();
+        setWidth(rect.width.toFixed(2));
+      }
 
-    for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start({
-        rotate: randomNum(),
-        transition: { duration: 0.5 },
-      });
+      // then move
+      for (let i = 1; i < controlsArr.length; i++) {
+        await controlsArr[i].start({
+          x: i * distance,
+        });
+      }
+
+      // then move to the center
+      for (let i = 0; i < controlsArr.length; i++) {
+        let holder = 0;
+        if (i > 0) {
+          holder = i * distance - distance * 2;
+        } else if (i === 0) {
+          holder = -distance * 2;
+        }
+        controlsArr[i].start({
+          x: holder,
+          transition: { duration: 0.5 },
+        });
+      }
+    };
+
+    // reset pieces
+    const resetAnimations = async (controlsArr) => {
+      for (let i = 0; i < controlsArr.length; i++) {
+        controlsArr[i].start("reset");
+      }
+
+      for (let i = 0; i < controlsArr.length; i++) {
+        controlsArr[i].start({
+          rotate: randomNum(),
+          transition: { duration: 0.5 },
+        });
+      }
+      setWidth(0);
+    };
+    if (isInView) {
+      runAnimations(controls);
+    } else {
+      resetAnimations(controls);
     }
-    setWidth(0);
-  };
+  }, [isInView, controls, distance]);
 
   // condensing imgs
   const imgArr = [];
