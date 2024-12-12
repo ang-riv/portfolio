@@ -72,7 +72,7 @@ export function SkillsPuzzle() {
     threshold: 1.0,
     margin: "-40% 0px",
   });
-  // wrap this in useMemo???
+
   const controls = [
     useAnimation(),
     useAnimation(),

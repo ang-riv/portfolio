@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
 import useWindowSize from "./useWindowSize";
-import { desktopPieces } from "./Imports";
+import { desktopPieces, introPieces } from "./Imports";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
@@ -13,47 +13,51 @@ const TestPage = () => {
     useAnimation(),
     useAnimation(),
     useAnimation(),
-    useAnimation(),
-    useAnimation(),
   ];
 
   const centerRef = useRef(null);
   const [width, setWidth] = useState(0);
-
+  const [clicked, setClicked] = useState(false);
   // math
-  const divisor = (width / 125).toFixed(2);
-  const distance = (25 * divisor).toFixed(2);
+  const divisor = (width / 200).toFixed(2);
+  // original distance = 50
+  const distance = (50 * divisor).toFixed(2);
 
   // create a random direction to rotate the piece
-  const randomNum = () => {
-    return Math.floor(Math.random() * 361);
-  };
-
   useEffect(() => {
-    if (isInView) {
+    if (clicked === true) {
       runAnimations(controls);
     } else {
       resetAnimations(controls);
     }
-  }, [isInView, controls]);
+  }, [clicked, controls]);
 
   const variants = {
-    start: { x: 0, rotate: 0, transition: { duration: 0.5 } },
-    move: (custom) => ({
-      x: custom.xDistance,
-      transition: { duration: 0.5 },
-    }),
-    reset: { x: 0 },
+    even: { y: -78, transition: { duration: 0.5 } },
+    odd: { y: 78, transition: { duration: 0.5 } },
+    left: { x: -50, transition: { duration: 0.5 } },
+    right: { x: 50, transition: { duration: 0.5 } },
+    reset: { x: 0, y: 0 },
   };
 
   const runAnimations = async (controlsArr) => {
     let rect = 0;
-    // rotate to correct position first
+    setClicked(true);
+    console.log("clicked");
+    // y movement
     for (let i = 0; i < controlsArr.length; i++) {
-      await controlsArr[i].start("start");
+      if (i === 0 || i === 1) await controlsArr[i].start("odd");
+      else await controlsArr[i].start("even");
+    }
+
+    // x movement
+    for (let i = 0; i < controlsArr.length; i++) {
+      if (i === 0 || i === 2) controlsArr[i].start("right");
+      else controlsArr[i].start("left");
     }
 
     // calculate
+    /*
     if (centerRef.current) {
       rect = centerRef.current.getBoundingClientRect();
       console.log(rect.width);
@@ -80,7 +84,8 @@ const TestPage = () => {
         x: holder,
         transition: { duration: 0.5 },
       });
-    }
+  }
+      */
   };
 
   const resetAnimations = async (controlsArr) => {
@@ -88,31 +93,27 @@ const TestPage = () => {
       controlsArr[i].start("reset");
     }
 
-    for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start({ rotate: randomNum() });
-    }
+    for (let i = 0; i < controlsArr.length; i++) {}
     setWidth(0);
+    setClicked(false);
   };
 
   const holder1 = [];
-  let counter = Object.keys(desktopPieces).length;
+  let countUp = -1;
+  let counter = Object.keys(introPieces).length;
   let imgSize = "9em";
 
-  for (const [key, value] of Object.entries(desktopPieces)) {
-    const word = "puzzle piece with the word " + key;
-    counter--;
+  for (const [key, value] of Object.entries(introPieces)) {
+    const word = "puzzle piece";
+    countUp++;
     holder1.push(
       <>
         <motion.img
-          style={{ height: imgSize, width: imgSize }}
           src={value}
           alt={word}
           variants={variants}
-          // !ASSIGN A DIV THE REF TO MAKE CONTROLS WORK (?)
-          viewport={{ root: ref }}
           ref={centerRef}
-          initial={{ rotate: randomNum() }}
-          animate={controls[counter]}
+          animate={controls[countUp]}
         ></motion.img>
       </>
     );
@@ -132,35 +133,45 @@ const TestPage = () => {
           flexFlow: "column",
         }}
       >
-        <motion.h3 className="header" ref={titleRef}>
-          InView Working
-        </motion.h3>
-        <div className="skill-desktop-div"></div>
-        <div ref={ref}>{holder1}</div>
-        <div>
-          <button
-            style={{
-              height: "100px",
-              width: "200px",
-              borderRadius: "20px",
-              border: "1px solid red",
-            }}
-            onClick={() => resetAnimations(controls)}
-          >
-            Reset animations
-          </button>
-          <button
-            style={{
-              height: "100px",
-              width: "200px",
-              borderRadius: "20px",
-              border: "1px solid blue",
-            }}
-            onClick={() => runAnimations(controls)}
-          >
-            Run animations
-          </button>
+        <div
+          style={{
+            height: "60vh",
+            width: "60vh",
+            outline: "1px solid lavender",
+            display: "flex",
+            flexFlow: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {holder1}
         </div>
+        <button
+          style={{
+            height: "50px",
+            width: "fit-content",
+            marginTop: "25px",
+            padding: "0px 10px",
+            border: "1px solid white",
+            borderRadius: "10px",
+          }}
+          onClick={() => resetAnimations(controls)}
+        >
+          Reset Animations
+        </button>
+        <button
+          style={{
+            height: "50px",
+            width: "fit-content",
+            marginTop: "25px",
+            padding: "0px 10px",
+            border: "1px solid white",
+            borderRadius: "10px",
+          }}
+          onClick={() => runAnimations(controls)}
+        >
+          Run Animations
+        </button>
       </div>
       <div style={{ height: "100vh" }}>
         <motion.h3
