@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
 import useWindowSize from "./useWindowSize";
 import { desktopPieces, introPieces } from "./Imports";
+import { SocialLinks } from "./Icons";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
@@ -16,12 +17,14 @@ const TestPage = () => {
   ];
 
   const centerRef = useRef(null);
-  const [width, setWidth] = useState(0);
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
+  const yMove = (distance / 2).toFixed(2);
   // math
-  const divisor = (width / 200).toFixed(2);
   // original distance = 50
-  const distance = (50 * divisor).toFixed(2);
 
   // create a random direction to rotate the piece
   useEffect(() => {
@@ -33,8 +36,8 @@ const TestPage = () => {
   }, [clicked, controls]);
 
   const variants = {
-    even: { y: -78, transition: { duration: 0.5 } },
-    odd: { y: 78, transition: { duration: 0.5 } },
+    even: { y: -65, transition: { duration: 0.5 } },
+    odd: { y: 65, transition: { duration: 0.5 } },
     left: { x: -50, transition: { duration: 0.5 } },
     right: { x: 50, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
@@ -44,6 +47,10 @@ const TestPage = () => {
     let rect = 0;
     setClicked(true);
     console.log("clicked");
+
+    //! math is not mathing + sequence of events
+    // calculate distance for y movement
+
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
       if (i === 0 || i === 1) await controlsArr[i].start("odd");
@@ -55,64 +62,53 @@ const TestPage = () => {
       if (i === 0 || i === 2) controlsArr[i].start("right");
       else controlsArr[i].start("left");
     }
-
-    // calculate
-    /*
-    if (centerRef.current) {
-      rect = centerRef.current.getBoundingClientRect();
-      console.log(rect.width);
-      setWidth(rect.width.toFixed(2));
-    }
-
-    // then move
-    for (let i = 1; i < controlsArr.length; i++) {
-      await controlsArr[i].start({
-        x: i * distance,
-        transition: { duration: 0.5 },
-      });
-    }
-
-    // then move to the center
-    for (let i = 0; i < controlsArr.length; i++) {
-      let holder = 0;
-      if (i > 0) {
-        holder = i * distance - distance * 2;
-      } else if (i === 0) {
-        holder = -distance * 2;
-      }
-      controlsArr[i].start({
-        x: holder,
-        transition: { duration: 0.5 },
-      });
-  }
-      */
   };
 
+  const findDistance = () => {
+    if (topRef.current && bottomRef.current) {
+      const rect1 = topRef.current.getBoundingClientRect();
+      const rect2 = bottomRef.current.getBoundingClientRect();
+
+      const dy = rect2.top - rect1.bottom;
+      const calculatedDistance = Math.abs(dy);
+      setDistance(rect1.bottom.toFixed(2));
+    }
+  };
   const resetAnimations = async (controlsArr) => {
     for (let i = 0; i < controlsArr.length; i++) {
       controlsArr[i].start("reset");
     }
 
     for (let i = 0; i < controlsArr.length; i++) {}
-    setWidth(0);
     setClicked(false);
   };
 
   const holder1 = [];
   let countUp = -1;
-  let counter = Object.keys(introPieces).length;
-  let imgSize = "9em";
 
   for (const [key, value] of Object.entries(introPieces)) {
     const word = "puzzle piece";
     countUp++;
+
+    let currentRef;
+    switch (key) {
+      case "pinkPiece":
+        currentRef = topRef;
+        break;
+      case "yellowPiece":
+        currentRef = bottomRef;
+        break;
+      default:
+        currentRef = centerRef;
+    }
+
     holder1.push(
       <>
         <motion.img
           src={value}
           alt={word}
           variants={variants}
-          ref={centerRef}
+          ref={currentRef}
           animate={controls[countUp]}
         ></motion.img>
       </>
@@ -146,50 +142,72 @@ const TestPage = () => {
         >
           {holder1}
         </div>
-        <button
-          style={{
-            height: "50px",
-            width: "fit-content",
-            marginTop: "25px",
-            padding: "0px 10px",
-            border: "1px solid white",
-            borderRadius: "10px",
-          }}
-          onClick={() => resetAnimations(controls)}
-        >
-          Reset Animations
-        </button>
-        <button
-          style={{
-            height: "50px",
-            width: "fit-content",
-            marginTop: "25px",
-            padding: "0px 10px",
-            border: "1px solid white",
-            borderRadius: "10px",
-          }}
-          onClick={() => runAnimations(controls)}
-        >
-          Run Animations
-        </button>
+        <div>
+          <button
+            style={{
+              height: "50px",
+              width: "fit-content",
+              margin: "25px 10px",
+              padding: "0px 10px",
+              border: "1px solid white",
+              borderRadius: "10px",
+            }}
+            onClick={() => resetAnimations(controls)}
+          >
+            Reset Animations
+          </button>
+          <button
+            style={{
+              height: "50px",
+              width: "fit-content",
+              margin: "25px 10px",
+              padding: "0px 10px",
+              border: "1px solid white",
+              borderRadius: "10px",
+            }}
+            onClick={() => runAnimations(controls)}
+          >
+            Run Animations
+          </button>
+          <button
+            style={{
+              height: "50px",
+              width: "fit-content",
+              margin: "25px 10px",
+              padding: "0px 10px",
+              border: "1px solid white",
+              borderRadius: "10px",
+            }}
+            onClick={() => findDistance()}
+          >
+            Calculate Distance
+          </button>
+        </div>
+        <h3>Distance is: {distance}</h3>
       </div>
-      <div style={{ height: "100vh" }}>
-        <motion.h3
-          initial={{ x: 0 }}
-          animate={
-            isInView
-              ? {
-                  x: 100,
-                  transition: { delay: 1 },
-                }
-              : { x: 0 }
-          }
+      <div
+        style={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#a8dcab",
+        }}
+      >
+        <div
+          style={{
+            height: "50%",
+            width: "80%",
+            border: "1px dotted blue",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          useInView Working {width}
-        </motion.h3>
+          <SocialLinks />
+        </div>
       </div>
-      <div style={{ height: "200vh" }}></div>
-      <h3>{width}</h3>
     </div>
   );
 };
