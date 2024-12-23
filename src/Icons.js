@@ -372,47 +372,61 @@ export function FrontEndMentorIcon(props) {
 /* groups together the social links + styles */
 export function SocialLinks() {
   // hover styles
-  const [isHovered, setIsHovered] = useState(false);
-  // try to make it DRY
+  // set to numbers to make it specific then attach it to...? maybe go back to using useAnimation and control again
+  // use useRef and useAnimation with controls
+  const controls = useAnimation();
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  // try to make it DRY with common traits
+  const iconProps = {
+    style: { marginLeft: "0.3em" },
+    color: hoveredIndex !== null ? "lightPink" : "black",
+  };
+  const specificInfo = [
+    {
+      name: "Github",
+      link: "https://github.com/ang-riv",
+      icon: <GithubIcon {...iconProps} />,
+      class: "link-title",
+    },
+    {
+      name: "Email",
+      link: "mailto: a.riveraa99@gmail.com",
+      icon: <EmailIcon {...iconProps} />,
+      class: "link-title",
+    },
+    {
+      name: "LinkedIn",
+      link: "https://www.linkedin.com/in/ang-riv",
+      icon: <LinkedInIcon {...iconProps} />,
+      class: "link-title",
+    },
+    {
+      name: "FrontEndMentor",
+      link: "https://www.frontendmentor.io/profile/ang-riv",
+      icon: <FrontEndMentorIcon {...iconProps} />,
+      class: "link-title last-link-title",
+    },
+  ];
   return (
     <>
-      <motion.a
-        href="https://github.com/ang-riv"
-        target="_blank"
-        rel="noreferrer"
-        className="link-style"
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        animate={{
-          border: isHovered ? "2px solid lightPink" : "none",
-        }}
-      >
-        <GithubIcon
-          style={{ marginLeft: "0.3em" }}
-          color={isHovered ? "lightPink" : "black"}
-        />
-        <motion.p className="link-title">Github</motion.p>
-      </motion.a>
-      <a
-        href="mailto: a.riveraa99@gmail.com"
-        target="_blank"
-        rel="noreferrer"
-        className="link-style"
-      >
-        <EmailIcon style={{ marginLeft: "0.3em" }} />
-        <p className="link-title">Email</p>
-      </a>
-      <a href="https://www.linkedin.com/in/ang-riv" className="link-style">
-        <LinkedInIcon style={{ marginLeft: "0.3em" }} />
-        <p className="link-title">LinkedIn</p>
-      </a>
-      <a
-        href="https://www.frontendmentor.io/profile/ang-riv"
-        className="link-style"
-      >
-        <FrontEndMentorIcon style={{ marginLeft: "0.5em" }} />
-        <p className="link-title last-link-title">FrontEndMentor</p>
-      </a>
+      {specificInfo.map((item, index) => (
+        <motion.a
+          key={index}
+          href={item.link}
+          target="_blank"
+          rel="noreferrer"
+          className="link-style"
+          onHoverStart={() => setHoveredIndex(index)}
+          onHoverEnd={() => setHoveredIndex(null)}
+          style={{
+            border: hoveredIndex === index ? "2px solid blue" : "none",
+          }}
+        >
+          {item.icon}
+          <p className={item.class}>{item.name}</p>
+        </motion.a>
+      ))}
     </>
   );
 }
