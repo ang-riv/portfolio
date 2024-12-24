@@ -2,8 +2,12 @@ import React, { useRef, useEffect, useState } from "react";
 import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { introPieces, desktopPieces, mobilePieces } from "./Imports";
-import { hover } from "@testing-library/user-event/dist/hover";
+import {
+  introPieces,
+  desktopPieces,
+  mobilePieces,
+  globalColors,
+} from "./Imports";
 
 /**** INTRO SECTION ****/
 
@@ -375,23 +379,23 @@ export function SocialLinks() {
   // hover styles
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  // try to make it DRY with common traits
+  // colors depending on which link is hovered over
   const getHoverColor = (index) => {
     switch (index) {
       case 0:
-        return "lightPink";
+        return globalColors.pink;
       case 1:
-        return "lightBlue";
+        return globalColors.yellow;
       case 2:
-        return "lavender";
+        return globalColors.green;
       case 3:
-        return "lightGreen";
+        return globalColors.purple;
       default:
         return "black";
     }
   };
 
-  // maybe try to put it into an array?
+  // specific social link info
   const specificInfo = [
     {
       name: "Github",
@@ -446,14 +450,20 @@ export function SocialLinks() {
             style={{
               outline:
                 hoveredIndex === index
-                  ? `3px solid ${color()}`
+                  ? `4px solid ${color()}`
                   : getHoverColor(),
             }}
           >
-            {/* need to figure out how to attach the icon color change to the index*/}
-
             {iconComponents[index]}
-            <p className={item.class}>{item.name}</p>
+            <p
+              className={item.class}
+              style={{
+                boxShadow:
+                  hoveredIndex === index ? `0 4px 0 0 ${color()}` : "none",
+              }}
+            >
+              {item.name}
+            </p>
           </motion.a>
         );
       })}
