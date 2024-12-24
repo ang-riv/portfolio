@@ -377,7 +377,6 @@ export function FrontEndMentorIcon(props) {
 /* groups together the social links + styles */
 export function SocialLinks() {
   // hover styles
-
   const [hoveredIndex, setHoveredIndex] = useState(null);
   // colors depending on which link is hovered over
   const getHoverColor = (index) => {

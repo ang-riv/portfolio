@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
-import useWindowSize from "./useWindowSize";
-import { desktopPieces, introPieces } from "./Imports";
+import { introPieces } from "./Imports";
 import { SocialLinks } from "./Icons";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
@@ -36,8 +35,8 @@ const TestPage = () => {
   }, [clicked, controls]);
 
   const variants = {
-    even: { y: -65, transition: { duration: 0.5 } },
-    odd: { y: 65, transition: { duration: 0.5 } },
+    even: { y: -80, transition: { duration: 0.5 } },
+    odd: { y: 80, transition: { duration: 0.5 } },
     left: { x: -50, transition: { duration: 0.5 } },
     right: { x: 50, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
