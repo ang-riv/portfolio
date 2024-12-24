@@ -3,6 +3,7 @@ import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 /**** INTRO SECTION ****/
 
@@ -328,7 +329,7 @@ export function EmailIcon(props) {
       {...props}
     >
       <path
-        fill="black"
+        fill={props.color}
         d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4l-8 5l-8-5V6l8 5l8-5z"
       ></path>
     </svg>
@@ -372,21 +373,37 @@ export function FrontEndMentorIcon(props) {
 /* groups together the social links + styles */
 export function SocialLinks() {
   // hover styles
-  // set to numbers to make it specific then attach it to...? maybe go back to using useAnimation and control again
-  // use useRef and useAnimation with controls
+  // make a switch?
   const controls = useAnimation();
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   // try to make it DRY with common traits
+  // try switch case?
+  const getHoverColor = (index) => {
+    switch (index) {
+      case 0:
+        return "lightPink";
+      case 1:
+        return "lightBlue";
+      case 2:
+        return "lavender";
+      case 3:
+        return "lightGreen";
+      default:
+        return "black";
+    }
+  };
   const iconProps = {
     style: { marginLeft: "0.3em" },
-    color: hoveredIndex !== null ? "lightPink" : "black",
   };
+
+  const icons = ["GithubIcon", "EmailIcon"];
+  // maybe try to put it into an array?
   const specificInfo = [
     {
       name: "Github",
       link: "https://github.com/ang-riv",
-      icon: <GithubIcon {...iconProps} />,
+      icon: <GithubIcon />,
       class: "link-title",
     },
     {
@@ -410,23 +427,39 @@ export function SocialLinks() {
   ];
   return (
     <>
-      {specificInfo.map((item, index) => (
-        <motion.a
-          key={index}
-          href={item.link}
-          target="_blank"
-          rel="noreferrer"
-          className="link-style"
-          onHoverStart={() => setHoveredIndex(index)}
-          onHoverEnd={() => setHoveredIndex(null)}
-          style={{
-            border: hoveredIndex === index ? "2px solid blue" : "none",
-          }}
-        >
-          {item.icon}
-          <p className={item.class}>{item.name}</p>
-        </motion.a>
-      ))}
+      {specificInfo.map((item, index) => {
+        const IconComponent = specificInfo[item.icon];
+        // put the array here?
+        const color = () => {
+          return hoveredIndex === index
+            ? getHoverColor(hoveredIndex)
+            : getHoverColor();
+        };
+
+        const arr = [
+          <GithubIcon color={color()} />,
+          <EmailIcon color={color()} />,
+        ];
+        return (
+          <motion.a
+            key={index}
+            href={item.link}
+            target="_blank"
+            rel="noreferrer"
+            className="link-style"
+            onHoverStart={() => setHoveredIndex(index)}
+            onHoverEnd={() => setHoveredIndex(null)}
+            style={{
+              outline: hoveredIndex === index ? "2px solid blue" : "none",
+            }}
+          >
+            {/* need to figure out how to attach the icon color change to the index*/}
+
+            {arr[index]}
+            <p className={item.class}>{item.name}</p>
+          </motion.a>
+        );
+      })}
     </>
   );
 }

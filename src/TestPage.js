@@ -193,6 +193,7 @@ const TestPage = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#a8dcab",
+          flexFlow: "column",
         }}
       >
         <div
