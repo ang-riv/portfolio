@@ -346,7 +346,7 @@ export function LinkedInIcon(props) {
       {...props}
     >
       <path
-        fill="black"
+        fill={props.color}
         d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"
       ></path>
     </svg>
@@ -363,7 +363,7 @@ export function FrontEndMentorIcon(props) {
       {...props}
     >
       <path
-        fill="black"
+        fill={props.color}
         d="M12.17 1.272a.73.73 0 0 0-.718.732v13.914a.73.73 0 0 0 .732.732a.73.73 0 0 0 .732-.732V2.004a.73.73 0 0 0-.745-.732M23.246 5.44a.7.7 0 0 0-.277.063l-6.282 2.804a.733.733 0 0 0 0 1.336l6.282 2.814a.7.7 0 0 0 .3.064a.732.732 0 0 0 .297-1.4L18.78 8.976l4.786-2.137a.734.734 0 0 0 .37-.966a.73.73 0 0 0-.69-.433m-22.5 5.032a.732.732 0 0 0-.722.915c1.736 6.677 7.775 11.341 14.683 11.341a.732.732 0 0 0 0-1.464A13.706 13.706 0 0 1 1.44 11.02a.73.73 0 0 0-.694-.547"
       ></path>
     </svg>
@@ -373,12 +373,9 @@ export function FrontEndMentorIcon(props) {
 /* groups together the social links + styles */
 export function SocialLinks() {
   // hover styles
-  // make a switch?
-  const controls = useAnimation();
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
   // try to make it DRY with common traits
-  // try switch case?
   const getHoverColor = (index) => {
     switch (index) {
       case 0:
@@ -393,52 +390,49 @@ export function SocialLinks() {
         return "black";
     }
   };
-  const iconProps = {
-    style: { marginLeft: "0.3em" },
-  };
 
-  const icons = ["GithubIcon", "EmailIcon"];
   // maybe try to put it into an array?
   const specificInfo = [
     {
       name: "Github",
       link: "https://github.com/ang-riv",
-      icon: <GithubIcon />,
       class: "link-title",
     },
     {
       name: "Email",
       link: "mailto: a.riveraa99@gmail.com",
-      icon: <EmailIcon {...iconProps} />,
       class: "link-title",
     },
     {
       name: "LinkedIn",
       link: "https://www.linkedin.com/in/ang-riv",
-      icon: <LinkedInIcon {...iconProps} />,
       class: "link-title",
     },
     {
       name: "FrontEndMentor",
       link: "https://www.frontendmentor.io/profile/ang-riv",
-      icon: <FrontEndMentorIcon {...iconProps} />,
       class: "link-title last-link-title",
     },
   ];
   return (
     <>
       {specificInfo.map((item, index) => {
-        const IconComponent = specificInfo[item.icon];
-        // put the array here?
         const color = () => {
           return hoveredIndex === index
             ? getHoverColor(hoveredIndex)
             : getHoverColor();
         };
 
-        const arr = [
-          <GithubIcon color={color()} />,
-          <EmailIcon color={color()} />,
+        const componentProps = {
+          color: color(),
+          marginLeft: "0.3em",
+        };
+
+        const iconComponents = [
+          <GithubIcon {...componentProps} />,
+          <EmailIcon {...componentProps} />,
+          <LinkedInIcon {...componentProps} />,
+          <FrontEndMentorIcon {...componentProps} />,
         ];
         return (
           <motion.a
@@ -450,12 +444,15 @@ export function SocialLinks() {
             onHoverStart={() => setHoveredIndex(index)}
             onHoverEnd={() => setHoveredIndex(null)}
             style={{
-              outline: hoveredIndex === index ? "2px solid blue" : "none",
+              outline:
+                hoveredIndex === index
+                  ? `3px solid ${color()}`
+                  : getHoverColor(),
             }}
           >
             {/* need to figure out how to attach the icon color change to the index*/}
 
-            {arr[index]}
+            {iconComponents[index]}
             <p className={item.class}>{item.name}</p>
           </motion.a>
         );

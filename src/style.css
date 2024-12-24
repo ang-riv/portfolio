@@ -350,7 +350,6 @@ a {
 /* link styles in contact section (found in Icons component)*/
 .link-style {
   padding: 0.313em;
-  border: 1px solid var(--grey);
   height: 33%;
   max-width: 25em;
   width: 40%;
