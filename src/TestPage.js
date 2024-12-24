@@ -18,6 +18,12 @@ const TestPage = () => {
   const centerRef = useRef(null);
   const topRef = useRef(null);
   const bottomRef = useRef(null);
+  const [top, setTop] = useState(null);
+  const [bot, setBot] = useState(null);
+  const [left, setLeft] = useState(null);
+  const [containerBot, setContainerBot] = useState(null);
+  const [containerTop, setContainerTop] = useState(null);
+  const containerRef = useRef(null);
 
   const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
@@ -34,9 +40,10 @@ const TestPage = () => {
     }
   }, [clicked, controls]);
 
+  const movement = containerTop - top + 50;
   const variants = {
-    even: { y: -80, transition: { duration: 0.5 } },
-    odd: { y: 80, transition: { duration: 0.5 } },
+    even: { y: -movement, transition: { duration: 0.5 } },
+    odd: { y: movement, transition: { duration: 0.5 } },
     left: { x: -50, transition: { duration: 0.5 } },
     right: { x: 50, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
@@ -64,13 +71,23 @@ const TestPage = () => {
   };
 
   const findDistance = () => {
-    if (topRef.current && bottomRef.current) {
+    if (topRef.current && bottomRef.current && containerRef.current) {
       const rect1 = topRef.current.getBoundingClientRect();
       const rect2 = bottomRef.current.getBoundingClientRect();
+      const container = containerRef.current.getBoundingClientRect();
 
       const dy = rect2.top - rect1.bottom;
       const calculatedDistance = Math.abs(dy);
-      setDistance(rect1.bottom.toFixed(2));
+      const fullLength = container.bottom;
+      const addOn = container.top;
+      const half = (fullLength + addOn) / 2;
+
+      setDistance(calculatedDistance.toFixed(2));
+      setTop(rect1.bottom.toFixed(2));
+      setBot(rect2.top.toFixed(2));
+      setLeft(rect1.left.toFixed(2));
+      setContainerBot(container.bottom.toFixed(2));
+      setContainerTop(half);
     }
   };
   const resetAnimations = async (controlsArr) => {
@@ -109,6 +126,7 @@ const TestPage = () => {
           variants={variants}
           ref={currentRef}
           animate={controls[countUp]}
+          style={{ outline: "1px solid blue" }}
         ></motion.img>
       </>
     );
@@ -116,6 +134,68 @@ const TestPage = () => {
 
   return (
     <div>
+      <div
+        style={{
+          position: "absolute",
+          height: "278px",
+          width: "1px",
+          top: "0px",
+          left: "227px",
+          backgroundColor: "red",
+        }}
+      ></div>
+      <div
+        style={{
+          position: "absolute",
+          height: "278px",
+          width: "1px",
+          top: "0px",
+          left: "10px",
+        }}
+      >
+        <p>container bottom: {containerBot}</p>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          height: "278px",
+          width: "1px",
+          top: "100px",
+          left: "10px",
+        }}
+      >
+        <p>container top: {containerTop}</p>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          height: "333px",
+          width: "1px",
+          top: "0px",
+          left: "240px",
+          backgroundColor: "purple",
+        }}
+      ></div>
+      <div
+        style={{
+          position: "absolute",
+          height: "1px",
+          width: "100%",
+          top: "305px",
+          left: "0px",
+          backgroundColor: "green",
+        }}
+      ></div>
+      <div
+        style={{
+          position: "absolute",
+          height: "333px",
+          width: "1px",
+          top: "0px",
+          left: "210px",
+          backgroundColor: "orange",
+        }}
+      ></div>
       <div
         style={{
           height: "100vh",
@@ -138,6 +218,7 @@ const TestPage = () => {
             alignItems: "center",
             justifyContent: "center",
           }}
+          ref={containerRef}
         >
           {holder1}
         </div>
@@ -182,7 +263,10 @@ const TestPage = () => {
             Calculate Distance
           </button>
         </div>
-        <h3>Distance is: {distance}</h3>
+        <h3>Distance Between: {distance}</h3>
+        <h4>Bottom of Rect1 is: {top}</h4>
+        <h4>Top of Rect2 is: {bot}</h4>
+        <h4>Left of Rect1 is: {left}</h4>
       </div>
       <div
         style={{
