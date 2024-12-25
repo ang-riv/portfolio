@@ -16,10 +16,8 @@ const TestPage = () => {
   ];
 
   const topRef = useRef(null);
-  const bottomRef = useRef(null);
   const [top, setTop] = useState(null);
   const [midpoint, setMidpoint] = useState(null);
-  const [left, setLeft] = useState(null);
   const [containerBot, setContainerBot] = useState(null);
   const [containerTop, setContainerTop] = useState(null);
   const containerRef = useRef(null);
@@ -30,15 +28,16 @@ const TestPage = () => {
   // original distance = 50
 
   useEffect(() => {
+    // add to onScroll so it calculates it right away
+    findDistance();
     if (clicked === true) {
       runAnimations(controls);
-      findDistance();
     } else {
       resetAnimations(controls);
     }
   }, [clicked, controls]);
 
-  //! distance should work here but does not due to negative value
+  //! distance only works on the second button click?
   // should be distance + 50 for the gap
   const movement = distance + 50;
   const trial = Number(distance + 50);
@@ -51,6 +50,7 @@ const TestPage = () => {
     reset: { x: 0, y: 0 },
   };
 
+  // only works on the second time?
   const findDistance = () => {
     if (topRef.current && containerRef.current) {
       const rect1 = topRef.current.getBoundingClientRect();
@@ -80,7 +80,7 @@ const TestPage = () => {
     setClicked(true);
 
     // find distance between the puzzles for the y movement
-    //findDistance();
+    findDistance();
 
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
