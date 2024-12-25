@@ -7,7 +7,10 @@ import { title } from "framer-motion/client";
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
   const titleRef = useRef(null);
-  const isInView = useInView(titleRef, { threshold: 0.5 });
+  const containerRef = useRef(null);
+  // make sure that the container is in the middle of the viewport
+  // might need to use midpoint?
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
   const controls = [
     useAnimation(),
     useAnimation(),
@@ -20,28 +23,37 @@ const TestPage = () => {
   const [midpoint, setMidpoint] = useState(null);
   const [containerBot, setContainerBot] = useState(null);
   const [containerTop, setContainerTop] = useState(null);
-  const containerRef = useRef(null);
 
   const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
+  const [changeD, setChangeD] = useState(false);
   // math
   // original distance = 50
 
+  // change onScroll/ inView
+  // maybe get rid of use effect idk due to controls dependency
   useEffect(() => {
-    // add to onScroll so it calculates it right away
-    findDistance();
+    // add to onScroll so it calculates it right away(?)
+    changeD === false ? findDistance() : setDistance(55);
     if (clicked === true) {
       runAnimations(controls);
     } else {
       resetAnimations(controls);
     }
-  }, [clicked, controls]);
+    /*
+    if (isInView) {
+      runAnimations(controls);
+    } else {
+      resetAnimations(controls);
+    }
+      */
 
-  //! distance only works on the second button click?
+    if (isInView) console.log("in view");
+    else console.log("not in view");
+  }, [clicked, controls, isInView]); // ?dependency ignore comment
+
   // should be distance + 50 for the gap
-  const movement = distance + 50;
   const trial = Number(distance + 50);
-  console.log(movement);
   const variants = {
     even: { y: -trial, transition: { duration: 0.5 } },
     odd: { y: trial, transition: { duration: 0.5 } },
@@ -50,7 +62,7 @@ const TestPage = () => {
     reset: { x: 0, y: 0 },
   };
 
-  // only works on the second time?
+  // might need in useEffect dependency
   const findDistance = () => {
     if (topRef.current && containerRef.current) {
       const rect1 = topRef.current.getBoundingClientRect();
@@ -80,7 +92,7 @@ const TestPage = () => {
     setClicked(true);
 
     // find distance between the puzzles for the y movement
-    findDistance();
+    if (changeD === false) findDistance();
 
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
@@ -100,8 +112,9 @@ const TestPage = () => {
       controlsArr[i].start("reset");
     }
 
-    for (let i = 0; i < controlsArr.length; i++) {}
     setClicked(false);
+    // maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
+    if (changeD === false) setDistance(0);
   };
 
   const holder1 = [];
@@ -240,6 +253,19 @@ const TestPage = () => {
             onClick={() => runAnimations(controls)}
           >
             Run Animations
+          </button>
+          <button
+            style={{
+              height: "50px",
+              width: "fit-content",
+              margin: "25px 10px",
+              padding: "0px 10px",
+              border: "1px solid white",
+              borderRadius: "10px",
+            }}
+            onClick={() => setChangeD(!changeD)}
+          >
+            Change Distance
           </button>
           <button
             style={{
