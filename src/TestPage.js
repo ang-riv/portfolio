@@ -15,11 +15,10 @@ const TestPage = () => {
     useAnimation(),
   ];
 
-  const centerRef = useRef(null);
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const [top, setTop] = useState(null);
-  const [bot, setBot] = useState(null);
+  const [midpoint, setMidpoint] = useState(null);
   const [left, setLeft] = useState(null);
   const [containerBot, setContainerBot] = useState(null);
   const [containerTop, setContainerTop] = useState(null);
@@ -39,7 +38,10 @@ const TestPage = () => {
     }
   }, [clicked, controls]);
 
-  const movement = containerTop - top + 50;
+  //! distance should work here but does not due to negative value
+  // should be distance + 50 for the gap
+  const movement = 65;
+  console.log(movement);
   const variants = {
     even: { y: -movement, transition: { duration: 0.5 } },
     odd: { y: movement, transition: { duration: 0.5 } },
@@ -52,16 +54,24 @@ const TestPage = () => {
     if (topRef.current && containerRef.current) {
       const rect1 = topRef.current.getBoundingClientRect();
       const container = containerRef.current.getBoundingClientRect();
+      const scrollTop = document.documentElement.scrollTop;
 
-      const fullLength = container.bottom;
-      const addOn = container.top;
-      const half = (fullLength + addOn) / 2;
+      const containerTop = container.top + scrollTop;
+      const containerBottom = container.bottom + scrollTop;
+
+      const midpoint = (containerTop + containerBottom) / 2;
+      const piecePosition = rect1.bottom + scrollTop;
 
       // bottom of first puzzle piece
-      setTop(rect1.bottom.toFixed(2));
-      setLeft(rect1.width.toFixed(2));
-      setContainerBot(container.bottom.toFixed(2));
-      setContainerTop(half);
+      setTop(piecePosition.toFixed(2));
+
+      // top and bottom of the puzzle content-wrapper/container
+      setContainerBot(containerBottom.toFixed(2));
+      setContainerTop(containerTop.toFixed(2));
+      setMidpoint(midpoint.toFixed(2));
+      setDistance((midpoint - top).toFixed(0));
+    } else {
+      console.log("not working");
     }
   };
 
@@ -69,7 +79,7 @@ const TestPage = () => {
     setClicked(true);
 
     // find distance between the puzzles for the y movement
-    findDistance();
+    //findDistance();
 
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
@@ -101,15 +111,16 @@ const TestPage = () => {
     countUp++;
 
     const singlePieceRef = () => {
-      return key === "pinkPiece" ? topRef : "";
+      if (key === "pinkPiece") return { ref: topRef };
     };
+
     holder1.push(
       <>
         <motion.img
           src={value}
           alt={word}
           variants={variants}
-          ref={singlePieceRef}
+          {...singlePieceRef()}
           animate={controls[countUp]}
           style={{ outline: "1px solid blue" }}
         ></motion.img>
@@ -165,6 +176,7 @@ const TestPage = () => {
       >
         <p>container top: {containerTop}</p>
       </div>
+      {/* SECTION */}
       <div
         style={{
           position: "absolute",
@@ -242,9 +254,11 @@ const TestPage = () => {
             Calculate Distance
           </button>
         </div>
-        <h3>Distance Between: {distance}</h3>
-        <h4>Bottom of Rect1 is: {top}</h4>
-        <h4>Midpoint of Container is: {containerTop}</h4>
+        <h3>Halfway point: {midpoint}</h3>
+        <h4>Top of Webpage to Top of Container: {containerTop}</h4>
+        <h4>Top of Webpage to Bottom of Container: {containerBot}</h4>
+        <h4>Bottom of the First Puzzle Piece: {top}</h4>
+        <h4>Amount needed to reach the midpoint: {distance}</h4>
       </div>
       <div
         style={{
