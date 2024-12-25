@@ -40,11 +40,12 @@ const TestPage = () => {
 
   //! distance should work here but does not due to negative value
   // should be distance + 50 for the gap
-  const movement = 65;
+  const movement = distance + 50;
+  const trial = Number(distance + 50);
   console.log(movement);
   const variants = {
-    even: { y: -movement, transition: { duration: 0.5 } },
-    odd: { y: movement, transition: { duration: 0.5 } },
+    even: { y: -trial, transition: { duration: 0.5 } },
+    odd: { y: trial, transition: { duration: 0.5 } },
     left: { x: -50, transition: { duration: 0.5 } },
     right: { x: 50, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
@@ -69,7 +70,7 @@ const TestPage = () => {
       setContainerBot(containerBottom.toFixed(2));
       setContainerTop(containerTop.toFixed(2));
       setMidpoint(midpoint.toFixed(2));
-      setDistance((midpoint - top).toFixed(0));
+      setDistance(Math.round(midpoint - top));
     } else {
       console.log("not working");
     }
