@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
 import { introPieces } from "./Imports";
 import { SocialLinks } from "./Icons";
+import { title } from "framer-motion/client";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
-  const ref = useRef(null);
   const titleRef = useRef(null);
   const isInView = useInView(titleRef, { threshold: 0.5 });
   const controls = [
@@ -27,14 +27,13 @@ const TestPage = () => {
 
   const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
-  const yMove = (distance / 2).toFixed(2);
   // math
   // original distance = 50
 
-  // create a random direction to rotate the piece
   useEffect(() => {
     if (clicked === true) {
       runAnimations(controls);
+      findDistance();
     } else {
       resetAnimations(controls);
     }
@@ -49,13 +48,28 @@ const TestPage = () => {
     reset: { x: 0, y: 0 },
   };
 
-  const runAnimations = async (controlsArr) => {
-    let rect = 0;
-    setClicked(true);
-    console.log("clicked");
+  const findDistance = () => {
+    if (topRef.current && containerRef.current) {
+      const rect1 = topRef.current.getBoundingClientRect();
+      const container = containerRef.current.getBoundingClientRect();
 
-    //! math is not mathing + sequence of events
-    // calculate distance for y movement
+      const fullLength = container.bottom;
+      const addOn = container.top;
+      const half = (fullLength + addOn) / 2;
+
+      // bottom of first puzzle piece
+      setTop(rect1.bottom.toFixed(2));
+      setLeft(rect1.width.toFixed(2));
+      setContainerBot(container.bottom.toFixed(2));
+      setContainerTop(half);
+    }
+  };
+
+  const runAnimations = async (controlsArr) => {
+    setClicked(true);
+
+    // find distance between the puzzles for the y movement
+    findDistance();
 
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
@@ -70,26 +84,6 @@ const TestPage = () => {
     }
   };
 
-  const findDistance = () => {
-    if (topRef.current && bottomRef.current && containerRef.current) {
-      const rect1 = topRef.current.getBoundingClientRect();
-      const rect2 = bottomRef.current.getBoundingClientRect();
-      const container = containerRef.current.getBoundingClientRect();
-
-      const dy = rect2.top - rect1.bottom;
-      const calculatedDistance = Math.abs(dy);
-      const fullLength = container.bottom;
-      const addOn = container.top;
-      const half = (fullLength + addOn) / 2;
-
-      setDistance(calculatedDistance.toFixed(2));
-      setTop(rect1.bottom.toFixed(2));
-      setBot(rect2.top.toFixed(2));
-      setLeft(rect1.left.toFixed(2));
-      setContainerBot(container.bottom.toFixed(2));
-      setContainerTop(half);
-    }
-  };
   const resetAnimations = async (controlsArr) => {
     for (let i = 0; i < controlsArr.length; i++) {
       controlsArr[i].start("reset");
@@ -106,25 +100,16 @@ const TestPage = () => {
     const word = "puzzle piece";
     countUp++;
 
-    let currentRef;
-    switch (key) {
-      case "pinkPiece":
-        currentRef = topRef;
-        break;
-      case "yellowPiece":
-        currentRef = bottomRef;
-        break;
-      default:
-        currentRef = centerRef;
-    }
-
+    const singlePieceRef = () => {
+      return key === "pinkPiece" ? topRef : "";
+    };
     holder1.push(
       <>
         <motion.img
           src={value}
           alt={word}
           variants={variants}
-          ref={currentRef}
+          ref={singlePieceRef}
           animate={controls[countUp]}
           style={{ outline: "1px solid blue" }}
         ></motion.img>
@@ -137,13 +122,27 @@ const TestPage = () => {
       <div
         style={{
           position: "absolute",
-          height: "278px",
+          left: "300px",
+          height: "700px",
+          backgroundColor: "orange",
           width: "1px",
-          top: "0px",
-          left: "227px",
-          backgroundColor: "red",
         }}
       ></div>
+      <div
+        style={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#1B4D3E",
+          flexFlow: "column",
+        }}
+      >
+        <h2 ref={titleRef} style={{ color: "lavender" }}>
+          Scroll Testing Page
+        </h2>
+      </div>
       <div
         style={{
           position: "absolute",
@@ -169,31 +168,11 @@ const TestPage = () => {
       <div
         style={{
           position: "absolute",
-          height: "333px",
-          width: "1px",
-          top: "0px",
-          left: "240px",
-          backgroundColor: "purple",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "absolute",
           height: "1px",
           width: "100%",
           top: "305px",
           left: "0px",
           backgroundColor: "green",
-        }}
-      ></div>
-      <div
-        style={{
-          position: "absolute",
-          height: "333px",
-          width: "1px",
-          top: "0px",
-          left: "210px",
-          backgroundColor: "orange",
         }}
       ></div>
       <div
@@ -265,8 +244,7 @@ const TestPage = () => {
         </div>
         <h3>Distance Between: {distance}</h3>
         <h4>Bottom of Rect1 is: {top}</h4>
-        <h4>Top of Rect2 is: {bot}</h4>
-        <h4>Left of Rect1 is: {left}</h4>
+        <h4>Midpoint of Container is: {containerTop}</h4>
       </div>
       <div
         style={{
