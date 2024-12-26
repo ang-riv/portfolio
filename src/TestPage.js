@@ -28,33 +28,22 @@ const TestPage = () => {
   const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [changeD, setChangeD] = useState(false);
-  // math
-  // original distance = 50
 
-  // change onScroll/ inView
   // maybe get rid of use effect idk due to controls dependency
   useEffect(() => {
-    // add to onScroll so it calculates it right away(?)
-    changeD === false ? findDistance() : setDistance(55);
-    if (clicked === true) {
-      runAnimations(controls);
-    } else {
-      resetAnimations(controls);
-    }
-    /*
+    // find the distance needed for the puzzle pieces to move right when component mounts
+    findDistance();
+
     if (isInView) {
       runAnimations(controls);
     } else {
       resetAnimations(controls);
     }
-      */
-
-    if (isInView) console.log("in view");
-    else console.log("not in view");
   }, [clicked, controls, isInView]); // ?dependency ignore comment
 
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + 50);
+
   const variants = {
     even: { y: -yMovement, transition: { duration: 0.5 } },
     odd: { y: yMovement, transition: { duration: 0.5 } },
@@ -94,9 +83,6 @@ const TestPage = () => {
   const runAnimations = async (controlsArr) => {
     setClicked(true);
 
-    // find distance between the puzzles for the y movement
-    if (changeD === false) findDistance();
-
     // y movement
     for (let i = 0; i < controlsArr.length; i++) {
       if (i === 0 || i === 1) await controlsArr[i].start("odd");
@@ -116,8 +102,9 @@ const TestPage = () => {
     }
 
     setClicked(false);
-    // maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
-    if (changeD === false) setDistance(0);
+    //? maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
+    // keeps the distance the same
+    setDistance(distance);
   };
 
   const puzzleImgs = [];
