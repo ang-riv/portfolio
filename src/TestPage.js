@@ -2,11 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
 import { introPieces } from "./Imports";
 import { SocialLinks } from "./Icons";
-import { title } from "framer-motion/client";
 
 //! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
   const titleRef = useRef(null);
+  // container for puzzle
   const containerRef = useRef(null);
   // make sure that the container is in the middle of the viewport
   // might need to use midpoint?
@@ -17,13 +17,14 @@ const TestPage = () => {
     useAnimation(),
     useAnimation(),
   ];
-
+  // top puzzle piece
   const topRef = useRef(null);
   const [top, setTop] = useState(null);
   const [midpoint, setMidpoint] = useState(null);
   const [containerBot, setContainerBot] = useState(null);
   const [containerTop, setContainerTop] = useState(null);
 
+  // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [changeD, setChangeD] = useState(false);
@@ -52,17 +53,18 @@ const TestPage = () => {
     else console.log("not in view");
   }, [clicked, controls, isInView]); // ?dependency ignore comment
 
-  // should be distance + 50 for the gap
-  const trial = Number(distance + 50);
+  // adds 50 due to original puzzle piece's jutted out piece is 50px
+  const yMovement = Number(distance + 50);
   const variants = {
-    even: { y: -trial, transition: { duration: 0.5 } },
-    odd: { y: trial, transition: { duration: 0.5 } },
+    even: { y: -yMovement, transition: { duration: 0.5 } },
+    odd: { y: yMovement, transition: { duration: 0.5 } },
     left: { x: -50, transition: { duration: 0.5 } },
     right: { x: 50, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
   };
 
   // might need in useEffect dependency
+  // calculates distance/position pieces need to move and join
   const findDistance = () => {
     if (topRef.current && containerRef.current) {
       const rect1 = topRef.current.getBoundingClientRect();
@@ -81,6 +83,7 @@ const TestPage = () => {
       // top and bottom of the puzzle content-wrapper/container
       setContainerBot(containerBottom.toFixed(2));
       setContainerTop(containerTop.toFixed(2));
+      // target place where pieces need to move to
       setMidpoint(midpoint.toFixed(2));
       setDistance(Math.round(midpoint - top));
     } else {
@@ -117,18 +120,20 @@ const TestPage = () => {
     if (changeD === false) setDistance(0);
   };
 
-  const holder1 = [];
+  const puzzleImgs = [];
+  // to account for 0 index
   let countUp = -1;
 
   for (const [key, value] of Object.entries(introPieces)) {
     const word = "puzzle piece";
     countUp++;
 
+    // attaching ref to only the first piece for calculates
     const singlePieceRef = () => {
       if (key === "pinkPiece") return { ref: topRef };
     };
 
-    holder1.push(
+    puzzleImgs.push(
       <>
         <motion.img
           src={value}
@@ -225,7 +230,7 @@ const TestPage = () => {
           }}
           ref={containerRef}
         >
-          {holder1}
+          {puzzleImgs}
         </div>
         <div>
           <button
