@@ -3,10 +3,7 @@ import { IntroPuzzle } from "./Icons";
 const IntroSection = React.forwardRef((_, ref) => {
   return (
     <section ref={ref} id="introSection" className="intro-section">
-      <figure className="intro-puzzle-container">
-        <IntroPuzzle />
-      </figure>
-
+      <IntroPuzzle />
       <h1>
         Hi, I'm Angela, <br /> Front End Developer.
       </h1>

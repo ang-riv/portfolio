@@ -13,59 +13,166 @@ import {
 
 // 2x2 puzzle in introSection
 export function IntroPuzzle() {
-  // calulating the distance between the pieces on the left and right
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const [distance, setDistance] = useState(null);
+  // container for puzzle
+  const containerRef = useRef(null);
+  // make sure that the container is in the middle of the viewport
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+  const controls = [
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+  ];
+  // top puzzle piece
+  const topRef = useRef(null);
+  const [top, setTop] = useState(null);
+  const [midpoint, setMidpoint] = useState(null);
+
+  // container for pieces/content-wrapper
+  const [containerBot, setContainerBot] = useState(null);
+  const [containerTop, setContainerTop] = useState(null);
+
+  // amount needed for each piece to move vertically and join together
+  const [distance, setDistance] = useState(0);
+  const [puzzleGap, setPuzzleGap] = useState(0);
+
+  const [resized, setResized] = useState(false);
+
+  // adds 50 due to original puzzle piece's jutted out piece is 50px
+  const yMovement = Number(distance + puzzleGap);
+  const xMovement = Number(puzzleGap);
+  const variants = {
+    even: { y: -yMovement, transition: { duration: 0.5 } },
+    odd: { y: yMovement, transition: { duration: 0.5 } },
+    left: { x: -xMovement, transition: { duration: 0.5 } },
+    right: { x: xMovement, transition: { duration: 0.5 } },
+    reset: { x: 0, y: 0 },
+  };
 
   useEffect(() => {
-    if (leftRef.current && rightRef.current) {
-      const rect1 = leftRef.current.getBoundingClientRect();
-      const rect2 = rightRef.current.getBoundingClientRect();
+    //** calculates distance/position pieces need to move and join
+    const findDistance = () => {
+      if (topRef.current && containerRef.current) {
+        const topPiece = topRef.current.getBoundingClientRect();
+        const container = containerRef.current.getBoundingClientRect();
+        const scrollTop = document.documentElement.scrollTop;
 
-      const dx = rect2.left - rect1.left;
-      const dy = rect2.top - rect1.top;
-      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
-      setDistance(calculatedDistance);
+        // position of the container plus how far down the user has scrolled to get it's exact position
+        const containerTop = container.top + scrollTop;
+        const containerBottom = container.bottom + scrollTop;
+        const midpoint = (containerTop + containerBottom) / 2;
+        const piecePosition = topPiece.bottom + scrollTop;
+
+        // figuring out the size of the piece of the puzzle that is sticking out using the original img sizes
+        const multiplier = topPiece.width / 200;
+        const gap = (50 * multiplier).toFixed(2);
+        // bottom of first puzzle piece
+        setTop(piecePosition.toFixed(2));
+        setPuzzleGap(gap);
+
+        // top and bottom of the puzzle content-wrapper/container
+        setContainerBot(containerBottom.toFixed(2));
+        setContainerTop(containerTop.toFixed(2));
+        // target place where pieces need to move to + distance needed
+        setMidpoint(midpoint.toFixed(2));
+        setDistance(Math.round(midpoint - top));
+      }
+    };
+
+    //*** puzzle animations
+    //* joins pieces together
+    const runAnimations = async (controlsArr) => {
+      // y movement
+      for (let i = 0; i < controlsArr.length; i++) {
+        if (i === 0 || i === 1) await controlsArr[i].start("odd");
+        else await controlsArr[i].start("even");
+      }
+
+      // x movement
+      for (let i = 0; i < controlsArr.length; i++) {
+        if (i === 0 || i === 2) controlsArr[i].start("right");
+        else controlsArr[i].start("left");
+      }
+    };
+
+    //* return to original positions
+    const resetAnimations = async (controlsArr) => {
+      for (let i = 0; i < controlsArr.length; i++) {
+        controlsArr[i].start("reset");
+      }
+
+      // keeps the distance the same
+      setDistance(distance);
+    };
+
+    const checkSize = () => setResized(true);
+
+    window.addEventListener("resize", checkSize);
+
+    // checks to see if the window has been resized, distance might change if it does
+    const resizeChecker = () => {
+      if (resized === true) {
+        findDistance();
+      }
+    };
+
+    // puzzle animations on scroll
+    if (isInView) {
+      findDistance();
+      // maybe get rid of this
+      setTimeout(() => {
+        runAnimations(controls);
+      }, 1500);
+    } else {
+      resetAnimations(controls);
     }
-  }, []);
-  // calculates the distance required for each piece to connect with each other
-  const move = Math.ceil(distance) / 4;
+
+    return () => {
+      window.removeEventListener("resize", checkSize);
+    };
+  }, [controls, isInView, distance, top, resized]); // ?dependency ignore comment
+
+  //** rendering puzzle pieces
+  const puzzleImgs = [];
+  // to account for 0 index
+  let countUp = -1;
+
+  for (const [key, value] of Object.entries(introPieces)) {
+    const word = "puzzle piece";
+    countUp++;
+
+    // attaching ref to only the first piece for calculates
+    const singlePieceRef = () => {
+      if (key === "pinkPiece") return { ref: topRef };
+    };
+
+    puzzleImgs.push(
+      <>
+        <motion.img
+          src={value}
+          alt={word}
+          className="intro-piece"
+          variants={variants}
+          {...singlePieceRef()}
+          animate={controls[countUp]}
+        ></motion.img>
+      </>
+    );
+  }
   return (
-    <>
-      <motion.img
-        src={introPieces.pinkPiece}
-        className="intro-piece"
-        alt="pink puzzle piece"
-        animate={{ x: move, y: move }}
-        transition={{ delay: 1, duration: 1.5 }}
-        ref={leftRef}
-      />
-      <motion.img
-        src={introPieces.greenPiece}
-        className="intro-piece"
-        alt="green puzzle piece"
-        animate={{ x: -move, y: move }}
-        transition={{ delay: 1, duration: 1.5 }}
-        ref={rightRef}
-      />
-      <motion.img
-        src={introPieces.yellowPiece}
-        className="intro-piece"
-        alt="yellow puzzle piece"
-        animate={{ x: move, y: -move }}
-        transition={{ delay: 1, duration: 1.5 }}
-        ref={leftRef}
-      />
-      <motion.img
-        src={introPieces.purplePiece}
-        className="intro-piece"
-        alt="purple puzzle piece"
-        animate={{ x: -move, y: -move }}
-        transition={{ delay: 1, duration: 1.5 }}
-        ref={rightRef}
-      />
-    </>
+    <figure className="intro-puzzle-container" ref={containerRef}>
+      <div
+        style={{
+          position: "absolute",
+          left: "140px",
+          top: "0px",
+          height: `${midpoint}px`,
+          width: "2px",
+          backgroundColor: "purple",
+        }}
+      ></div>
+      {puzzleImgs}
+    </figure>
   );
 }
 
