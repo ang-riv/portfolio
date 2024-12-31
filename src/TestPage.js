@@ -21,26 +21,15 @@ const TestPage = () => {
   const topRef = useRef(null);
   const [top, setTop] = useState(null);
   const [midpoint, setMidpoint] = useState(null);
+
+  // container for pieces/content-wrapper
   const [containerBot, setContainerBot] = useState(null);
   const [containerTop, setContainerTop] = useState(null);
 
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
-  const [clicked, setClicked] = useState(false);
-  const [changeD, setChangeD] = useState(false);
 
-  // maybe get rid of use effect idk due to controls dependency
-  useEffect(() => {
-    // find the distance needed for the puzzle pieces to move right when component mounts
-    findDistance();
-
-    if (isInView) {
-      runAnimations(controls);
-    } else {
-      resetAnimations(controls);
-    }
-  }, [clicked, controls, isInView]); // ?dependency ignore comment
-
+  const [initialMount, setInitialMount] = useState(true);
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + 50);
 
@@ -52,61 +41,101 @@ const TestPage = () => {
     reset: { x: 0, y: 0 },
   };
 
-  // might need in useEffect dependency
-  // calculates distance/position pieces need to move and join
-  const findDistance = () => {
-    if (topRef.current && containerRef.current) {
-      const rect1 = topRef.current.getBoundingClientRect();
-      const container = containerRef.current.getBoundingClientRect();
-      const scrollTop = document.documentElement.scrollTop;
+  const [resized, setResized] = useState(false);
+  const [divHeight, setDivHeight] = useState(60);
 
-      const containerTop = container.top + scrollTop;
-      const containerBottom = container.bottom + scrollTop;
+  useEffect(() => {
+    //** calculates distance/position pieces need to move and join
+    const findDistance = () => {
+      // if initialMount is true or if previous state does not = current state
+      if (topRef.current && containerRef.current) {
+        const rect1 = topRef.current.getBoundingClientRect();
+        const container = containerRef.current.getBoundingClientRect();
+        const scrollTop = document.documentElement.scrollTop;
 
-      const midpoint = (containerTop + containerBottom) / 2;
-      const piecePosition = rect1.bottom + scrollTop;
+        // position of the container plus how far down the user has scrolled to get it's exact position
+        const containerTop = container.top + scrollTop;
+        const containerBottom = container.bottom + scrollTop;
 
-      // bottom of first puzzle piece
-      setTop(piecePosition.toFixed(2));
+        const midpoint = (containerTop + containerBottom) / 2;
+        const piecePosition = rect1.bottom + scrollTop;
 
-      // top and bottom of the puzzle content-wrapper/container
-      setContainerBot(containerBottom.toFixed(2));
-      setContainerTop(containerTop.toFixed(2));
-      // target place where pieces need to move to
-      setMidpoint(midpoint.toFixed(2));
-      setDistance(Math.round(midpoint - top));
+        // bottom of first puzzle piece
+        setTop(piecePosition.toFixed(2));
+
+        // top and bottom of the puzzle content-wrapper/container
+        setContainerBot(containerBottom.toFixed(2));
+        setContainerTop(containerTop.toFixed(2));
+        // target place where pieces need to move to
+        setMidpoint(midpoint.toFixed(2));
+        setDistance(Math.round(midpoint - top));
+        console.log("ran once" + distance);
+      }
+      if (resized === true) {
+        setResized(false);
+      }
+    };
+
+    //*** puzzle animations
+    //* joins pieces together
+    const runAnimations = async (controlsArr) => {
+      // y movement
+      for (let i = 0; i < controlsArr.length; i++) {
+        if (i === 0 || i === 1) await controlsArr[i].start("odd");
+        else await controlsArr[i].start("even");
+      }
+
+      // x movement
+      for (let i = 0; i < controlsArr.length; i++) {
+        if (i === 0 || i === 2) controlsArr[i].start("right");
+        else controlsArr[i].start("left");
+      }
+    };
+
+    //* return to original positions
+    const resetAnimations = async (controlsArr) => {
+      for (let i = 0; i < controlsArr.length; i++) {
+        controlsArr[i].start("reset");
+      }
+
+      //? maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
+      // keeps the distance the same
+      setDistance(distance);
+    };
+
+    const checkSize = () => setResized(true);
+
+    window.addEventListener("resize", () => setResized(true));
+
+    // checks to see if the window has been resized, distance might change if it does
+    const resizeChecker = () => {
+      if (resized === true) {
+        findDistance();
+      }
+    };
+
+    // puzzle animations on scroll
+    if (isInView) {
+      // for the initial mount, negative numbers, and to prevent running findDistance() more than necessary
+      if (distance < 10 || distance >= 100) {
+        findDistance();
+      } else {
+        resizeChecker();
+      }
+      // maybe get rid of this
+      setTimeout(() => {
+        runAnimations(controls);
+      }, 1500);
     } else {
-      console.log("not working");
-    }
-  };
-
-  const runAnimations = async (controlsArr) => {
-    setClicked(true);
-
-    // y movement
-    for (let i = 0; i < controlsArr.length; i++) {
-      if (i === 0 || i === 1) await controlsArr[i].start("odd");
-      else await controlsArr[i].start("even");
+      resetAnimations(controls);
     }
 
-    // x movement
-    for (let i = 0; i < controlsArr.length; i++) {
-      if (i === 0 || i === 2) controlsArr[i].start("right");
-      else controlsArr[i].start("left");
-    }
-  };
+    return () => {
+      window.removeEventListener("resize", checkSize);
+    };
+  }, [controls, isInView, distance, top, resized, initialMount]); // ?dependency ignore comment
 
-  const resetAnimations = async (controlsArr) => {
-    for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start("reset");
-    }
-
-    setClicked(false);
-    //? maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
-    // keeps the distance the same
-    setDistance(distance);
-  };
-
+  //** rendering puzzle pieces
   const puzzleImgs = [];
   // to account for 0 index
   let countUp = -1;
@@ -195,7 +224,7 @@ const TestPage = () => {
       ></div>
       <div
         style={{
-          height: "100vh",
+          height: "fit-content",
           width: "100wh",
           outline: "1px dotted pink",
           display: "flex",
@@ -207,9 +236,9 @@ const TestPage = () => {
       >
         <div
           style={{
-            height: "60vh",
-            width: "60vh",
-            outline: "1px solid lavender",
+            height: `${divHeight}vh`,
+            width: `${divHeight}vw`,
+            outline: `1px solid orange`,
             display: "flex",
             flexFlow: "wrap",
             alignItems: "center",
@@ -229,9 +258,9 @@ const TestPage = () => {
               border: "1px solid white",
               borderRadius: "10px",
             }}
-            onClick={() => resetAnimations(controls)}
+            onClick={() => setDivHeight(60)}
           >
-            Reset Animations
+            Reset Height
           </button>
           <button
             style={{
@@ -242,35 +271,9 @@ const TestPage = () => {
               border: "1px solid white",
               borderRadius: "10px",
             }}
-            onClick={() => runAnimations(controls)}
+            onClick={() => setDivHeight(80)}
           >
-            Run Animations
-          </button>
-          <button
-            style={{
-              height: "50px",
-              width: "fit-content",
-              margin: "25px 10px",
-              padding: "0px 10px",
-              border: "1px solid white",
-              borderRadius: "10px",
-            }}
-            onClick={() => setChangeD(!changeD)}
-          >
-            Change Distance
-          </button>
-          <button
-            style={{
-              height: "50px",
-              width: "fit-content",
-              margin: "25px 10px",
-              padding: "0px 10px",
-              border: "1px solid white",
-              borderRadius: "10px",
-            }}
-            onClick={() => findDistance()}
-          >
-            Calculate Distance
+            Bigger Height
           </button>
         </div>
         <h3>Halfway point: {midpoint}</h3>
