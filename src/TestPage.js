@@ -9,12 +9,12 @@ const TestPage = () => {
   const containerRef = useRef(null);
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
-  const controls = [
+  const controls = useRef([
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
-  ];
+  ]).current;
   // top puzzle piece
   const topRef = useRef(null);
   const [top, setTop] = useState(null);
@@ -126,7 +126,7 @@ const TestPage = () => {
     return () => {
       window.removeEventListener("resize", checkSize);
     };
-  }, [controls, isInView, distance, top, resized]); // ?dependency ignore comment
+  }, [isInView, distance, top, resized]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //** rendering puzzle pieces
   const puzzleImgs = [];

@@ -17,26 +17,20 @@ export function IntroPuzzle() {
   const containerRef = useRef(null);
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
-  const controls = [
+
+  const controls = useRef([
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
-  ];
+  ]).current;
   // top puzzle piece
   const topRef = useRef(null);
   const [top, setTop] = useState(null);
-  const [midpoint, setMidpoint] = useState(null);
-
-  // container for pieces/content-wrapper
-  const [containerBot, setContainerBot] = useState(null);
-  const [containerTop, setContainerTop] = useState(null);
 
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
   const [puzzleGap, setPuzzleGap] = useState(0);
-
-  const [resized, setResized] = useState(false);
 
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + puzzleGap);
@@ -49,88 +43,69 @@ export function IntroPuzzle() {
     reset: { x: 0, y: 0 },
   };
 
+  //** calculates distance/position pieces need to move and join
+  const findDistance = () => {
+    if (topRef.current && containerRef.current) {
+      const topPiece = topRef.current.getBoundingClientRect();
+      const container = containerRef.current.getBoundingClientRect();
+      const scrollTop = document.documentElement.scrollTop;
+
+      // position of the container plus how far down the user has scrolled to get it's exact position
+      const containerTop = container.top + scrollTop;
+      const containerBottom = container.bottom + scrollTop;
+      const midpoint = (containerTop + containerBottom) / 2;
+      const piecePosition = topPiece.bottom + scrollTop;
+
+      // figuring out the size of the piece of the puzzle that is sticking out using the original img sizes
+      const multiplier = topPiece.width / 200;
+      const gap = (50 * multiplier).toFixed(2);
+      // bottom of first puzzle piece
+      setTop(piecePosition.toFixed(2));
+      setPuzzleGap(gap);
+
+      // target place where pieces need to move to + distance needed
+      setDistance(Math.round(midpoint - top));
+    }
+  };
+
+  //*** puzzle animations
+  //* joins pieces together
+  const runAnimations = async () => {
+    // y movement
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 1) await controls[i].start("odd");
+      else await controls[i].start("even");
+    }
+
+    // x movement
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 2) controls[i].start("right");
+      else controls[i].start("left");
+    }
+  };
+
+  //* return to original positions
+  const resetAnimations = async () => {
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].start("reset");
+    }
+
+    // keeps the distance the same
+    setDistance(distance);
+  };
+
   useEffect(() => {
-    //** calculates distance/position pieces need to move and join
-    const findDistance = () => {
-      if (topRef.current && containerRef.current) {
-        const topPiece = topRef.current.getBoundingClientRect();
-        const container = containerRef.current.getBoundingClientRect();
-        const scrollTop = document.documentElement.scrollTop;
-
-        // position of the container plus how far down the user has scrolled to get it's exact position
-        const containerTop = container.top + scrollTop;
-        const containerBottom = container.bottom + scrollTop;
-        const midpoint = (containerTop + containerBottom) / 2;
-        const piecePosition = topPiece.bottom + scrollTop;
-
-        // figuring out the size of the piece of the puzzle that is sticking out using the original img sizes
-        const multiplier = topPiece.width / 200;
-        const gap = (50 * multiplier).toFixed(2);
-        // bottom of first puzzle piece
-        setTop(piecePosition.toFixed(2));
-        setPuzzleGap(gap);
-
-        // top and bottom of the puzzle content-wrapper/container
-        setContainerBot(containerBottom.toFixed(2));
-        setContainerTop(containerTop.toFixed(2));
-        // target place where pieces need to move to + distance needed
-        setMidpoint(midpoint.toFixed(2));
-        setDistance(Math.round(midpoint - top));
-      }
-    };
-
-    //*** puzzle animations
-    //* joins pieces together
-    const runAnimations = async (controlsArr) => {
-      // y movement
-      for (let i = 0; i < controlsArr.length; i++) {
-        if (i === 0 || i === 1) await controlsArr[i].start("odd");
-        else await controlsArr[i].start("even");
-      }
-
-      // x movement
-      for (let i = 0; i < controlsArr.length; i++) {
-        if (i === 0 || i === 2) controlsArr[i].start("right");
-        else controlsArr[i].start("left");
-      }
-    };
-
-    //* return to original positions
-    const resetAnimations = async (controlsArr) => {
-      for (let i = 0; i < controlsArr.length; i++) {
-        controlsArr[i].start("reset");
-      }
-
-      // keeps the distance the same
-      setDistance(distance);
-    };
-
-    const checkSize = () => setResized(true);
-
-    window.addEventListener("resize", checkSize);
-
-    // checks to see if the window has been resized, distance might change if it does
-    const resizeChecker = () => {
-      if (resized === true) {
-        findDistance();
-      }
-    };
-
     // puzzle animations on scroll
     if (isInView) {
       findDistance();
       // maybe get rid of this
       setTimeout(() => {
-        runAnimations(controls);
-      }, 1500);
+        runAnimations();
+      }, 500);
     } else {
-      resetAnimations(controls);
+      resetAnimations();
     }
-
-    return () => {
-      window.removeEventListener("resize", checkSize);
-    };
-  }, [controls, isInView, distance, top, resized]); // ?dependency ignore comment
+  }, [isInView, distance, top]); // eslint-disable-line react-hooks/exhaustive-deps
 
   //** rendering puzzle pieces
   const puzzleImgs = [];
@@ -150,6 +125,7 @@ export function IntroPuzzle() {
       <>
         <motion.img
           src={value}
+          key={key}
           alt={word}
           className="intro-piece"
           variants={variants}
@@ -161,16 +137,6 @@ export function IntroPuzzle() {
   }
   return (
     <figure className="intro-puzzle-container" ref={containerRef}>
-      <div
-        style={{
-          position: "absolute",
-          left: "140px",
-          top: "0px",
-          height: `${midpoint}px`,
-          width: "2px",
-          backgroundColor: "purple",
-        }}
-      ></div>
       {puzzleImgs}
     </figure>
   );
@@ -185,14 +151,14 @@ export function SkillsPuzzle() {
     margin: "-40% 0px",
   });
 
-  const controls = [
+  const controls = useRef([
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
-  ];
+  ]).current;
   const centerRef = useRef(null);
   const [width, setWidth] = useState(null);
 
@@ -268,7 +234,7 @@ export function SkillsPuzzle() {
     } else {
       resetAnimations(controls);
     }
-  }, [isInView, controls, distance]);
+  }, [isInView, distance]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // condensing imgs
   const imgArr = [];
