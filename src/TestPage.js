@@ -3,13 +3,11 @@ import { useInView, motion, useAnimation } from "framer-motion";
 import { introPieces } from "./Imports";
 import { SocialLinks } from "./Icons";
 
-//! ADD ONSCROLL STUFF AND EVERYTHING SHOULD WORK!
 const TestPage = () => {
   const titleRef = useRef(null);
   // container for puzzle
   const containerRef = useRef(null);
   // make sure that the container is in the middle of the viewport
-  // might need to use midpoint?
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
   const controls = [
     useAnimation(),
@@ -29,7 +27,8 @@ const TestPage = () => {
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
 
-  const [initialMount, setInitialMount] = useState(true);
+  const [resized, setResized] = useState(false);
+
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + 50);
 
@@ -41,13 +40,9 @@ const TestPage = () => {
     reset: { x: 0, y: 0 },
   };
 
-  const [resized, setResized] = useState(false);
-  const [divHeight, setDivHeight] = useState(60);
-
   useEffect(() => {
     //** calculates distance/position pieces need to move and join
     const findDistance = () => {
-      // if initialMount is true or if previous state does not = current state
       if (topRef.current && containerRef.current) {
         const rect1 = topRef.current.getBoundingClientRect();
         const container = containerRef.current.getBoundingClientRect();
@@ -56,7 +51,6 @@ const TestPage = () => {
         // position of the container plus how far down the user has scrolled to get it's exact position
         const containerTop = container.top + scrollTop;
         const containerBottom = container.bottom + scrollTop;
-
         const midpoint = (containerTop + containerBottom) / 2;
         const piecePosition = rect1.bottom + scrollTop;
 
@@ -66,11 +60,11 @@ const TestPage = () => {
         // top and bottom of the puzzle content-wrapper/container
         setContainerBot(containerBottom.toFixed(2));
         setContainerTop(containerTop.toFixed(2));
-        // target place where pieces need to move to
+        // target place where pieces need to move to + distance needed
         setMidpoint(midpoint.toFixed(2));
         setDistance(Math.round(midpoint - top));
-        console.log("ran once" + distance);
       }
+
       if (resized === true) {
         setResized(false);
       }
@@ -98,7 +92,6 @@ const TestPage = () => {
         controlsArr[i].start("reset");
       }
 
-      //? maybe calculate it again and make it so that if distance is a different number, then set it as that distance but if not, just keep it the same?
       // keeps the distance the same
       setDistance(distance);
     };
@@ -133,7 +126,7 @@ const TestPage = () => {
     return () => {
       window.removeEventListener("resize", checkSize);
     };
-  }, [controls, isInView, distance, top, resized, initialMount]); // ?dependency ignore comment
+  }, [controls, isInView, distance, top, resized]); // ?dependency ignore comment
 
   //** rendering puzzle pieces
   const puzzleImgs = [];
@@ -236,8 +229,8 @@ const TestPage = () => {
       >
         <div
           style={{
-            height: `${divHeight}vh`,
-            width: `${divHeight}vw`,
+            height: `60vh`,
+            width: `75vw`,
             outline: `1px solid orange`,
             display: "flex",
             flexFlow: "wrap",
@@ -248,34 +241,7 @@ const TestPage = () => {
         >
           {puzzleImgs}
         </div>
-        <div>
-          <button
-            style={{
-              height: "50px",
-              width: "fit-content",
-              margin: "25px 10px",
-              padding: "0px 10px",
-              border: "1px solid white",
-              borderRadius: "10px",
-            }}
-            onClick={() => setDivHeight(60)}
-          >
-            Reset Height
-          </button>
-          <button
-            style={{
-              height: "50px",
-              width: "fit-content",
-              margin: "25px 10px",
-              padding: "0px 10px",
-              border: "1px solid white",
-              borderRadius: "10px",
-            }}
-            onClick={() => setDivHeight(80)}
-          >
-            Bigger Height
-          </button>
-        </div>
+        <div></div>
         <h3>Halfway point: {midpoint}</h3>
         <h4>Top of Webpage to Top of Container: {containerTop}</h4>
         <h4>Top of Webpage to Bottom of Container: {containerBot}</h4>
