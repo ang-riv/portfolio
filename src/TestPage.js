@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useInView, motion, useAnimation } from "framer-motion";
 import { mobilePieces } from "./Imports";
 import { SocialLinks } from "./Icons";
@@ -18,49 +18,53 @@ const TestPage = () => {
     useAnimation(),
   ]).current;
   // top puzzle piece
-  const [top, setTop] = useState(null);
-  const [midpoint, setMidpoint] = useState(null);
+  const [top, setTop] = useState(0);
+  const [midpoint, setMidpoint] = useState(0);
 
   // container for pieces/content-wrapper
-  const [containerBot, setContainerBot] = useState(null);
-  const [containerTop, setContainerTop] = useState(null);
+  const [containerBot, setContainerBot] = useState(0);
+  const [containerTop, setContainerTop] = useState(0);
 
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
 
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + 25);
-
+  const xMovement = 50;
   const topPiece = useRef(null);
   const botPiece = useRef(null);
 
   const variants = {
     down: { y: yMovement, transition: { duration: 0.5 } },
     up: { y: -yMovement, transition: { duration: 0.5 } },
-    right: { x: -50, transition: { duration: 0.5 } },
-    left: { x: 50, transition: { duration: 0.5 } },
+    right: { x: -xMovement, transition: { duration: 0.5 } },
+    left: { x: xMovement, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
   };
-
-  useEffect(() => {
-    //** calculates distance/position pieces need to move and join
-    //*** puzzle animations
-    // checks to see if the window has been resized, distance might change if it doe
-    // puzzle animations on scroll
-
-    if (isInView) {
-      if (distance < 10 || distance >= 100) {
-        findDistance();
-      }
-      setTimeout(() => {
-        runAnimations(controls);
-      }, 500);
-    } else {
-      resetAnimations(controls);
+  //* joins pieces together
+  const runAnimations = useCallback(async () => {
+    // x movement
+    // if it's the first piece, or the third piece, move right
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 3) await controls[i].start("left");
+      else if (i === 2 || i === 5) await controls[i].start("right");
     }
-  }, [isInView, distance, top]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const findDistance = () => {
+    // y movement
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 1 || i === 2) controls[i].start("down");
+      else controls[i].start("up");
+    }
+  }, [controls]);
+
+  //* return to original positions
+  const resetAnimations = useCallback(async () => {
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].start("reset");
+    }
+  }, [controls]);
+
+  const findDistance = useCallback(() => {
     if (topPiece.current && containerRef.current) {
       const rect1 = topPiece.current.getBoundingClientRect();
       const container = containerRef.current.getBoundingClientRect();
@@ -81,34 +85,28 @@ const TestPage = () => {
       // target place where pieces need to move to + distance needed
       setMidpoint(midpoint.toFixed(2));
       setDistance(Math.round(midpoint - top));
+      console.log("ran once");
     }
-  };
+  }, [top]);
 
-  //* joins pieces together
-  const runAnimations = async (controlsArr) => {
-    // x movement
-    // if it's the first piece, or the third piece, move right
-    for (let i = 0; i < controlsArr.length; i++) {
-      if (i === 0 || i === 3) await controlsArr[i].start("left");
-      else if (i === 2 || i === 5) await controlsArr[i].start("right");
+  useEffect(() => {
+    //** calculates distance/position pieces need to move and join
+    //*** puzzle animations
+    // checks to see if the window has been resized, distance might change if it doe
+    // puzzle animations on scroll
+
+    if (isInView) {
+      if (distance < 10 || distance >= 100) {
+        findDistance();
+      }
+      setTimeout(() => {
+        runAnimations();
+      }, 500);
+    } else {
+      resetAnimations();
     }
+  }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
-    // y movement
-    for (let i = 0; i < controlsArr.length; i++) {
-      if (i === 0 || i === 1 || i === 2) controlsArr[i].start("down");
-      else controlsArr[i].start("up");
-    }
-  };
-
-  //* return to original positions
-  const resetAnimations = async (controlsArr) => {
-    for (let i = 0; i < controlsArr.length; i++) {
-      controlsArr[i].start("reset");
-    }
-
-    // keeps the distance the same
-    setDistance(distance);
-  };
   //** rendering puzzle pieces
   const puzzleImgs = [];
   // to account for 0 index
