@@ -8,6 +8,7 @@ import {
   mobilePieces,
   globalColors,
 } from "./Imports";
+import { rect } from "framer-motion/client";
 
 /**** INTRO SECTION ****/
 
@@ -273,87 +274,142 @@ export function SkillsPuzzle() {
 }
 
 export function MobileSkillsPuzzle() {
-  const sideRef = useRef(null);
-  const centerRef = useRef(null);
+  // container for puzzle
+  const containerRef = useRef(null);
+  // make sure that the container is in the middle of the viewport
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+  const controls = useRef([
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+  ]).current;
+  // top puzzle piece
+  const [top, setTop] = useState(0);
+  const [midpoint, setMidpoint] = useState(0);
 
-  const topRef = useRef(null);
-  const botRef = useRef(null);
-  const [distance, setDistance] = useState(null);
-  const [distanceY, setDistanceY] = useState(null);
+  // container for pieces/content-wrapper
+  const [containerBot, setContainerBot] = useState(0);
+  const [containerTop, setContainerTop] = useState(0);
+  const [puzzleGap, setPuzzleGap] = useState(null);
+  // amount needed for each piece to move vertically and join together
+  const [distance, setDistance] = useState(0);
+
+  // adds 50 due to original puzzle piece's jutted out piece is 50px
+  const yMovement = puzzleGap;
+  const xMovement = puzzleGap * 2;
+  const topPiece = useRef(null);
+  const botPiece = useRef(null);
+
+  const variants = {
+    down: { y: yMovement, transition: { duration: 0.5 } },
+    up: { y: -yMovement, transition: { duration: 0.5 } },
+    right: { x: -xMovement, transition: { duration: 0.5 } },
+    left: { x: xMovement, transition: { duration: 0.5 } },
+    reset: { x: 0, y: 0 },
+  };
+  //* joins pieces together
+  const runAnimations = useCallback(async () => {
+    // x movement
+    // if it's the first piece, or the third piece, move right
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 3) await controls[i].start("left");
+      else if (i === 2 || i === 5) await controls[i].start("right");
+    }
+
+    // y movement
+    for (let i = 0; i < controls.length; i++) {
+      if (i === 0 || i === 1 || i === 2) controls[i].start("down");
+      else controls[i].start("up");
+    }
+  }, [controls]);
+
+  //* return to original positions
+  const resetAnimations = useCallback(async () => {
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].start("reset");
+    }
+  }, [controls]);
+
+  const findDistance = useCallback(() => {
+    if (topPiece.current && containerRef.current) {
+      const rect1 = topPiece.current.getBoundingClientRect();
+      const container = containerRef.current.getBoundingClientRect();
+      const scrollTop = document.documentElement.scrollTop;
+
+      // position of the container plus how far down the user has scrolled to get it's exact position
+      const containerTop = container.top + scrollTop;
+      const containerBottom = container.bottom + scrollTop;
+      const midpoint = (containerTop + containerBottom) / 2;
+      const piecePosition = rect1.bottom + scrollTop;
+
+      // bottom of first puzzle piece
+      setTop(piecePosition.toFixed(2));
+      const decrease = 150 - rect1.width; // 46
+      const percent = decrease / 150; // 0.31
+      const gap = Math.round(25 - 25 * percent); //17.25
+      setPuzzleGap(gap);
+      console.log("multiplier:" + gap);
+      // top and bottom of the puzzle content-wrapper/container
+      setContainerBot(containerBottom.toFixed(2));
+      setContainerTop(containerTop.toFixed(2));
+      // target place where pieces need to move to + distance needed
+      setMidpoint(midpoint.toFixed(2));
+      setDistance(Math.round(top - midpoint));
+      console.log("ran once");
+    }
+  }, [top, distance]);
 
   useEffect(() => {
-    if (sideRef.current && centerRef.current) {
-      const rect1 = sideRef.current.getBoundingClientRect();
-      const rect2 = centerRef.current.getBoundingClientRect();
+    //** calculates distance/position pieces need to move and join
+    //*** puzzle animations
+    // checks to see if the window has been resized, distance might change if it doe
+    // puzzle animations on scroll
 
-      const dx = rect2.left - rect1.left;
-      const dy = rect2.top - rect1.top;
-      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
-      setDistance(calculatedDistance);
+    if (isInView) {
+      if (distance < 10 || distance >= 100) {
+        findDistance();
+      }
+      setTimeout(() => {
+        runAnimations();
+      }, 500);
+    } else {
+      resetAnimations();
     }
-    if (topRef.current && botRef.current) {
-      const rect1 = topRef.current.getBoundingClientRect();
-      const rect2 = botRef.current.getBoundingClientRect();
+  }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
-      const dx = rect2.left - rect1.left;
-      const dy = rect2.top - rect1.top;
-      const calculatedDistance = Math.sqrt(dx * dx + dy * dy);
-      setDistanceY(calculatedDistance);
-    }
-  }, []);
-  const move = Math.ceil(distance) / 3;
-  const moveY = Math.round(distanceY * 100) / 100 / 4;
+  //** rendering puzzle pieces
+  const puzzleImgs = [];
+  // to account for 0 index
+  let countUp = -1;
+
+  for (const [key, value] of Object.entries(mobilePieces)) {
+    const word = "puzzle piece";
+    countUp++;
+
+    // attaching ref to only the first piece for calculates
+    const singlePieceRef = () => {
+      if (key === "css") return { ref: topPiece };
+      else if (key === "react") return { ref: botPiece };
+    };
+
+    puzzleImgs.push(
+      <motion.img
+        src={value}
+        alt={word}
+        className="mobile-piece"
+        variants={variants}
+        {...singlePieceRef()}
+        animate={controls[countUp]}
+      ></motion.img>
+    );
+  }
   return (
     <>
-      <motion.div
-        className="skill-mobile-div"
-        animate={{ y: moveY }}
-        transition={{ delay: 3, duration: 1.5 }}
-      >
-        <motion.img
-          src={mobilePieces.html}
-          alt="puzzle piece with the word HTML"
-          animate={{ x: move }}
-          transition={{ delay: 1, duration: 1.5 }}
-          ref={sideRef}
-        ></motion.img>
-        <motion.img
-          src={mobilePieces.css}
-          alt="puzzle piece with the word CSS"
-          ref={centerRef}
-        ></motion.img>
-        <motion.img
-          src={mobilePieces.js}
-          alt="puzzle piece with the word JavaScript"
-          ref={topRef}
-          animate={{ x: -move }}
-          transition={{ delay: 1, duration: 1.5 }}
-        ></motion.img>
-      </motion.div>
-      <motion.div
-        className="skill-mobile-div"
-        animate={{ y: -moveY }}
-        transition={{ delay: 3, duration: 1.5 }}
-      >
-        <motion.img
-          src={mobilePieces.bootstrap}
-          alt="puzzle piece with the word bootstrap"
-          animate={{ x: move }}
-          transition={{ delay: 1, duration: 1.5 }}
-          ref={sideRef}
-        ></motion.img>
-        <motion.img
-          src={mobilePieces.react}
-          alt="puzzle piece with the word React"
-          ref={centerRef}
-        ></motion.img>
-        <motion.img
-          src={mobilePieces.github}
-          alt="puzzle piece with the word Github"
-          ref={botRef}
-          animate={{ x: -move }}
-          transition={{ delay: 1, duration: 1.5 }}
-        ></motion.img>
+      <motion.div className="skill-mobile-div" ref={containerRef}>
+        {puzzleImgs}
       </motion.div>
     </>
   );

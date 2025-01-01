@@ -27,9 +27,11 @@ const TestPage = () => {
 
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
+  const [multiplier, setMultiplier] = useState(0);
 
+  const [puzzleGap, setPuzzleGap] = useState(0);
   // adds 50 due to original puzzle piece's jutted out piece is 50px
-  const yMovement = Number(distance + 25);
+  const yMovement = Number(distance);
   const xMovement = 50;
   const topPiece = useRef(null);
   const botPiece = useRef(null);
@@ -78,7 +80,7 @@ const TestPage = () => {
 
       // bottom of first puzzle piece
       setTop(piecePosition.toFixed(2));
-
+      setMultiplier(rect1.width / 150);
       // top and bottom of the puzzle content-wrapper/container
       setContainerBot(containerBottom.toFixed(2));
       setContainerTop(containerTop.toFixed(2));
@@ -123,15 +125,14 @@ const TestPage = () => {
     };
 
     puzzleImgs.push(
-      <>
-        <motion.img
-          src={value}
-          alt={word}
-          variants={variants}
-          {...singlePieceRef()}
-          animate={controls[countUp]}
-        ></motion.img>
-      </>
+      <motion.img
+        src={value}
+        alt={word}
+        variants={variants}
+        {...singlePieceRef()}
+        animate={controls[countUp]}
+        style={{ border: "1px solid pink" }}
+      ></motion.img>
     );
   }
 

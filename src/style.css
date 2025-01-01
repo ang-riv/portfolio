@@ -271,9 +271,9 @@ a {
 
 .skill-mobile-div {
   max-width: 87.5em;
-  width: 95%;
+  width: 70%;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
@@ -411,7 +411,7 @@ a {
   }
 
   .skill-mobile-div > img {
-    max-height: 8em;
+    max-height: 9.6em;
     max-width: 8em;
     z-index: 0;
   }
@@ -457,22 +457,24 @@ a {
 
   /* skill section  */
   .skill-section {
-    height: 50vh;
+    height: 35vh;
   }
 
   .skill-mobile-div {
-    max-width: 87.5em;
-    width: 95%;
+    max-width: 25em;
+    width: 100%;
+    height: fit-content;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
   }
 
   .skill-mobile-div > img {
-    min-height: 6.5em;
-    min-width: 6.5em;
     z-index: 0;
+    width: calc-size(fit-content, size - 3em);
+    max-height: 9.6em;
+    max-width: 8em;
   }
 
   /* project section */
