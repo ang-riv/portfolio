@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
@@ -15,6 +15,7 @@ import {
 export function IntroPuzzle() {
   // container for puzzle
   const containerRef = useRef(null);
+  const prevDistance = useRef(null);
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
@@ -44,7 +45,7 @@ export function IntroPuzzle() {
   };
 
   //** calculates distance/position pieces need to move and join
-  const findDistance = () => {
+  const findDistance = useCallback(() => {
     if (topRef.current && containerRef.current) {
       const topPiece = topRef.current.getBoundingClientRect();
       const container = containerRef.current.getBoundingClientRect();
@@ -64,13 +65,22 @@ export function IntroPuzzle() {
       setPuzzleGap(gap);
 
       // target place where pieces need to move to + distance needed
-      setDistance(Math.round(midpoint - top));
+      const newDistance = Math.round(midpoint - top);
+      console.log("ran once");
+
+      if (newDistance !== prevDistance.current) {
+        setDistance(newDistance);
+        prevDistance.current = newDistance;
+        console.log("distance changed, ran logic");
+      } else {
+        console.log("distance is the same, skipped");
+      }
     }
-  };
+  }, [top]);
 
   //*** puzzle animations
   //* joins pieces together
-  const runAnimations = async () => {
+  const runAnimations = useCallback(async () => {
     // y movement
     for (let i = 0; i < controls.length; i++) {
       if (i === 0 || i === 1) await controls[i].start("odd");
@@ -82,17 +92,14 @@ export function IntroPuzzle() {
       if (i === 0 || i === 2) controls[i].start("right");
       else controls[i].start("left");
     }
-  };
+  }, [controls]);
 
   //* return to original positions
-  const resetAnimations = async () => {
+  const resetAnimations = useCallback(async () => {
     for (let i = 0; i < controls.length; i++) {
       controls[i].start("reset");
     }
-
-    // keeps the distance the same
-    setDistance(distance);
-  };
+  }, [controls]);
 
   useEffect(() => {
     // puzzle animations on scroll
@@ -105,7 +112,7 @@ export function IntroPuzzle() {
     } else {
       resetAnimations();
     }
-  }, [isInView, distance, top]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
   //** rendering puzzle pieces
   const puzzleImgs = [];
