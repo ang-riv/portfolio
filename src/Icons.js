@@ -8,7 +8,6 @@ import {
   mobilePieces,
   globalColors,
 } from "./Imports";
-import { rect } from "framer-motion/client";
 
 /**** INTRO SECTION ****/
 
@@ -275,6 +274,7 @@ export function SkillsPuzzle() {
 
 export function MobileSkillsPuzzle() {
   // container for puzzle
+  const prevDistance = useRef(null);
   const containerRef = useRef(null);
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
@@ -286,20 +286,15 @@ export function MobileSkillsPuzzle() {
     useAnimation(),
     useAnimation(),
   ]).current;
+
   // top puzzle piece
   const [top, setTop] = useState(0);
-  const [midpoint, setMidpoint] = useState(0);
 
-  // container for pieces/content-wrapper
-  const [containerBot, setContainerBot] = useState(0);
-  const [containerTop, setContainerTop] = useState(0);
-  const [puzzleGap, setPuzzleGap] = useState(null);
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
 
-  // adds 50 due to original puzzle piece's jutted out piece is 50px
-  const yMovement = puzzleGap;
-  const xMovement = puzzleGap * 2;
+  const yMovement = distance;
+  const xMovement = distance * 2;
   const topPiece = useRef(null);
   const botPiece = useRef(null);
 
@@ -335,30 +330,26 @@ export function MobileSkillsPuzzle() {
 
   const findDistance = useCallback(() => {
     if (topPiece.current && containerRef.current) {
-      const rect1 = topPiece.current.getBoundingClientRect();
-      const container = containerRef.current.getBoundingClientRect();
+      const rect = topPiece.current.getBoundingClientRect();
       const scrollTop = document.documentElement.scrollTop;
 
       // position of the container plus how far down the user has scrolled to get it's exact position
-      const containerTop = container.top + scrollTop;
-      const containerBottom = container.bottom + scrollTop;
-      const midpoint = (containerTop + containerBottom) / 2;
-      const piecePosition = rect1.bottom + scrollTop;
+      const piecePosition = rect.bottom + scrollTop;
 
       // bottom of first puzzle piece
       setTop(piecePosition.toFixed(2));
-      const decrease = 150 - rect1.width; // 46
-      const percent = decrease / 150; // 0.31
-      const gap = Math.round(25 - 25 * percent); //17.25
-      setPuzzleGap(gap);
-      console.log("multiplier:" + gap);
-      // top and bottom of the puzzle content-wrapper/container
-      setContainerBot(containerBottom.toFixed(2));
-      setContainerTop(containerTop.toFixed(2));
-      // target place where pieces need to move to + distance needed
-      setMidpoint(midpoint.toFixed(2));
-      setDistance(Math.round(top - midpoint));
-      console.log("ran once");
+
+      // calculating the distance needed
+      const decrease = 150 - rect.width;
+      const newDistance = Math.round(25 - 25 * (decrease / 150));
+
+      if (newDistance !== prevDistance.current) {
+        setDistance(newDistance);
+        prevDistance.current = newDistance;
+        //console.log("distance changed, ran logic");
+      } else {
+        //console.log("distance is the same, skipped");
+      }
     }
   }, [top, distance]);
 
