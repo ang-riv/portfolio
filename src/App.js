@@ -27,8 +27,8 @@ function App() {
   // section components to assign the refs to
   const componentNames = [
     IntroSection,
-    SkillsSection,
     AboutSection,
+    SkillsSection,
     ProjectsSection,
     ContactSection,
   ];
