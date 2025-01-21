@@ -1,17 +1,17 @@
 import "./style.css";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Navigation from "./Navigation.js";
 import IntroSection from "./IntroSection.js";
 import AboutSection from "./AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
-import { object } from "framer-motion/client";
 //import TestPage from "./TestPage.js";
 
 function App() {
   const sectionTitles = ["intro", "skills", "about", "projects", "contact"];
 
+  // creating refs to scroll to the right sections
   const sectionRefs = useRef(
     Object.fromEntries(sectionTitles.map((key) => [key, React.createRef()]))
   );
@@ -24,14 +24,22 @@ function App() {
     contactRef: sectionRefs.current.contact,
   };
 
+  // section components to assign the refs to
+  const componentNames = [
+    IntroSection,
+    SkillsSection,
+    AboutSection,
+    ProjectsSection,
+    ContactSection,
+  ];
+
   return (
     <div className="App">
       <Navigation {...refProps} />
-      <IntroSection ref={refProps.introRef} />
-      <SkillsSection ref={refProps.skillsRef} />
-      <AboutSection ref={refProps.aboutRef} />
-      <ProjectsSection ref={refProps.projectsRef} />
-      <ContactSection ref={refProps.contactRef} />
+      {Object.keys(refProps).map((key, index) => {
+        const Component = componentNames[index]; // Get the corresponding component
+        return <Component key={key} ref={refProps[key]} />;
+      })}
     </div>
   );
 }
