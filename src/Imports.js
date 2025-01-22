@@ -35,6 +35,14 @@ import rogue from "./assets/project-imgs/rogue-pickings.png";
 import gallery from "./assets/project-imgs/gh-gallery.png";
 import notes from "./assets/project-imgs/sticky-notes.png";
 
+/********** ADD CONTENT  ************/
+// function to add colors or imgs into specific objects
+export function addContent(object, property, array) {
+  return Object.keys(object).forEach((key, val) => {
+    object[key][property] = array[val];
+  });
+}
+
 /********** GLOBAL COLORS ************/
 // if the color is being used in any style props, it needs to be in quotation marks, so this fcn does that
 export function quotationColors(color) {
@@ -52,11 +60,9 @@ export const globalColors = {
   blue: quotationColors(colors[4]),
 };
 
-// fcn to add colors to different sections
+// adds colors to different sections
 export function addColors(object) {
-  return Object.keys(object).forEach((key, val) => {
-    object[key].color = colors[val];
-  });
+  addContent(object, "color", colors);
 }
 
 /********** SVG OBJECTS ************/
@@ -88,9 +94,7 @@ export const mobilePieces = {
 /********** PROJECT IMGS ************/
 export const imgArr = [unplugged, potluck, gallery, notes, rogue];
 
-// fcn to add imgs to project tiles
+// adds images to project tiles
 export function addImgs(object) {
-  return Object.keys(object).forEach((key, val) => {
-    object[key].img = imgArr[val];
-  });
+  addContent(object, "img", imgArr);
 }
