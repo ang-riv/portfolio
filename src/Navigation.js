@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import useWindowSize from "./useWindowSize";
-import { mobileNavIcons } from "./Icons";
+import { mobileNavIcons } from "./MobileIcons";
 import { globalColors } from "./Imports";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // hover effects to check which element is being hovered
