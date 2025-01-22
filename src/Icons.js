@@ -65,7 +65,8 @@ export function IntroPuzzle() {
       setPuzzleGap(gap);
 
       // target place where pieces need to move to + distance needed
-      const newDistance = Math.round(midpoint - top);
+      //const newDistance = Math.round(midpoint - top);
+      /*
       console.log("ran once");
 
       if (newDistance !== prevDistance.current) {
@@ -75,6 +76,7 @@ export function IntroPuzzle() {
       } else {
         console.log("distance is the same, skipped");
       }
+        */
     }
   }, [top]);
 
@@ -669,3 +671,10 @@ export function SpeechIcon(props) {
     </svg>
   );
 }
+
+export const mobileNavIcons = [
+  <QuestionMarkIcon />,
+  <GearIcon />,
+  <CodeIcon />,
+  <SpeechIcon />,
+];

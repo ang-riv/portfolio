@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import useWindowSize from "./useWindowSize";
-import { QuestionMarkIcon, GearIcon, CodeIcon, SpeechIcon } from "./Icons";
+import { mobileNavIcons } from "./Icons";
 import { globalColors } from "./Imports";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // hover effects to check which element is being hovered
@@ -14,24 +14,28 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
     }
   };
 
-  // for mobile or desktop nav
+  // for rendering mobile or desktop nav
   const size = useWindowSize();
 
-  const sectionRefs = [
-    { title: "About", ref: aboutRef, icon: <QuestionMarkIcon /> },
-    { title: "Skills", ref: skillsRef, icon: <GearIcon /> },
-    { title: "Projects", ref: projectsRef, icon: <CodeIcon /> },
-    { title: "Contact", ref: contactRef, icon: <SpeechIcon /> },
-  ];
+  const sectionTitles = ["About", "Skills", "Projects", "Contact"];
+  const sectionRefs = [aboutRef, skillsRef, projectsRef, contactRef];
+  const sectionInfo = [];
 
-  const refCopy = [...sectionRefs];
+  // icons are only for mobile
+  for (let i = 0; i < sectionTitles.length; i++) {
+    sectionInfo.push({
+      title: sectionTitles[i],
+      ref: sectionRefs[i],
+      icon: mobileNavIcons[i],
+    });
+  }
   return (
     <>
       {size.width > 600 ? (
         <div className="nav-container">
           <nav>
             <ul>
-              {refCopy.map((section) =>
+              {sectionInfo.map((section) =>
                 section.title !== "Contact" ? (
                   <motion.li
                     key={section.title}
@@ -40,6 +44,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                     onHoverEnd={() => setIsHovered("")}
                   >
                     {section.title}
+                    {/* underline titles */}
                     <motion.div
                       style={{
                         height: "3px",
@@ -76,7 +81,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
       ) : (
         <div className="mobile-nav-container">
           <ul>
-            {refCopy.map((section) => (
+            {sectionInfo.map((section) => (
               <li
                 key={section.title}
                 onClick={() => scrollToSection(section.ref)}
