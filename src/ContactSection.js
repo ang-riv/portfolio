@@ -1,5 +1,5 @@
 import React from "react";
-import { SocialLinks } from "./Icons";
+import { ContactLinks } from "./ContactLinks";
 import SectionTitles from "./SectionTitles";
 const ContactSection = React.forwardRef((_, ref) => {
   return (
@@ -15,7 +15,7 @@ const ContactSection = React.forwardRef((_, ref) => {
           }}
         >
           <div className="social-links-container">
-            <SocialLinks />
+            <ContactLinks />
           </div>
         </div>
       </div>
