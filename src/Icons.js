@@ -11,26 +11,29 @@ export function IntroPuzzle() {
   // container for puzzle
   const containerRef = useRef(null);
   const prevDistance = useRef(null);
-  // make sure that the container is in the middle of the viewport
-  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
-
+  // top puzzle piece
+  const topRef = useRef(null);
+  const [top, setTop] = useState(null);
+  // separate controls for each piece
   const controls = useRef([
     useAnimation(),
     useAnimation(),
     useAnimation(),
     useAnimation(),
   ]).current;
-  // top puzzle piece
-  const topRef = useRef(null);
-  const [top, setTop] = useState(null);
 
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
   const [puzzleGap, setPuzzleGap] = useState(0);
 
+  // make sure that the container is in the middle of the viewport
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+
+  /*** animations ***/
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + puzzleGap);
   const xMovement = Number(puzzleGap);
+
   const variants = {
     even: { y: -yMovement, transition: { duration: 0.5 } },
     odd: { y: yMovement, transition: { duration: 0.5 } },
@@ -46,7 +49,7 @@ export function IntroPuzzle() {
       const container = containerRef.current.getBoundingClientRect();
       const scrollTop = document.documentElement.scrollTop;
 
-      // position of the container plus how far down the user has scrolled to get it's exact position
+      // find the midpoint of the container, pieces will move vertically to meet it
       const containerTop = container.top + scrollTop;
       const containerBottom = container.bottom + scrollTop;
       const midpoint = (containerTop + containerBottom) / 2;
@@ -60,18 +63,13 @@ export function IntroPuzzle() {
       setPuzzleGap(gap);
 
       // target place where pieces need to move to + distance needed
-      //const newDistance = Math.round(midpoint - top);
-      /*
-      console.log("ran once");
+      const newDistance = Math.round(midpoint - top);
 
+      // only reset the distance if it's different
       if (newDistance !== prevDistance.current) {
         setDistance(newDistance);
         prevDistance.current = newDistance;
-        console.log("distance changed, ran logic");
-      } else {
-        console.log("distance is the same, skipped");
       }
-        */
     }
   }, [top]);
 
@@ -102,7 +100,6 @@ export function IntroPuzzle() {
     // puzzle animations on scroll
     if (isInView) {
       findDistance();
-      // maybe get rid of this
       setTimeout(() => {
         runAnimations();
       }, 500);
@@ -120,7 +117,7 @@ export function IntroPuzzle() {
     const word = "puzzle piece";
     countUp++;
 
-    // attaching ref to only the first piece for calculates
+    // attaching ref to only the first piece for calculations
     const singlePieceRef = () => {
       if (key === "pinkPiece") return { ref: topRef };
     };
