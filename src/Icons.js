@@ -29,7 +29,7 @@ export function IntroPuzzle() {
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
-  /*** animations ***/
+  //** animations
   // adds 50 due to original puzzle piece's jutted out piece is 50px
   const yMovement = Number(distance + puzzleGap);
   const xMovement = Number(puzzleGap);
@@ -146,12 +146,10 @@ export function IntroPuzzle() {
 /**** SKILLS SECTION ****/
 // puzzle in skill section
 export function SkillsPuzzle() {
+  // container div ref
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    threshold: 1.0,
-    margin: "-40% 0px",
-  });
-
+  // piece ref
+  const pieceRef = useRef(null);
   const controls = useRef([
     useAnimation(),
     useAnimation(),
@@ -160,10 +158,14 @@ export function SkillsPuzzle() {
     useAnimation(),
     useAnimation(),
   ]).current;
-  const centerRef = useRef(null);
+  const isInView = useInView(ref, {
+    threshold: 1.0,
+    margin: "-40% 0px",
+  });
   const [width, setWidth] = useState(null);
 
-  // 125 is the originalwidth of the puzzle piece image and 25 is the original distance between them
+  //** distance + movement
+  // 125 is the original width of the puzzle piece image and 25 is the original distance between them
   const originalWidth = 125;
   const originalDistance = 25;
   const divisor = (width / originalWidth).toFixed(5);
@@ -179,65 +181,62 @@ export function SkillsPuzzle() {
     reset: { x: 0 },
   };
 
-  useEffect(() => {
-    // move the pieces
-    const runAnimations = async (controlsArr) => {
-      let rect = 0;
-      // rotate to correct position first
-      for (let i = 0; i < controlsArr.length; i++) {
-        await controlsArr[i].start("start");
-      }
-
-      // calculate distance
-      if (centerRef.current) {
-        rect = centerRef.current.getBoundingClientRect();
-        setWidth(rect.width.toFixed(2));
-      }
-
-      // then move
-      for (let i = 1; i < controlsArr.length; i++) {
-        await controlsArr[i].start({
-          x: i * distance,
-        });
-      }
-
-      // then move to the center
-      for (let i = 0; i < controlsArr.length; i++) {
-        let holder = 0;
-        if (i > 0) {
-          holder = i * distance - distance * 2;
-        } else if (i === 0) {
-          holder = -distance * 2;
-        }
-        controlsArr[i].start({
-          x: holder,
-          transition: { duration: 0.5 },
-        });
-      }
-    };
-
-    // reset pieces
-    const resetAnimations = async (controlsArr) => {
-      for (let i = 0; i < controlsArr.length; i++) {
-        controlsArr[i].start("reset");
-      }
-
-      for (let i = 0; i < controlsArr.length; i++) {
-        controlsArr[i].start({
-          rotate: randomNum(),
-          transition: { duration: 0.5 },
-        });
-      }
-      setWidth(0);
-    };
-    if (isInView) {
-      runAnimations(controls);
-    } else {
-      resetAnimations(controls);
+  const runAnimations = useCallback(async () => {
+    // rotate to the correct position
+    for (let i = 0; i < controls.length; i++) {
+      await controls[i].start("start");
     }
-  }, [isInView, distance]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // find distance
+    if (pieceRef.current) {
+      let piece = pieceRef.current.getBoundingClientRect();
+      setWidth(piece.width.toFixed(2));
+    }
+
+    // move horizontally
+    for (let i = 1; i < controls.length; i++) {
+      await controls[i].start({ x: i * distance });
+    }
+
+    // then move to center
+    for (let i = 0; i < controls.length; i++) {
+      let movement = 0;
+      if (i > 0) {
+        movement = i * distance - distance * 2;
+      } else if (i === 0) {
+        movement = -distance * 2;
+      }
+      controls[i].start({
+        x: movement,
+        transition: { duration: 0.5 },
+      });
+    }
+  }, [controls, distance]);
+
+  const resetAnimations = useCallback(async () => {
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].start("reset");
+    }
+
+    for (let i = 0; i < controls.length; i++) {
+      controls[i].start({
+        rotate: randomNum(),
+        transition: { duration: 0.5 },
+      });
+    }
+    setWidth(0);
+  }, [controls]);
+
+  useEffect(() => {
+    if (isInView) {
+      runAnimations();
+    } else {
+      resetAnimations();
+    }
+  }, [isInView, distance, runAnimations, resetAnimations]);
 
   // condensing imgs
+
   const imgArr = [];
   let counter = Object.keys(desktopPieces).length;
 
@@ -252,13 +251,35 @@ export function SkillsPuzzle() {
           initial={{ rotate: randomNum() }}
           variants={variants}
           viewport={{ root: ref }}
-          ref={centerRef}
+          ref={pieceRef}
           animate={controls[counter]}
         ></motion.img>
       </>
     );
   }
 
+  /*
+  const imgArr = [];
+  let entries = Object.entries(desktopPieces);
+  console.log(entries.length);
+  for (let i = entries.length - 1; i >= 0; i--) {
+    const [key, value] = entries[i];
+    const word = "puzzle piece with the word " + key;
+    imgArr.push(
+      <>
+        <motion.img
+          src={value}
+          alt={word}
+          initial={{ rotate: randomNum() }}
+          variants={variants}
+          viewport={{ root: ref }}
+          ref={pieceRef}
+          animate={controls[i]}
+        ></motion.img>
+      </>
+    );
+  }
+*/
   return (
     <div className="skill-desktop-div" ref={ref}>
       {imgArr}
