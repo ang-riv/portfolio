@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { introPieces, desktopPieces, mobilePieces } from "./Imports";
+import { introPieces, desktopPieces, mobilePieces, imgArr } from "./Imports";
 
 /**** INTRO SECTION ****/
 
@@ -347,7 +347,7 @@ export function MobileSkillsPuzzle() {
   useEffect(() => {
     //** calculates distance/position pieces need to move and join
     //*** puzzle animations
-    // checks to see if the window has been resized, distance might change if it doe
+    // checks to see if the window has been resized, distance might change if it does
     // puzzle animations on scroll
 
     if (isInView) {
@@ -356,15 +356,16 @@ export function MobileSkillsPuzzle() {
       }
       setTimeout(() => {
         runAnimations();
-      }, 500);
+      }, 800);
     } else {
       resetAnimations();
     }
   }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
   //** rendering puzzle pieces
-  const puzzleImgs = [];
+  const imgArr = [];
   // to account for 0 index
+  /*
   let countUp = -1;
 
   for (const [key, value] of Object.entries(mobilePieces)) {
@@ -388,10 +389,34 @@ export function MobileSkillsPuzzle() {
       ></motion.img>
     );
   }
+
+*/
+  const entries = Object.entries(mobilePieces);
+  entries.forEach(([key, value], index) => {
+    const word = "puzzle piece with the word " + key;
+
+    // attaching ref to only the first piece for calculations
+    const singlePieceRef = () => {
+      if (key === "css") return { ref: topPiece };
+      else if (key === "react") return { ref: botPiece };
+    };
+
+    imgArr.push(
+      <motion.img
+        src={value}
+        alt={word}
+        className="mobile-piece"
+        variants={variants}
+        {...singlePieceRef()}
+        animate={controls[index]}
+      ></motion.img>
+    );
+  });
+
   return (
     <>
       <motion.div className="skill-mobile-div" ref={containerRef}>
-        {puzzleImgs}
+        {imgArr}
       </motion.div>
     </>
   );
