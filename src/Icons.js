@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { introPieces, desktopPieces, mobilePieces, imgArr } from "./Imports";
+import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 
 /**** INTRO SECTION ****/
 
@@ -98,29 +98,25 @@ export function IntroPuzzle() {
 
   useEffect(() => {
     // puzzle animations on scroll
-    let timer;
+    let timeoutId;
     if (isInView) {
       findDistance();
-      timer = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         runAnimations();
       }, 500);
     } else {
       resetAnimations();
     }
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timeoutId);
   }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
   //** rendering puzzle pieces
   const puzzleImgs = [];
-  // to account for 0 index
-  let countUp = -1;
+  const entries = Object.entries(introPieces);
+  entries.forEach(([key, value], index) => {
+    const word = "puzzle piece with the word " + key;
 
-  for (const [key, value] of Object.entries(introPieces)) {
-    const word = "puzzle piece";
-    countUp++;
-
-    // attaching ref to only the first piece for calculations
     const singlePieceRef = () => {
       if (key === "pinkPiece") return { ref: topRef };
     };
@@ -134,11 +130,12 @@ export function IntroPuzzle() {
           className="intro-piece"
           variants={variants}
           {...singlePieceRef()}
-          animate={controls[countUp]}
+          animate={controls[index]}
         ></motion.img>
       </>
     );
-  }
+  });
+
   return (
     <figure className="intro-puzzle-container" ref={containerRef}>
       {puzzleImgs}
@@ -239,15 +236,16 @@ export function SkillsPuzzle() {
   }, [isInView, distance, runAnimations, resetAnimations]);
 
   // condensing imgs
-  const imgArr = [];
+  const puzzleImgs = [];
   const entries = Object.entries(desktopPieces);
   entries.forEach(([key, value], index) => {
     const word = "puzzle piece with the word " + key;
     const reversedIndex = entries.length - 1 - index; // Calculate reverse index to move the pieces from right to left instead of starting from the left most piece
-    imgArr.push(
+    puzzleImgs.push(
       <>
         <motion.img
           src={value}
+          key={key}
           alt={word}
           initial={{ rotate: randomNum() }}
           variants={variants}
@@ -261,7 +259,7 @@ export function SkillsPuzzle() {
 
   return (
     <div className="skill-desktop-div" ref={ref}>
-      {imgArr}
+      {puzzleImgs}
     </div>
   );
 }
@@ -348,24 +346,24 @@ export function MobileSkillsPuzzle() {
   useEffect(() => {
     //** calculates distance/position pieces need to move and join
     //*** puzzle animations
-    let timer;
+    let timeoutId;
 
     if (isInView) {
       if (distance < 10 || distance >= 100) {
         findDistance();
       }
-      timer = setTimeout(() => {
+      timeoutId = setTimeout(() => {
         runAnimations();
       }, 600);
     } else {
       resetAnimations();
     }
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timeoutId);
   }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
   //** rendering puzzle pieces
-  const imgArr = [];
+  const puzzleImgs = [];
   const entries = Object.entries(mobilePieces);
   entries.forEach(([key, value], index) => {
     const word = "puzzle piece with the word " + key;
@@ -376,10 +374,11 @@ export function MobileSkillsPuzzle() {
       else if (key === "react") return { ref: botPiece };
     };
 
-    imgArr.push(
+    puzzleImgs.push(
       <motion.img
         src={value}
         alt={word}
+        key={key}
         className="mobile-piece"
         variants={variants}
         {...singlePieceRef()}
@@ -391,7 +390,7 @@ export function MobileSkillsPuzzle() {
   return (
     <>
       <motion.div className="skill-mobile-div" ref={containerRef}>
-        {imgArr}
+        {puzzleImgs}
       </motion.div>
     </>
   );
