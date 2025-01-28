@@ -236,13 +236,11 @@ export function SkillsPuzzle() {
   }, [isInView, distance, runAnimations, resetAnimations]);
 
   // condensing imgs
-
   const imgArr = [];
-  let counter = Object.keys(desktopPieces).length;
-
-  for (const [key, value] of Object.entries(desktopPieces)) {
+  const entries = Object.entries(desktopPieces);
+  entries.forEach(([key, value], index) => {
     const word = "puzzle piece with the word " + key;
-    counter--;
+    const reversedIndex = entries.length - 1 - index; // Calculate reverse index to move the pieces from right to left instead of starting from the left most piece
     imgArr.push(
       <>
         <motion.img
@@ -252,34 +250,12 @@ export function SkillsPuzzle() {
           variants={variants}
           viewport={{ root: ref }}
           ref={pieceRef}
-          animate={controls[counter]}
+          animate={controls[reversedIndex]}
         ></motion.img>
       </>
     );
-  }
+  });
 
-  /*
-  const imgArr = [];
-  let entries = Object.entries(desktopPieces);
-  console.log(entries.length);
-  for (let i = entries.length - 1; i >= 0; i--) {
-    const [key, value] = entries[i];
-    const word = "puzzle piece with the word " + key;
-    imgArr.push(
-      <>
-        <motion.img
-          src={value}
-          alt={word}
-          initial={{ rotate: randomNum() }}
-          variants={variants}
-          viewport={{ root: ref }}
-          ref={pieceRef}
-          animate={controls[i]}
-        ></motion.img>
-      </>
-    );
-  }
-*/
   return (
     <div className="skill-desktop-div" ref={ref}>
       {imgArr}
