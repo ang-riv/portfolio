@@ -98,14 +98,17 @@ export function IntroPuzzle() {
 
   useEffect(() => {
     // puzzle animations on scroll
+    let timer;
     if (isInView) {
       findDistance();
-      setTimeout(() => {
+      timer = setTimeout(() => {
         runAnimations();
       }, 500);
     } else {
       resetAnimations();
     }
+
+    return () => clearTimeout(timer);
   }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
   //** rendering puzzle pieces
@@ -267,8 +270,9 @@ export function MobileSkillsPuzzle() {
   // container for puzzle
   const prevDistance = useRef(null);
   const containerRef = useRef(null);
-  // make sure that the container is in the middle of the viewport
-  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+  // puzzle pieces
+  const topPiece = useRef(null);
+  const botPiece = useRef(null);
   const controls = useRef([
     useAnimation(),
     useAnimation(),
@@ -280,15 +284,15 @@ export function MobileSkillsPuzzle() {
 
   // top puzzle piece
   const [top, setTop] = useState(0);
-
   // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
 
+  // make sure that the container is in the middle of the viewport
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+
+  //** movement
   const yMovement = distance;
   const xMovement = distance * 2;
-  const topPiece = useRef(null);
-  const botPiece = useRef(null);
-
   const variants = {
     down: { y: yMovement, transition: { duration: 0.5 } },
     up: { y: -yMovement, transition: { duration: 0.5 } },
@@ -296,7 +300,7 @@ export function MobileSkillsPuzzle() {
     left: { x: xMovement, transition: { duration: 0.5 } },
     reset: { x: 0, y: 0 },
   };
-  //* joins pieces together
+
   const runAnimations = useCallback(async () => {
     // x movement
     // if it's the first piece, or the third piece, move right
@@ -321,76 +325,47 @@ export function MobileSkillsPuzzle() {
 
   const findDistance = useCallback(() => {
     if (topPiece.current && containerRef.current) {
-      const rect = topPiece.current.getBoundingClientRect();
+      const piece = topPiece.current.getBoundingClientRect();
       const scrollTop = document.documentElement.scrollTop;
 
       // position of the container plus how far down the user has scrolled to get it's exact position
-      const piecePosition = rect.bottom + scrollTop;
+      const piecePosition = piece.bottom + scrollTop;
 
       // bottom of first puzzle piece
       setTop(piecePosition.toFixed(2));
 
       // calculating the distance needed
-      const decrease = 150 - rect.width;
+      const decrease = 150 - piece.width;
       const newDistance = Math.round(25 - 25 * (decrease / 150));
 
       if (newDistance !== prevDistance.current) {
         setDistance(newDistance);
         prevDistance.current = newDistance;
-        //console.log("distance changed, ran logic");
-      } else {
-        //console.log("distance is the same, skipped");
       }
     }
-  }, [top, distance]);
+  }, []);
 
   useEffect(() => {
     //** calculates distance/position pieces need to move and join
     //*** puzzle animations
-    // checks to see if the window has been resized, distance might change if it does
-    // puzzle animations on scroll
+    let timer;
 
     if (isInView) {
       if (distance < 10 || distance >= 100) {
         findDistance();
       }
-      setTimeout(() => {
+      timer = setTimeout(() => {
         runAnimations();
-      }, 800);
+      }, 600);
     } else {
       resetAnimations();
     }
+
+    return () => clearTimeout(timer);
   }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
   //** rendering puzzle pieces
   const imgArr = [];
-  // to account for 0 index
-  /*
-  let countUp = -1;
-
-  for (const [key, value] of Object.entries(mobilePieces)) {
-    const word = "puzzle piece";
-    countUp++;
-
-    // attaching ref to only the first piece for calculates
-    const singlePieceRef = () => {
-      if (key === "css") return { ref: topPiece };
-      else if (key === "react") return { ref: botPiece };
-    };
-
-    puzzleImgs.push(
-      <motion.img
-        src={value}
-        alt={word}
-        className="mobile-piece"
-        variants={variants}
-        {...singlePieceRef()}
-        animate={controls[countUp]}
-      ></motion.img>
-    );
-  }
-
-*/
   const entries = Object.entries(mobilePieces);
   entries.forEach(([key, value], index) => {
     const word = "puzzle piece with the word " + key;
