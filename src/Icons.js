@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { introPieces, desktopPieces, mobilePieces } from "./Imports";
+import { introPieces, desktopPieces, mobilePieces, imgArr } from "./Imports";
 import RenderPieces from "./RenderPieces";
 
 /**** INTRO SECTION ****/
@@ -225,6 +225,19 @@ export function SkillsPuzzle() {
     }
   }, [isInView, distance, runAnimations, resetAnimations]);
 
+  //** rendering imgs
+  const directProps = {
+    initial: { rotate: randomNum() },
+    variants: variants,
+    viewport: { root: ref },
+  };
+
+  const specificProps = {
+    imgArr: desktopPieces,
+    ascendingIndex: false,
+    controls: controls,
+    specificRef: pieceRef,
+  };
   // condensing imgs
   const puzzleImgs = [];
   const entries = Object.entries(desktopPieces);
@@ -353,34 +366,22 @@ export function MobileSkillsPuzzle() {
   }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
   //** rendering puzzle pieces
-  const puzzleImgs = [];
-  const entries = Object.entries(mobilePieces);
-  entries.forEach(([key, value], index) => {
-    const word = "puzzle piece with the word " + key;
+  const directProps = {
+    className: "mobile-piece",
+    variants: variants,
+  };
 
-    // attaching ref to only the first piece for calculations
-    const singlePieceRef = () => {
-      if (key === "css") return { ref: topPiece };
-      else if (key === "react") return { ref: botPiece };
-    };
-
-    puzzleImgs.push(
-      <motion.img
-        src={value}
-        alt={word}
-        key={key}
-        className="mobile-piece"
-        variants={variants}
-        {...singlePieceRef()}
-        animate={controls[index]}
-      ></motion.img>
-    );
-  });
+  const specificProps = {
+    imgArr: mobilePieces,
+    ascendingIndex: true,
+    specificRef: { topRef: topPiece, botRef: botPiece },
+    controls: controls,
+  };
 
   return (
     <>
       <motion.div className="skill-mobile-div" ref={containerRef}>
-        {puzzleImgs}
+        <RenderPieces directProps={directProps} specificProps={specificProps} />
       </motion.div>
     </>
   );

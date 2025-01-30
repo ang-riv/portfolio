@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { introPieces } from "./Imports";
+import { introPieces, desktopPieces } from "./Imports";
 const RenderPieces = ({ directProps, specificProps }) => {
   // destructuring
   const { imgArr, ascendingIndex, controls, specificRef } = specificProps;
@@ -16,6 +16,9 @@ const RenderPieces = ({ directProps, specificProps }) => {
     // refs
     const refs = () => {
       if (imgArr === introPieces && key === "pinkPiece") {
+        return { ref: specificRef };
+      }
+      if (imgArr === desktopPieces) {
         return { ref: specificRef };
       }
     };
