@@ -3,6 +3,7 @@ import useWindowSize from "./useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
+import RenderPieces from "./RenderPieces";
 
 /**** INTRO SECTION ****/
 
@@ -111,34 +112,23 @@ export function IntroPuzzle() {
     return () => clearTimeout(timeoutId);
   }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
-  //** rendering puzzle pieces
-  const puzzleImgs = [];
-  const entries = Object.entries(introPieces);
-  entries.forEach(([key, value], index) => {
-    const word = "puzzle piece with the word " + key;
-
-    const singlePieceRef = () => {
-      if (key === "pinkPiece") return { ref: topRef };
-    };
-
-    puzzleImgs.push(
-      <>
-        <motion.img
-          src={value}
-          key={key}
-          alt={word}
-          className="intro-piece"
-          variants={variants}
-          {...singlePieceRef()}
-          animate={controls[index]}
-        ></motion.img>
-      </>
-    );
-  });
+  //** rendering puzzle pieces props
+  // to be placed directly in the JSX
+  const directProps = {
+    className: "intro-piece",
+    variants: variants,
+  };
+  // to be used in specific places in the rendering component
+  const specificProps = {
+    imgArr: introPieces,
+    ascendingIndex: true,
+    controls: controls,
+    specificRef: topRef,
+  };
 
   return (
     <figure className="intro-puzzle-container" ref={containerRef}>
-      {puzzleImgs}
+      <RenderPieces directProps={directProps} specificProps={specificProps} />
     </figure>
   );
 }
