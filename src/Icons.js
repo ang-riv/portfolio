@@ -262,7 +262,7 @@ export function SkillsPuzzle() {
 
   return (
     <div className="skill-desktop-div" ref={ref}>
-      {puzzleImgs}
+      <RenderPieces directProps={directProps} specificProps={specificProps} />
     </div>
   );
 }

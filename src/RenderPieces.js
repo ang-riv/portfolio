@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { introPieces, desktopPieces } from "./Imports";
+import { introPieces, desktopPieces, mobilePieces } from "./Imports";
 const RenderPieces = ({ directProps, specificProps }) => {
   // destructuring
   const { imgArr, ascendingIndex, controls, specificRef } = specificProps;
@@ -20,6 +20,13 @@ const RenderPieces = ({ directProps, specificProps }) => {
       }
       if (imgArr === desktopPieces) {
         return { ref: specificRef };
+      }
+      if (imgArr === mobilePieces) {
+        const mobileRefs = {
+          css: specificRef.topRef,
+          react: specificRef.botRef,
+        };
+        return mobileRefs[key] ? { ref: mobileRefs[key] } : undefined;
       }
     };
     puzzleImgs.push(
