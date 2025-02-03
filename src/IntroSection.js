@@ -1,5 +1,5 @@
 import React from "react";
-import { IntroPuzzle } from "./Icons";
+import IntroPuzzle from "./PuzzleAnimations/IntroPuzzle";
 const IntroSection = React.forwardRef((_, ref) => {
   return (
     <section ref={ref} id="introSection" className="intro-section">

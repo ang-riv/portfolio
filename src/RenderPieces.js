@@ -1,3 +1,4 @@
+// for rendering the puzzle piece images for the intro and skills section puzzles
 import React from "react";
 import { motion } from "framer-motion";
 import { introPieces, desktopPieces, mobilePieces } from "./Imports";
