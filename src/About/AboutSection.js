@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { addColors } from "./Imports";
+import { addColors } from "../Imports";
 import AboutInfo from "./AboutInfo";
-import useWindowSize from "./useWindowSize";
-import SectionTitles from "./SectionTitles";
+import useWindowSize from "../useWindowSize";
+import SectionTitles from "../SectionTitles";
 
 const AboutSection = React.forwardRef((_, ref) => {
   const [activeTab, setActiveTab] = useState("Intro");

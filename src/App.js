@@ -1,8 +1,8 @@
 import "./style.css";
 import React, { useRef } from "react";
-import Navigation from "./Navigation.js";
-import IntroSection from "./IntroSection.js";
-import AboutSection from "./AboutSection.js";
+import Navigation from "./Navigation/Navigation.js";
+import IntroSection from "./Intro/IntroSection.js";
+import AboutSection from "./About/AboutSection.js";
 import SkillsSection from "./SkillsSection.js";
 import ProjectsSection from "./ProjectsSection.js";
 import ContactSection from "./ContactSection.js";
