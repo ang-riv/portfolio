@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useAnimation, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces } from "../Imports";
-import RenderPieces from "../RenderPieces";
+import RenderPieces from "./PuzzleComponents/RenderPieces";
 
 const IntroPuzzle = () => {
   // container for puzzle

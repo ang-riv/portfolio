@@ -3,7 +3,7 @@ import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { desktopPieces, mobilePieces } from "../Imports";
-import RenderPieces from "../RenderPieces";
+import RenderPieces from "./PuzzleComponents/RenderPieces";
 
 // desktop + tablet puzzle in skill section
 const SkillsPuzzle = () => {

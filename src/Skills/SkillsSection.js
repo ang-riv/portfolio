@@ -1,6 +1,6 @@
 import React from "react";
-import SkillsSectionPuzzle from "./PuzzleAnimations/SkillsPuzzles";
-import SectionTitles from "./SectionTitles";
+import SkillsSectionPuzzle from "../PuzzleAnimations/SkillsPuzzles";
+import SectionTitles from "../SectionTitles";
 const SkillsSection = React.forwardRef((_, ref) => {
   return (
     <section ref={ref} className="skill-section">

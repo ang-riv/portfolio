@@ -3,9 +3,9 @@ import React, { useRef } from "react";
 import Navigation from "./Navigation/Navigation.js";
 import IntroSection from "./Intro/IntroSection.js";
 import AboutSection from "./About/AboutSection.js";
-import SkillsSection from "./SkillsSection.js";
-import ProjectsSection from "./ProjectsSection.js";
-import ContactSection from "./ContactSection.js";
+import SkillsSection from "./Skills/SkillsSection.js";
+import ProjectsSection from "./Projects/ProjectsSection.js";
+import ContactSection from "./Contact/ContactSection.js";
 //import TestPage from "./TestPage.js";
 
 function App() {

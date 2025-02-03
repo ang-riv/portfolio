@@ -1,9 +1,9 @@
 // contact icons, links, and personal information
 import React, { useState } from "react";
-import useWindowSize from "./useWindowSize";
+import useWindowSize from "../useWindowSize";
 import { motion } from "framer-motion";
 // svgs for puzzle pieces
-import { globalColors } from "./Imports";
+import { globalColors } from "../Imports";
 
 /* sizes for icons based on screen size */
 function SocialIconSize() {
