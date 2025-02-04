@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useAnimation, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces } from "../../Imports";
+import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "../PuzzleAnimations/PuzzleComponents/RenderPieces";
 
 const IntroPuzzle = () => {
@@ -109,23 +110,12 @@ const IntroPuzzle = () => {
     return () => clearTimeout(timeoutId);
   }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
-  //** rendering puzzle pieces props
-  // to be placed directly in the JSX
-  const directProps = {
-    className: "intro-piece",
-    variants: variants,
-  };
-  // to be used in specific places in the rendering component
-  const specificProps = {
-    imgArr: introPieces,
-    ascendingIndex: true,
-    controls: controls,
-    specificRef: topRef,
-  };
-
   return (
     <figure className="intro-puzzle-container" ref={containerRef}>
-      <RenderPieces directProps={directProps} specificProps={specificProps} />
+      <RenderPieces
+        directProps={directProps("intro-piece", variants)}
+        specificProps={specificProps(introPieces, true, controls, topRef)}
+      />
     </figure>
   );
 };
