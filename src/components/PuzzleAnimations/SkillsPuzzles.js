@@ -3,6 +3,7 @@ import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { desktopPieces, mobilePieces } from "../../Imports";
+import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
 
 // desktop + tablet puzzle in skill section
@@ -96,44 +97,19 @@ const SkillsPuzzle = () => {
     }
   }, [isInView, distance, runAnimations, resetAnimations]);
 
-  //** rendering imgs
+  // doesn't fit the same props as directProps() so made it it's own seperate object
   const directProps = {
     initial: { rotate: randomNum() },
     variants: variants,
     viewport: { root: ref },
   };
 
-  const specificProps = {
-    imgArr: desktopPieces,
-    ascendingIndex: false,
-    controls: controls,
-    specificRef: pieceRef,
-  };
-  // condensing imgs
-  const puzzleImgs = [];
-  const entries = Object.entries(desktopPieces);
-  entries.forEach(([key, value], index) => {
-    const word = "puzzle piece with the word " + key;
-    const reversedIndex = entries.length - 1 - index; // Calculate reverse index to move the pieces from right to left instead of starting from the left most piece
-    puzzleImgs.push(
-      <>
-        <motion.img
-          src={value}
-          key={key}
-          alt={word}
-          initial={{ rotate: randomNum() }}
-          variants={variants}
-          viewport={{ root: ref }}
-          ref={pieceRef}
-          animate={controls[reversedIndex]}
-        ></motion.img>
-      </>
-    );
-  });
-
   return (
     <div className="skill-desktop-div" ref={ref}>
-      <RenderPieces directProps={directProps} specificProps={specificProps} />
+      <RenderPieces
+        directProps={directProps}
+        specificProps={specificProps(desktopPieces, false, controls, pieceRef)}
+      />
     </div>
   );
 };
@@ -236,23 +212,16 @@ const MobileSkillsPuzzle = () => {
     return () => clearTimeout(timeoutId);
   }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
 
-  //** rendering puzzle pieces
-  const directProps = {
-    className: "mobile-piece",
-    variants: variants,
-  };
-
-  const specificProps = {
-    imgArr: mobilePieces,
-    ascendingIndex: true,
-    specificRef: { topRef: topPiece, botRef: botPiece },
-    controls: controls,
-  };
-
   return (
     <>
       <motion.div className="skill-mobile-div" ref={containerRef}>
-        <RenderPieces directProps={directProps} specificProps={specificProps} />
+        <RenderPieces
+          directProps={directProps("mobile-piece", variants)}
+          specificProps={specificProps(mobilePieces, true, controls, {
+            topRef: topPiece,
+            botRef: botPiece,
+          })}
+        />
       </motion.div>
     </>
   );
