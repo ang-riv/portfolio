@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useWindowSize from "../../components/useWindowSize";
 import { motion } from "framer-motion";
 // svgs for puzzle pieces
-import { globalColors } from "../../Imports";
+import { globalColors } from "../../utils/colorData";
 
 /* sizes for icons based on screen size */
 function SocialIconSize() {

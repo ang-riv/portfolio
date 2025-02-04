@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import useWindowSize from "../../components/useWindowSize";
 import { mobileNavIcons } from "../../assets/mobile-nav-icons";
-import { globalColors } from "../../Imports";
+import { globalColors } from "../../utils/colorData";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   // hover effects to check which element is being hovered
   const [isHovered, setIsHovered] = useState("");

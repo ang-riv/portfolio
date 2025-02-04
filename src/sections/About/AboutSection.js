@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addColors } from "../../Imports";
+import { addColors } from "../../utils/colorData";
 import AboutInfo from "./AboutInfo";
 import useWindowSize from "../../components/useWindowSize";
 import SectionTitles from "../../components/SectionTitles";
