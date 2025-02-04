@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { desktopPieces, mobilePieces } from "../../Imports";
+import { desktopPieces, mobilePieces } from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
 

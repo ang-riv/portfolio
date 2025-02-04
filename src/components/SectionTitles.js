@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { globalColors } from "../Imports";
+import { globalColors } from "../utils/colorData";
 
 const SectionTitles = (props) => {
   const ref = useRef(null);

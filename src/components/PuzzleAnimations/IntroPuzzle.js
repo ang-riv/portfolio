@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { useAnimation, useInView } from "framer-motion";
 // svgs for puzzle pieces
-import { introPieces } from "../../Imports";
+import { introPieces } from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "../PuzzleAnimations/PuzzleComponents/RenderPieces";
 
