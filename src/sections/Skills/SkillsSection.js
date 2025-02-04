@@ -1,5 +1,5 @@
 import React from "react";
-import SkillsSectionPuzzle from "../../PuzzleAnimations/SkillsPuzzles";
+import SkillsSectionPuzzle from "../../components/PuzzleAnimations/SkillsPuzzles";
 import SectionTitles from "../../components/SectionTitles";
 const SkillsSection = React.forwardRef((_, ref) => {
   return (
