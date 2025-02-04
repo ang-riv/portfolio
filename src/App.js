@@ -1,11 +1,11 @@
 import "./style.css";
 import React, { useRef } from "react";
-import Navigation from "./Navigation/Navigation.js";
+import Navigation from "./sections/Navigation/Navigation.js";
 import IntroSection from "./sections/Intro/IntroSection.js";
 import AboutSection from "./sections/About/AboutSection.js";
-import SkillsSection from "./Skills/SkillsSection.js";
-import ProjectsSection from "./Projects/ProjectsSection.js";
-import ContactSection from "./Contact/ContactSection.js";
+import SkillsSection from "./sections/Skills/SkillsSection.js";
+import ProjectsSection from "./sections/Projects/ProjectsSection.js";
+import ContactSection from "./sections/Contact/ContactSection.js";
 //import TestPage from "./TestPage.js";
 
 function App() {

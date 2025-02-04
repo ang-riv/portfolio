@@ -1,6 +1,6 @@
 import React from "react";
-import useWindowSize from "../useWindowSize";
-import { addColors } from "../Imports";
+import useWindowSize from "../../components/useWindowSize";
+import { addColors } from "../../Imports";
 
 const AboutInfo = ({ activeTab }) => {
   const tabName = activeTab.toLowerCase();
