@@ -174,7 +174,7 @@ a {
   width: 85%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   column-gap: 1.875em;
   flex-flow: row wrap;
 }
@@ -188,10 +188,13 @@ a {
 }
 
 .about-photo {
-  outline: 1px dotted var(--grey);
+  outline: 2px solid var(--pink);
   border-radius: var(--b-radius-value);
   height: 21.875em;
   width: 16.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .about-info {
@@ -232,6 +235,12 @@ a {
 
 .about-values-tab > li:not(:last-child) {
   margin-bottom: 0.625em;
+}
+
+.about-info-text {
+  text-align: justify;
+  font-weight: 500;
+  font-size: 1.1em;
 }
 
 /** skills section styles **/

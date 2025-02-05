@@ -77,7 +77,7 @@ const AboutInfo = ({ activeTab }) => {
   function sectionDescription(key, value) {
     let description =
       key !== "values" ? (
-        <p style={{ textAlign: "justify" }}>{value.description}</p>
+        <p className="about-info-text">{value.description}</p>
       ) : (
         <ul style={{ paddingLeft: "0" }}>{value.description}</ul>
       );

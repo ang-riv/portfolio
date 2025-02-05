@@ -6,9 +6,11 @@ import AboutSection from "./sections/About/AboutSection.js";
 import SkillsSection from "./sections/Skills/SkillsSection.js";
 import ProjectsSection from "./sections/Projects/ProjectsSection.js";
 import ContactSection from "./sections/Contact/ContactSection.js";
+import TestPage from "./TestPage.js";
 //import TestPage from "./TestPage.js";
 
 function App() {
+  const test = false;
   const sectionTitles = ["intro", "skills", "about", "projects", "contact"];
 
   // creating refs to scroll to the right sections
@@ -35,11 +37,17 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation {...refProps} />
-      {Object.keys(refProps).map((key, index) => {
-        const Component = componentNames[index]; // Get the corresponding component
-        return <Component key={key} ref={refProps[key]} />;
-      })}
+      {test ? (
+        <TestPage />
+      ) : (
+        <>
+          <Navigation {...refProps} />
+          {Object.keys(refProps).map((key, index) => {
+            const Component = componentNames[index]; // Get the corresponding component
+            return <Component key={key} ref={refProps[key]} />;
+          })}
+        </>
+      )}
     </div>
   );
 }
