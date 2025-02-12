@@ -192,9 +192,10 @@ a {
   border-radius: var(--b-radius-value);
   height: 21.875em;
   width: 16.25em;
+  position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .about-info {

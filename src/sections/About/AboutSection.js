@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addColors } from "../../utils/colorData";
 import AboutInfo from "./AboutInfo";
-import avatar from "../../assets/avatar.png";
+import AboutPhoto from "./AboutPhoto";
 import useWindowSize from "../../components/useWindowSize";
 import SectionTitles from "../../components/SectionTitles";
 
@@ -37,16 +37,7 @@ const AboutSection = React.forwardRef((_, ref) => {
       <SectionTitles title="About" />
       <div className="about-content-wrapper">
         <div className="about-container">
-          <div className="about-photo">
-            <img
-              src={avatar}
-              alt="profile avatar"
-              style={{
-                height: "80%",
-                width: "90%",
-              }}
-            />
-          </div>
+          <AboutPhoto activeTab={activeTab} />
           <div className="about-info">
             {/* only show tabs on tablet + desktop */}
             {size.width > 767 ? (
