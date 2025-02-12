@@ -28,6 +28,9 @@ const TestPage = () => {
     outline: "2px solid lightCoral",
     position: "absolute",
     top: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-end",
   };
   // find the position of the containerRef
   const iconPlacement = [];
@@ -50,7 +53,7 @@ const TestPage = () => {
       ? (side = side - halfIconSize)
       : (side = containerWidth - halfIconSize);
     iconPlacement.push(
-      <div
+      <motion.div
         style={{
           height: `${iconSize}px`,
           width: `${iconSize}px`,
@@ -60,7 +63,7 @@ const TestPage = () => {
           backgroundColor: "skyBlue",
           borderRadius: "50%",
         }}
-      ></div>
+      ></motion.div>
     );
   }
   console.log(initialPlacements);
@@ -68,6 +71,7 @@ const TestPage = () => {
     <div style={mainPage}>
       <div style={testSpaceStyles} ref={spaceRef}>
         {iconPlacement}
+        <button> Test Animations</button>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import TestPage from "./TestPage.js";
 //import TestPage from "./TestPage.js";
 
 function App() {
-  const test = true;
+  const test = false;
   const sectionTitles = ["intro", "skills", "about", "projects", "contact"];
 
   // creating refs to scroll to the right sections
