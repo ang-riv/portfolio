@@ -1,34 +1,45 @@
-import { React, useRef } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import avatar from "../../assets/avatar.png";
+import AboutIcon from "./AboutIcon";
 
 const AboutPhoto = ({ activeTab }) => {
   const containerRef = useRef(null);
-  let containerTop = 0;
+  const [containerTop, setContainerTop] = useState(0);
+  let halfTop = containerTop / 2;
   const numOfIcons = 4;
-  const positions = [];
+  let positions = [];
+
   // testing styles
   const styles = {
     height: "2px",
     width: "100%",
     backgroundColor: "red",
     position: "absolute",
-    top: 0,
+    top: 43,
     left: 0,
   };
+
   // getting measurements for where to place the icons
-  if (containerRef.current) {
-    const container = containerRef.current.getBoundingClientRect();
-    containerTop = container.height / numOfIcons;
-  }
+  useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current.getBoundingClientRect();
+      const height = container.height / numOfIcons;
+      setContainerTop(height);
+    }
+  }, [containerRef, containerTop]);
 
   // finding the coordinates
-  for (let i = 0; i < numOfIcons.length; i++) {
-    positions.push(containerTop + i * containerTop - 50);
+  for (let i = 0; i < numOfIcons; i++) {
+    positions.push(containerTop + i * containerTop - halfTop);
   }
+
+  console.log(positions);
   return (
-    <div className="about-photo">
-      <div style={styles}></div>
+    <div className="about-photo" ref={containerRef}>
+      <div style={styles}>
+        <AboutIcon activeTab={activeTab} />
+      </div>
       <img
         src={avatar}
         alt="profile avatar"
