@@ -1,21 +1,33 @@
-import { React, useRef, useState, useEffect } from "react";
+import { React } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { aboutIcons, aboutIcon } from "../../utils/aboutIconData";
+import { aboutIcons } from "../../utils/aboutIconData";
 const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
-  const prevNumberRef = useRef(null);
   const tab = activeTab.toLowerCase();
-  const test = `aboutIcons.${tab}`;
-  console.log(tab);
+  const sectionIcon = () => {
+    switch (tab) {
+      case "intro":
+        return aboutIcons.intro;
+      case "backstory":
+        return aboutIcons.backstory;
+      case "values":
+        return aboutIcons.values;
+      case "hobbies":
+        return aboutIcons.hobbies;
+      default:
+        console.log("Missing section.");
+        break;
+    }
+  };
   const variants = {
     increase: {
       opacity: 1,
       scale: 1,
       transition: { duration: 0.5, scale: { type: "spring" } },
-      decrease: { opacity: 0, scale: 0 },
-      spin: {
-        rotate: 360,
-        transition: { repeat: Infinity, duration: 8, ease: "linear" },
-      },
+    },
+    decrease: { opacity: 0, scale: 0 },
+    spin: {
+      rotate: 360,
+      transition: { repeat: Infinity, duration: 8, ease: "linear" },
     },
   };
   // styles
@@ -29,12 +41,23 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
+    backgroundColor: "white",
   };
+
+  // figure out which tabs get the spin animation
+  const spinSection = () => tab === "backstory" || tab === "hobbies";
   return (
     <>
       <AnimatePresence mode="wait">
-        <motion.div style={iconStyle}>{aboutIcon[3]}</motion.div>
+        <motion.div
+          style={iconStyle}
+          variants={variants}
+          initial="decrease"
+          animate={spinSection() ? ["increase"] : ["increase", "spin"]}
+          exit="decrease"
+        >
+          {sectionIcon()}
+        </motion.div>
       </AnimatePresence>
     </>
   );

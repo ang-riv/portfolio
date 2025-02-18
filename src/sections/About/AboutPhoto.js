@@ -17,7 +17,7 @@ const AboutPhoto = ({ activeTab }) => {
     backgroundColor: "red",
     position: "absolute",
     top: 43,
-    left: 0,
+    left: -24.5,
   };
 
   // getting measurements for where to place the icons
@@ -31,6 +31,7 @@ const AboutPhoto = ({ activeTab }) => {
 
   // finding the coordinates
   for (let i = 0; i < numOfIcons; i++) {
+    // minus halfTop to center the icon in each section
     positions.push(containerTop + i * containerTop - halfTop);
   }
 
