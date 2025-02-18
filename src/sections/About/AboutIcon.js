@@ -20,13 +20,11 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
     width: "fit-content",
     height: "fit-content",
     position: "absolute",
-    borderRadius: "50%",
     top: yPlacement,
     left: xPlacement,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
   };
 
   // figure out which tabs get the spin animation

@@ -35,6 +35,11 @@ const gradientColors = Object.values(globalColors).map((color, index) => {
   return <Gradient color1={color} color2={darkerColors[index]} />;
 });
 
+// opaque circle behind the icon so that it you can't see the about photo border peeking through
+const circle = (x, y, r) => {
+  return <circle cx={x} cy={y} r={r} fill="white"></circle>;
+};
+
 function Snowflake(props) {
   return (
     <svg
@@ -67,6 +72,7 @@ function Flower(props) {
       {...props}
     >
       {props.gradient}
+      {props.circle}
       <path
         fill={gradientName}
         d="M12 1a4 4 0 0 1 4 4l-.002.055l.03-.018a3.97 3.97 0 0 1 2.79-.455l.237.056a3.97 3.97 0 0 1 2.412 1.865a4.01 4.01 0 0 1-1.455 5.461l-.068.036l.071.039a4.01 4.01 0 0 1 1.555 5.27l-.101.186a3.97 3.97 0 0 1-5.441 1.468l-.03-.02L16 19a4 4 0 0 1-3.8 3.995L12 23a4 4 0 0 1-4-4l.001-.056l-.029.019a3.97 3.97 0 0 1-2.79.456l-.236-.056a3.97 3.97 0 0 1-2.413-1.865a4.01 4.01 0 0 1 1.453-5.46l.07-.038l-.071-.038a4.01 4.01 0 0 1-1.555-5.27l.1-.187a3.97 3.97 0 0 1 5.444-1.468L8 5.055V5a4 4 0 0 1 3.8-3.995zm0 8a3 3 0 1 0 0 6a3 3 0 0 0 0-6"
@@ -85,6 +91,7 @@ function Smile(props) {
       {...props}
     >
       {props.gradient}
+      {props.circle}
       <path
         fill={gradientName}
         d="M10 0c5.523 0 10 4.477 10 10s-4.477 10-10 10S0 15.523 0 10S4.477 0 10 0M7.086 11.399l-.1.004a.68.68 0 0 0-.596.759a3.637 3.637 0 0 0 7.217.024a.682.682 0 0 0-1.352-.172A2.273 2.273 0 0 1 7.744 12a.68.68 0 0 0-.759-.596Zm-1.272-5.12a1.395 1.395 0 1 0 0 2.79a1.395 1.395 0 0 0 0-2.79m8.372 0a1.395 1.395 0 1 0 0 2.79a1.395 1.395 0 0 0 0-2.79"
@@ -114,6 +121,7 @@ function Code(props) {
             </g>
           </mask>
         </defs>
+        {props.circle}
         <circle
           cx={13}
           cy={13}
@@ -130,7 +138,7 @@ export const aboutIcon = [<Snowflake />, <Code />, <Flower />, <Smile />];
 
 export const aboutIcons = {
   intro: <Snowflake gradient={gradientColors[0]} />,
-  backstory: <Code gradient={gradientColors[1]} />,
-  values: <Flower gradient={gradientColors[2]} />,
-  hobbies: <Smile gradient={gradientColors[3]} />,
+  backstory: <Code gradient={gradientColors[1]} circle={circle(13, 13, 12)} />,
+  values: <Flower gradient={gradientColors[2]} circle={circle(13, 13, 5)} />,
+  hobbies: <Smile gradient={gradientColors[3]} circle={circle(10, 10, 8)} />,
 };
