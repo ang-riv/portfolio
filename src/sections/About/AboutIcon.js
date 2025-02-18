@@ -3,22 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { aboutIcons } from "../../utils/aboutIconData";
 const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
   const tab = activeTab.toLowerCase();
-  const sectionIcon = () => {
-    // refactor eventually
-    switch (tab) {
-      case "intro":
-        return aboutIcons.intro;
-      case "backstory":
-        return aboutIcons.backstory;
-      case "values":
-        return aboutIcons.values;
-      case "hobbies":
-        return aboutIcons.hobbies;
-      default:
-        console.log("Missing section.");
-        break;
-    }
-  };
   const variants = {
     increase: {
       opacity: 1,
@@ -47,17 +31,19 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
 
   // figure out which tabs get the spin animation
   const spinSection = () => tab === "backstory" || tab === "hobbies";
+
   return (
     <>
       <AnimatePresence mode="wait">
         <motion.div
+          key={activeTab}
           style={iconStyle}
           variants={variants}
           initial="decrease"
           animate={spinSection() ? ["increase"] : ["increase", "spin"]}
           exit="decrease"
         >
-          {sectionIcon()}
+          {aboutIcons[tab]}
         </motion.div>
       </AnimatePresence>
     </>
