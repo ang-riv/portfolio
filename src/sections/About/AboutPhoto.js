@@ -1,5 +1,4 @@
 import { React, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import avatar from "../../assets/avatar.png";
 import AboutIcon from "./AboutIcon";
 
@@ -25,7 +24,6 @@ const AboutPhoto = ({ activeTab }) => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
       const height = container.height / numOfIcons;
-      console.log(container.height);
       setContainerWidth(container.width);
       setContainerTop(height);
     }
@@ -42,7 +40,6 @@ const AboutPhoto = ({ activeTab }) => {
     // center the icon on the edge of the container + alternate sides
     let side = 0;
     index % 2 === 0 ? (side = -24) : (side = containerWidth - 24);
-    console.log(yPlacement);
     return (
       <AboutIcon
         key={index}
