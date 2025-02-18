@@ -7,17 +7,17 @@ const AboutPhoto = ({ activeTab }) => {
   const containerRef = useRef(null);
   const [containerTop, setContainerTop] = useState(0);
   const [containerWidth, setContainerWidth] = useState(0);
-  let halfTop = containerTop / 2;
+  let halfTop = containerTop / 2 + 15;
   const numOfIcons = 4;
   let positions = [];
 
   // testing styles
   const styles = {
-    width: "fit-content",
-    height: "fit-content",
+    width: "100%",
+    height: "2px",
     position: "absolute",
-    top: 43,
-    left: -24.5,
+    backgroundColor: "slateBlue",
+    top: 0,
   };
 
   // getting measurements for where to place the icons
@@ -25,6 +25,7 @@ const AboutPhoto = ({ activeTab }) => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
       const height = container.height / numOfIcons;
+      console.log(container.height);
       setContainerWidth(container.width);
       setContainerTop(height);
     }
@@ -37,23 +38,23 @@ const AboutPhoto = ({ activeTab }) => {
   }
 
   // creating icons with the right placement
-  const iconComponents = positions.map((placement, index) => {
+  const iconComponents = positions.map((yPlacement, index) => {
     // center the icon on the edge of the container + alternate sides
     let side = 0;
-    index % 2 === 0 ? (side = -8) : (side = containerWidth + 8);
+    index % 2 === 0 ? (side = -24) : (side = containerWidth - 24);
+    console.log(yPlacement);
     return (
       <AboutIcon
         key={index}
         activeTab={activeTab}
-        yPlacement={placement}
+        yPlacement={yPlacement}
         xPlacement={side}
       />
     );
   });
-  //console.log(positions);
   return (
     <div className="about-photo" ref={containerRef}>
-      <div style={styles}>{iconComponents}</div>
+      {iconComponents}
       <img
         src={avatar}
         alt="profile avatar"
