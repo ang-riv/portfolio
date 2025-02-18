@@ -4,6 +4,7 @@ import { aboutIcons } from "../../utils/aboutIconData";
 const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
   const tab = activeTab.toLowerCase();
   const sectionIcon = () => {
+    // refactor eventually
     switch (tab) {
       case "intro":
         return aboutIcons.intro;

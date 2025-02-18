@@ -6,15 +6,15 @@ import AboutIcon from "./AboutIcon";
 const AboutPhoto = ({ activeTab }) => {
   const containerRef = useRef(null);
   const [containerTop, setContainerTop] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
   let halfTop = containerTop / 2;
   const numOfIcons = 4;
   let positions = [];
 
   // testing styles
   const styles = {
-    height: "2px",
-    width: "100%",
-    backgroundColor: "red",
+    width: "fit-content",
+    height: "fit-content",
     position: "absolute",
     top: 43,
     left: -24.5,
@@ -25,6 +25,7 @@ const AboutPhoto = ({ activeTab }) => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
       const height = container.height / numOfIcons;
+      setContainerWidth(container.width);
       setContainerTop(height);
     }
   }, [containerRef, containerTop]);
@@ -35,12 +36,24 @@ const AboutPhoto = ({ activeTab }) => {
     positions.push(containerTop + i * containerTop - halfTop);
   }
 
-  console.log(positions);
+  // creating icons with the right placement
+  const iconComponents = positions.map((placement, index) => {
+    // center the icon on the edge of the container + alternate sides
+    let side = 0;
+    index % 2 === 0 ? (side = -8) : (side = containerWidth + 8);
+    return (
+      <AboutIcon
+        key={index}
+        activeTab={activeTab}
+        yPlacement={placement}
+        xPlacement={side}
+      />
+    );
+  });
+  //console.log(positions);
   return (
     <div className="about-photo" ref={containerRef}>
-      <div style={styles}>
-        <AboutIcon activeTab={activeTab} />
-      </div>
+      <div style={styles}>{iconComponents}</div>
       <img
         src={avatar}
         alt="profile avatar"
