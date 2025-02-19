@@ -24,6 +24,8 @@ const Gradient = ({ color1, color2 }) => {
   useAnimationFrame((t) => {
     value.set((t / 13000) % 1); // Cycles every 13 seconds
   });
+
+  if (!value) return null;
   return (
     <defs>
       <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
