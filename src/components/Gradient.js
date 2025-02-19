@@ -1,3 +1,4 @@
+// creates the color changing icon components, put them into an array, and also features a helper fcn that creates a background svg circle
 import React from "react";
 import {
   motion,
@@ -17,6 +18,8 @@ const Gradient = ({ color1, color2 }) => {
   useAnimationFrame((t) => {
     value.set((t / 13000) % 1); // Cycles every 13 seconds
   });
+
+  if (!value) return null;
   return (
     <defs>
       <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -27,14 +30,14 @@ const Gradient = ({ color1, color2 }) => {
   );
 };
 
-// generating multiple gradient components for each icon
-export const gradientColors2 = Object.values(globalColors).map(
+// generating multiple gradient components for each icon with starting and ending colors
+export const gradientColors = Object.values(globalColors).map(
   (color, index) => {
     return <Gradient color1={color} color2={darkerColors[index]} />;
   }
 );
 
 // opaque circle behind the icon so that it you can't see the about photo border peeking through
-const circle = (x, y, r) => {
+export const circle = (x, y, r) => {
   return <circle cx={x} cy={y} r={r} fill="white"></circle>;
 };

@@ -1,49 +1,11 @@
 import React from "react";
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  useAnimationFrame,
-} from "framer-motion";
-import { globalColors } from "./colorData";
-import { gradientColors2 } from "../components/Gradient";
+import { gradientColors, circle } from "../components/Gradient";
 
-const darkerColors = ["#00D4FF", "#32CD32", "#BA55D3", "#FFCC00"];
 // to assign the gradient to fill/stroke
 const gradientName = "url(#animatedGradient)";
 const iconSize = {
   width: 50,
   height: 50,
-};
-// color changing gradient
-const Gradient = ({ color1, color2 }) => {
-  const value = useMotionValue(0);
-  const colors = [color1, color2, color1];
-  const stopColor = useTransform(value, [0, 0.5, 1], colors);
-  // Manually updating the motion value on each frame
-  useAnimationFrame((t) => {
-    value.set((t / 13000) % 1); // Cycles every 13 seconds
-  });
-
-  if (!value) return null;
-  return (
-    <defs>
-      <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <motion.stop offset="0%" stopColor={stopColor} />
-        <motion.stop offset="100%" stopColor={stopColor} />
-      </linearGradient>
-    </defs>
-  );
-};
-
-// generating multiple gradient components for each icon
-const gradientColors = Object.values(globalColors).map((color, index) => {
-  return <Gradient color1={color} color2={darkerColors[index]} />;
-});
-
-// opaque circle behind the icon so that it you can't see the about photo border peeking through
-const circle = (x, y, r) => {
-  return <circle cx={x} cy={y} r={r} fill="white"></circle>;
 };
 
 function Snowflake(props) {
@@ -136,18 +98,6 @@ function Smile(props) {
   );
 }
 
-// maybe to condense, try to do it with updating the object in dot/bracket notation
-// or maybe an array of objects?
-// or creating an object
-/*
-  or many just do the props?
-  const circleProps = ["", circle(13, 13, 12), circle(13, 13, 5), circle(10, 10, 8)];
-  const iconProps = gradientColors.map((gradientComponent, index) => {
-    return {gradient={gradientComponent} circle={circleProps[index]}}
-    })
-  -maybe with a loop to create the values?
-  {...iconProps[i]}
-*/
 export const aboutIcons = {
   intro: <Snowflake gradient={gradientColors[0]} />,
   backstory: <Code gradient={gradientColors[1]} circle={circle(13, 13, 12)} />,
