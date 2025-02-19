@@ -10,15 +10,6 @@ const AboutPhoto = ({ activeTab }) => {
   const numOfIcons = 4;
   let positions = [];
 
-  // testing styles
-  const styles = {
-    width: "100%",
-    height: "2px",
-    position: "absolute",
-    backgroundColor: "slateBlue",
-    top: 0,
-  };
-
   // getting measurements for where to place the icons
   useEffect(() => {
     if (containerRef.current) {
