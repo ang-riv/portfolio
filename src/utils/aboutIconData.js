@@ -6,6 +6,7 @@ import {
   useAnimationFrame,
 } from "framer-motion";
 import { globalColors } from "./colorData";
+import { gradientColors2 } from "../components/Gradient";
 
 const darkerColors = ["#00D4FF", "#32CD32", "#BA55D3", "#FFCC00"];
 // to assign the gradient to fill/stroke
@@ -132,8 +133,19 @@ function Smile(props) {
     </svg>
   );
 }
-export const aboutIcon = [<Snowflake />, <Code />, <Flower />, <Smile />];
 
+// maybe to condense, try to do it with updating the object in dot/bracket notation
+// or maybe an array of objects?
+// or creating an object
+/*
+  or many just do the props?
+  const circleProps = ["", circle(13, 13, 12), circle(13, 13, 5), circle(10, 10, 8)];
+  const iconProps = gradientColors.map((gradientComponent, index) => {
+    return {gradient={gradientComponent} circle={circleProps[index]}}
+    })
+  -maybe with a loop to create the values?
+  {...iconProps[i]}
+*/
 export const aboutIcons = {
   intro: <Snowflake gradient={gradientColors[0]} />,
   backstory: <Code gradient={gradientColors[1]} circle={circle(13, 13, 12)} />,

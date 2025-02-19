@@ -39,7 +39,7 @@ const AboutPhoto = ({ activeTab }) => {
   const iconComponents = positions.map((yPlacement, index) => {
     // center the icon on the edge of the container + alternate sides
     let side = 0;
-    index % 2 === 0 ? (side = -24) : (side = containerWidth - 24);
+    index % 2 === 0 ? (side = -25) : (side = containerWidth - 25);
     return (
       <AboutIcon
         key={index}
