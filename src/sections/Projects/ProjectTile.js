@@ -28,7 +28,7 @@ function ProjectTile(props) {
         target="_blank"
         rel="noreferrer"
         style={buttonColor}
-        className="project-btn"
+        className="project-btn center-flex"
         whileHover={hoverColor}
         transition={{ duration: 0.5 }}
       >

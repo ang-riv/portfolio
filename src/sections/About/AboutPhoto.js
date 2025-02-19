@@ -41,7 +41,7 @@ const AboutPhoto = ({ activeTab }) => {
     );
   });
   return (
-    <div className="about-photo" ref={containerRef}>
+    <div className="about-photo center-flex" ref={containerRef}>
       {iconComponents}
       <img
         src={avatar}

@@ -72,6 +72,12 @@ a {
   text-decoration: none;
 }
 
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /*** desktop navigation styles***/
 .nav-container {
   margin-top: 1em;
@@ -145,9 +151,6 @@ a {
 .intro-section {
   height: 95vh;
   width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .intro-puzzle-container {
@@ -157,9 +160,6 @@ a {
   width: fit-content;
   margin-left: 1em;
   margin-bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-flow: row wrap;
 }
 
@@ -172,9 +172,6 @@ a {
 .about-container {
   height: fit-content;
   width: 85%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   column-gap: 1.875em;
   flex-flow: row wrap;
 }
@@ -182,9 +179,6 @@ a {
 .about-content-wrapper {
   height: fit-content;
   margin-top: 6.25em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .about-photo {
@@ -193,9 +187,12 @@ a {
   height: 21.875em;
   width: 16.25em;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+}
+
+.about-icon {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
 }
 
 .about-info {
@@ -255,18 +252,12 @@ a {
 .skills-content-wrapper {
   height: 60%;
   width: 100%;
-  display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
 }
 
 .skill-desktop-div {
   max-width: 87.5em;
   width: 96%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-flow: row nowrap;
   flex-basis: 100%;
 }
@@ -282,10 +273,7 @@ a {
 .skill-mobile-div {
   max-width: 87.5em;
   width: 70%;
-  display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
 }
 
 /** projects section styles **/
@@ -335,9 +323,6 @@ a {
   font-weight: bold;
   border-radius: 0.625em;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /** contact section styles **/
@@ -390,13 +375,7 @@ a {
   justify-content: space-evenly;
 }
 
-/** keyframes (maybe) **/
-
 /** media queries **/
-/* desktop views */
-@media (min-width: 1024px) {
-  /* intro section container */
-}
 
 /* tablet views */
 @media (min-width: 601px) and (max-width: 1023px) {
@@ -474,10 +453,7 @@ a {
     max-width: 25em;
     width: 100%;
     height: fit-content;
-    display: flex;
     flex-flow: row wrap;
-    justify-content: center;
-    align-items: center;
   }
 
   .skill-mobile-div > img {

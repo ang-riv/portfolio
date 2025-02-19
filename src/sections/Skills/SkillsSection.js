@@ -5,7 +5,7 @@ const SkillsSection = React.forwardRef((_, ref) => {
   return (
     <section ref={ref} className="skill-section">
       <SectionTitles title="Skills" />
-      <div className="skills-content-wrapper">
+      <div className="skills-content-wrapper center-flex">
         <SkillsSectionPuzzle />
       </div>
     </section>

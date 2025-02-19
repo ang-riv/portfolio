@@ -35,8 +35,8 @@ const AboutSection = React.forwardRef((_, ref) => {
       }}
     >
       <SectionTitles title="About" />
-      <div className="about-content-wrapper">
-        <div className="about-container">
+      <div className="about-content-wrapper center-flex">
+        <div className="about-container center-flex">
           <AboutPhoto activeTab={activeTab} />
           <div className="about-info">
             {/* only show tabs on tablet + desktop */}

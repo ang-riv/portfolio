@@ -15,17 +15,6 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
       transition: { repeat: Infinity, duration: 8, ease: "linear" },
     },
   };
-  // styles
-  const iconStyle = {
-    width: "fit-content",
-    height: "fit-content",
-    position: "absolute",
-    top: yPlacement,
-    left: xPlacement,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  };
 
   // figure out which tabs get the spin animation
   const spinSection = () => tab === "backstory" || tab === "hobbies";
@@ -35,7 +24,8 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTab}
-          style={iconStyle}
+          className="about-icon center-flex"
+          style={{ top: yPlacement, left: xPlacement }}
           variants={variants}
           initial="decrease"
           animate={spinSection() ? ["increase"] : ["increase", "spin"]}

@@ -105,7 +105,7 @@ const SkillsPuzzle = () => {
   };
 
   return (
-    <div className="skill-desktop-div" ref={ref}>
+    <div className="skill-desktop-div center-flex" ref={ref}>
       <RenderPieces
         directProps={directProps}
         specificProps={specificProps(desktopPieces, false, controls, pieceRef)}
@@ -214,7 +214,7 @@ const MobileSkillsPuzzle = () => {
 
   return (
     <>
-      <motion.div className="skill-mobile-div" ref={containerRef}>
+      <motion.div className="skill-mobile-div center-flex" ref={containerRef}>
         <RenderPieces
           directProps={directProps("mobile-piece", variants)}
           specificProps={specificProps(mobilePieces, true, controls, {

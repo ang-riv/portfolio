@@ -111,7 +111,7 @@ const IntroPuzzle = () => {
   }, [isInView, distance, top, findDistance, runAnimations, resetAnimations]);
 
   return (
-    <figure className="intro-puzzle-container" ref={containerRef}>
+    <figure className="intro-puzzle-container center-flex" ref={containerRef}>
       <RenderPieces
         directProps={directProps("intro-piece", variants)}
         specificProps={specificProps(introPieces, true, controls, topRef)}
