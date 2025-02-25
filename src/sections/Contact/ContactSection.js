@@ -6,15 +6,8 @@ const ContactSection = React.forwardRef((_, ref) => {
     <section className="contact-section" ref={ref}>
       <div className="contact-container">
         <SectionTitles title="Let's Connect" />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            height: "59%",
-            width: "100%",
-          }}
-        >
-          <div className="social-links-container">
+        <div className="contact-content-wrapper">
+          <div className="links-container">
             <ContactLinks />
           </div>
         </div>

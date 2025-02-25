@@ -98,7 +98,7 @@ a {
   font-weight: bolder;
   font-size: 1.3em;
   list-style-type: none;
-  width: calc-size(fit-content, size + 25px);
+  width: calc-size(fit-content, size + 1.563em);
   text-align: center;
   position: relative;
   top: 3px;
@@ -335,14 +335,18 @@ a {
   height: 100%;
   background-color: var(--blue);
 }
-
 .contact-container h2 {
   text-align: left;
   padding-left: 2%;
   font-size: 2.7em;
 }
+.contact-content-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 59%;
+  width: 100%;
+}
 
-/* link styles in contact section (found in Icons component)*/
 .link-style {
   padding: 0.313em;
   height: 33%;
@@ -366,7 +370,7 @@ a {
   font-size: 1.7em;
 }
 
-.social-links-container {
+.links-container {
   margin-top: 1%;
   height: 90%;
   width: 70%;
