@@ -1,8 +1,8 @@
 import React from "react";
-import ProjectTile from "./ProjectTile.js";
-import { addColors } from "../../utils/colorData.js";
-import { addImgs } from "../../utils/imgData.js";
-import SectionTitles from "../../components/SectionTitles.js";
+import ProjectTile from "./ProjectTile";
+import { addColors } from "../../utils/colorData";
+import { addImgs } from "../../utils/imgData";
+import SectionTitles from "../../components/SectionTitles";
 
 const ProjectsSection = React.forwardRef((_, ref) => {
   // individual project info
