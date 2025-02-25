@@ -49,7 +49,7 @@ const AboutSection = React.forwardRef((_, ref) => {
                     style={{ backgroundColor: tabSection.color }}
                     onClick={() => handleClick(tabSection.title)}
                   >
-                    <p className="about-tab-title">{tabSection.title}</p>
+                    <h3 className="about-tab-title">{tabSection.title}</h3>
                   </div>
                 ))}
               </div>

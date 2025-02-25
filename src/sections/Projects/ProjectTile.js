@@ -13,13 +13,15 @@ function ProjectTile(props) {
     backgroundColor: props.color,
     outline: `3px solid ${props.color}`,
   };
+
+  const ariaLabel = `${props.title} Live Site`;
   return (
     <div className="project-tile-container">
       {/* image */}
       <img src={props.img} alt={props.imgAlt} className="project-image" />
       {/* text */}
       <div className="project-text-container">
-        <h4>{props.title}</h4>
+        <h3 className="project-title">{props.title}</h3>
         <p style={{ margin: "0.7em 0" }}>{props.description}</p>
       </div>
       {/* button */}
@@ -31,6 +33,7 @@ function ProjectTile(props) {
         className="project-btn center-flex"
         whileHover={hoverColor}
         transition={{ duration: 0.5 }}
+        aria-label={ariaLabel}
       >
         Live Site
       </motion.a>

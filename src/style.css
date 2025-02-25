@@ -325,6 +325,12 @@ a {
   border: none;
 }
 
+.project-title {
+  font-size: 1.4em;
+  margin: 0.5em 0 0 0;
+  text-align: start;
+}
+
 /** contact section styles **/
 .contact-section {
   padding-top: 3em;
@@ -424,7 +430,7 @@ a {
 
   h1 {
     text-align: center;
-    font-size: 1.8em;
+    font-size: 2.3em;
   }
 
   .intro-puzzle-container {
