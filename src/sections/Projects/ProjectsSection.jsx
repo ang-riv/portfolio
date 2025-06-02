@@ -35,6 +35,7 @@ const ProjectsSection = React.forwardRef((_, ref) => {
         "An app that allows users to write on sticky notes and track of all their to-dos. Created with React and features a dynamic search bar to look for sticky notes with the entered word(s).",
       img: null,
       color: null,
+      link: "https://ang-riv.github.io/sticky-notes/",
       imgAlt: "image preview of sticky note application",
     },
     // 4
