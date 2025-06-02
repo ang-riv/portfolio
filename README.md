@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Angela Rivera's Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Learn more about me as a Front End Developer!
 
-## Available Scripts
+### Built with:
 
-In the project directory, you can run:
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Motion (formerly Framer Motion)
+- Icons
+  - Iconify
 
 ### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+https://ang-riv.github.io/portfolio/
 
-### `npm run build` fails to minify
+## Introduction
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+A React app that features all my skills and projects. 
+
+## Features
+
+- **Puzzle Animations:** fun little puzzle animations created with Motion.
+- **Project Links:** links to each project's gh-pages page.
+
+## Challenges
+
+- **Problem**: Puzzle Animations placement and correct amount to move in order to join together. Depending on the size of the window and if it's been re-sized, the distance between the puzzle pieces would change. 
+  - **Solution**: Added a useWindowSize hook to check if the window has been resized as well as what the initial distance is between the pieces. If it changes, then the distance is recalculated to the correct amount. 
+- **Problem**: Changing icons in the About section. The behavior of the icons are different depending on the active tab in the About section. It was difficult to determine what icon needed to be loaded for which section as well as how it was supposed to behave. The first and third tabs have icons that rotate while the second and forth do not. 
+  - **Solution**: Kept track of the active tab and used that as the determinant for the icon's animate prop.
+
+## Future Updates
+
+- Updating skills sections and changing the puzzle animation to accomodate new skills
+- Make puzzles bigger
