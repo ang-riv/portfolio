@@ -7,52 +7,52 @@ import SectionTitles from "../../components/SectionTitles";
 const ProjectsSection = React.forwardRef((_, ref) => {
   // individual project info
   const projectInfo = [
-    // 1
-    {
-      title: "Github Repo Gallery",
-      description:
-        "A personalized website that showcases all my Github Repos. Want more information? Click on each repo to be taken to my Github.",
-      img: null,
-      color: null,
-      link: "https://ang-riv.github.io/gh-repo-gallery/",
-      imgAlt: "image preview of github repo gallery",
-    },
-
-    // 2
     {
       title: "Dinner Party Generator",
+      badges: ["React", "TailwindCSS", "API"],
       description:
-        "A website that takes guest names, assigns them a random dish, and generates a printable menu. Uses TailwindCSS for styling and the Spoonacular API.",
+        "Web app that generates a printable menu. Users can input guests who will be assigned a random dish for the party. Dishes can be filtered by inputting specific diet restrictions and allergies.",
       img: null,
       color: null,
       link: "https://ang-riv.github.io/dinner-party-generator/",
       imgAlt: "image preview of dinner party generator website",
     },
-    // 3
     {
       title: "Sticky Note App",
+      badges: ["React", "Responsive Typography"],
       description:
-        "An app that allows users to write on sticky notes and track of all their to-dos. Created with React and features a dynamic search bar to look for sticky notes with the entered word(s).",
+        "Web app where users can create, edit, filter, and search through colorful sticky notes. These notes are saved into the user's local storage.",
       img: null,
       color: null,
       link: "https://ang-riv.github.io/sticky-notes/",
       imgAlt: "image preview of sticky note application",
     },
-    // 4
+
+    {
+      title: "Github Repo Gallery",
+      badges: ["React", "Github", "API"],
+      description:
+        "Personal web app that showcases all my Github repositories using the Github API. Clicking on each repo title takes the user to that specific repo on Github.",
+      img: null,
+      color: null,
+      link: "https://ang-riv.github.io/gh-repo-gallery/",
+      imgAlt: "image preview of github repo gallery",
+    },
     {
       title: "Unplugged",
+      badges: ["Flexbox", "Media Queries"],
       description:
-        "A multi-page website about Unplugged, a work retreat. Created with a mobile-first design in mind and with Flexbox and media queries.",
+        "Multi-page website containing all info on Unplugged, a work retreat. Contains a homepage, FAQ, and about section.",
       img: null,
       color: null,
       link: "https://ang-riv.github.io/unplugged/",
       imgAlt: "image preview of work retreat website",
     },
-    // 5
     {
       title: "Rogue Pickings",
+      badges: ["Flexbox", "Responsive Typography"],
       description:
-        "A single-page website for a food truck called Rogue Pickings. Focuses on being responsive through the use of Flexbox and responsive typography.",
+        "Single-page informational website on a food truck service named Rouge Pickings. Includes an introduction, the truck's current specials, a customer review, and contact.",
       img: null,
       color: null,
       link: "https://ang-riv.github.io/responsive-rouge-pickings/",
@@ -60,7 +60,6 @@ const ProjectsSection = React.forwardRef((_, ref) => {
     },
   ];
 
-  // add in the colors + imgs to the tiles
   addColors(projectInfo);
   addImgs(projectInfo);
 
