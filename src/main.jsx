@@ -6,6 +6,6 @@ import TestPage from "./TestPage";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TestPage />
+    <App />
   </StrictMode>
 );
