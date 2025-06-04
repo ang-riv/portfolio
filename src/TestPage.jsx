@@ -1,77 +1,87 @@
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-
 const TestPage = () => {
-  // refs
-  const spaceRef = useRef(null);
-  let forthsPosition = 0;
-  let containerWidth = 0;
-  // finding the 1/4
-  if (spaceRef.current) {
-    const container = spaceRef.current.getBoundingClientRect();
-    const containerHeight = container.height;
-    console.log(containerHeight);
-    forthsPosition = containerHeight / 4;
-    containerWidth = container.width;
-  }
   // styles
   const mainPage = {
     width: "100vh",
     height: "100vh",
-    border: "5px solid lavender",
-    display: "flex",
-    justifyContent: "center",
+    paddingTop: "30px",
+    paddingLeft: "15px",
   };
-  const testSpaceStyles = {
-    width: "40vh",
-    height: "400px",
-    outline: "2px solid lightCoral",
-    position: "absolute",
-    top: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "flex-end",
+
+  const mainContainer1 = {
+    width: "320px",
+    height: "28em",
+    outline: "2px solid lightGrey",
+    borderRadius: "0.313em",
+    padding: "8px",
   };
-  // find the position of the containerRef
-  const iconPlacement = [];
-  const initialPlacements = [];
-  // for loop to put in the placement of the icons
-  for (let i = 0; i < 4; i++) {
-    const mid = forthsPosition / 2;
-    initialPlacements.push(forthsPosition + i * forthsPosition - mid);
-  }
-  console.log(initialPlacements);
-  const iconSize = 50;
-  // to account for the size of the icon with the placement
-  const halfIconSize = iconSize / 2;
-  // placing the icons at the right places
-  //! works but need to account for the height of the icons
-  for (let i = 0; i < initialPlacements.length; i++) {
-    // alternate sides + center the icon on the container's border with half the icon's size
-    let side = 0;
-    i % 2 === 0
-      ? (side = side - halfIconSize)
-      : (side = containerWidth - halfIconSize);
-    iconPlacement.push(
-      <motion.div
-        style={{
-          height: `${iconSize}px`,
-          width: `${iconSize}px`,
-          position: "absolute",
-          left: side,
-          top: initialPlacements[i] - halfIconSize,
-          backgroundColor: "skyBlue",
-          borderRadius: "50%",
-        }}
-      ></motion.div>
-    );
-  }
-  console.log(initialPlacements);
+  const wrapper = {
+    borderRadius: "0.313em",
+    width: "100%",
+    height: "90%",
+  };
+  const imgStyle = {
+    backgroundColor: "orange",
+    width: "100%",
+    height: "45%",
+    borderRadius: "0.625em 0.625em 0 0",
+  };
+  const textWrapper = {
+    width: "100%",
+    height: "55%",
+  };
+  const badgeDiv = {
+    width: "100%",
+    display: "flex",
+  };
+  const badgeStyle = {
+    padding: "2px 10px",
+    outline: "1px solid lightBlue",
+    marginTop: "0",
+    marginRight: "10px",
+    fontSize: "14px",
+    borderRadius: "0.625em",
+  };
+  const description = {
+    width: "100%",
+    margin: "0",
+    padding: "0",
+  };
   return (
     <div style={mainPage}>
-      <div style={testSpaceStyles} ref={spaceRef}>
-        {iconPlacement}
-        <button> Test Animations</button>
+      <div style={mainContainer1}>
+        <div style={wrapper}>
+          <div style={imgStyle}></div>
+          <div style={textWrapper}>
+            <h3
+              style={{
+                fontSize: "1.7em",
+                padding: 0,
+                margin: "5px 0",
+                textAlign: "start",
+              }}
+            >
+              Dinner Party Generator
+            </h3>
+            <div style={badgeDiv}>
+              <p style={badgeStyle}>React</p>
+              <p style={badgeStyle}>TailwindCSS</p>
+            </div>
+            <p style={description}>
+              Web app that generates a printable menu. Users can input guests
+              who will be assigned a random dish for the party. Dishes can be
+              filtered by inputting specific diet restrictions and allergies.
+            </p>
+          </div>
+        </div>
+        <button
+          style={{
+            width: "100%",
+            height: "10%",
+            borderRadius: "0.625em",
+          }}
+        >
+          Live Site
+        </button>
       </div>
     </div>
   );
