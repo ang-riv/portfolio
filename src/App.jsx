@@ -6,8 +6,6 @@ import AboutSection from "./sections/About/AboutSection";
 import SkillsSection from "./sections/Skills/SkillsSection";
 import ProjectsSection from "./sections/Projects/ProjectsSection";
 import ContactSection from "./sections/Contact/ContactSection";
-import TestPage from "./TestPage";
-//import TestPage from "./TestPage.js";
 
 function App() {
   const test = false;
