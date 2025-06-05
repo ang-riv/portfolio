@@ -3,14 +3,12 @@ import { motion } from "framer-motion";
 
 function ProjectTile(props) {
   const badges = props.badges;
-  console.log(badges);
-  // initial button style
+
   const buttonColor = {
     outline: `3px solid ${props.color}`,
     backgroundColor: "#FFFFFF",
   };
 
-  // hover style
   const hoverColor = {
     backgroundColor: props.color,
     outline: `3px solid ${props.color}`,
@@ -26,8 +24,8 @@ function ProjectTile(props) {
         <div>
           <h3 className="project-title">{props.title}</h3>
           <div className="project-badges-wrapper">
-            {badges.map((badge) => (
-              <p style={buttonColor} className="project-badge">
+            {badges.map((badge, index) => (
+              <p key={index} style={buttonColor} className="project-badge">
                 {badge}
               </p>
             ))}

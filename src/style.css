@@ -1,6 +1,6 @@
 /*** global styles ***/
 :root {
-  --grey: #d9d9d9;
+  --grey: #c3c3c3;
   --blue: #9fd1ff;
   --pink: #ffcccc;
   --purple: #ccccff;
@@ -310,7 +310,7 @@ a {
   height: 45%;
   width: 100%;
   border: 1px solid var(--grey);
-  border-radius: var(--b-radius-value);
+  border-radius: var(--b-radius-value) var(--b-radius-value) 0 0;
 }
 
 .project-badges-wrapper {
@@ -325,6 +325,7 @@ a {
   padding: 1px 10px;
   border-radius: var(--b-radius-value);
   font-weight: bold;
+  font-size: 14px;
   margin: 0 13px 0 0;
 }
 
