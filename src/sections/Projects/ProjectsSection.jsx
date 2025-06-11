@@ -27,7 +27,16 @@ const ProjectsSection = React.forwardRef((_, ref) => {
       link: "https://ang-riv.github.io/sticky-notes/",
       imgAlt: "image preview of sticky note application",
     },
-
+    {
+      title: "Tip Calculator",
+      badges: ["React", "TailwindCSS"],
+      description:
+        "Web app that takes the user's bill amount, desired tip percent, and number of people to split the bill. Using that info, it calculates the split total and tip amount that each person will pay.",
+      img: null,
+      color: null,
+      link: "https://ang-riv.github.io/tip-calculator/",
+      imgAlt: "image preview of a website for tip calculator",
+    },
     {
       title: "Github Repo Gallery",
       badges: ["React", "Github", "API"],
@@ -47,16 +56,6 @@ const ProjectsSection = React.forwardRef((_, ref) => {
       color: null,
       link: "https://ang-riv.github.io/unplugged/",
       imgAlt: "image preview of work retreat website",
-    },
-    {
-      title: "Rogue Pickings",
-      badges: ["Flexbox", "Responsive Typography"],
-      description:
-        "Single-page informational website on a food truck service named Rouge Pickings. Includes an introduction, the truck's current specials, a customer review, and contact.",
-      img: null,
-      color: null,
-      link: "https://ang-riv.github.io/responsive-rouge-pickings/",
-      imgAlt: "image preview of a website for a food truck",
     },
   ];
 

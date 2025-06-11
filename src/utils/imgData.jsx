@@ -27,7 +27,7 @@ import gallery from "../assets/project-imgs/gh-gallery.png";
 import dinner from "../assets/project-imgs/dinner-party.png";
 import notes from "../assets/project-imgs/sticky-notes.png";
 import unplugged from "../assets/project-imgs/unplugged.png";
-import rogue from "../assets/project-imgs/rogue-pickings.png";
+import tip from "../assets/project-imgs/tip-calculator.png";
 
 /********** ADD CONTENT  ************/
 // function to add colors or imgs into specific objects
@@ -64,7 +64,7 @@ export const mobilePieces = {
 };
 
 /********** PROJECT IMGS ************/
-export const imgArr = [dinner, notes, gallery, unplugged, rogue];
+export const imgArr = [dinner, notes, tip, gallery, unplugged];
 
 // adds images to project tiles
 export function addImgs(object) {
