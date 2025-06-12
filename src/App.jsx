@@ -11,7 +11,7 @@ function App() {
   const test = false;
   const sectionTitles = ["intro", "skills", "about", "projects", "contact"];
 
-  // creating refs to scroll to the right sections
+  // creates refs to scroll sections
   const sectionRefs = useRef(
     Object.fromEntries(sectionTitles.map((key) => [key, React.createRef()]))
   );
@@ -24,7 +24,7 @@ function App() {
     contactRef: sectionRefs.current.contact,
   };
 
-  // section components to assign the refs to
+  // section components assigned to refs
   const componentNames = [
     IntroSection,
     AboutSection,

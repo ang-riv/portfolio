@@ -66,7 +66,6 @@ export const mobilePieces = {
 /********** PROJECT IMGS ************/
 export const imgArr = [dinner, notes, tip, gallery, unplugged];
 
-// adds images to project tiles
 export function addImgs(object) {
   addContent(object, "img", imgArr);
 }

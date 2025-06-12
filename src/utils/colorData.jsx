@@ -1,13 +1,13 @@
 import { addContent } from "./imgData";
-/********** GLOBAL COLORS ************/
-// if the color is being used in any style props, it needs to be in quotation marks, so this fcn does that
+/** GLOBAL COLORS **/
+// colors in style props need to be in quotation marks
 export function quotationColors(color) {
   return `${color}`;
 }
 
 export const colors = ["#ffcccc", "#ccffcc", "#ccccff", "#f2e589", "#9fd1ff"];
 
-// adding quotes + assigning names to the colors
+// adding quotes + assigning names to colors
 export const globalColors = {
   pink: quotationColors(colors[0]),
   green: quotationColors(colors[1]),
