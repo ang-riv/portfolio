@@ -10,7 +10,7 @@ const AboutPhoto = ({ activeTab }) => {
   const numOfIcons = 4;
   let positions = [];
 
-  // getting measurements for where to place the icons
+  // icon placements
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current.getBoundingClientRect();
@@ -20,15 +20,15 @@ const AboutPhoto = ({ activeTab }) => {
     }
   }, [containerRef, containerTop]);
 
-  // finding the coordinates
+  // find coordinates
   for (let i = 0; i < numOfIcons; i++) {
     // minus halfTop to center the icon in each section
     positions.push(containerTop + i * containerTop - halfTop);
   }
 
-  // creating icons with the right placement
+  // icons with correct coordinates
   const iconComponents = positions.map((yPlacement, index) => {
-    // center the icon on the edge of the container + alternate sides
+    // center icon on the edge of the container + alternate sides
     let side = 0;
     index % 2 === 0 ? (side = -25) : (side = containerWidth - 25);
     return (
