@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
-// svgs for puzzle pieces
 import { desktopPieces, mobilePieces } from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
@@ -10,7 +9,6 @@ import RenderPieces from "./PuzzleComponents/RenderPieces";
 const SkillsPuzzle = () => {
   // container div ref
   const ref = useRef(null);
-  // piece ref
   const pieceRef = useRef(null);
   const controls = useRef([
     useAnimation(),
@@ -26,14 +24,15 @@ const SkillsPuzzle = () => {
   });
   const [width, setWidth] = useState(null);
 
-  //** distance + movement
-  // 125 is the original width of the puzzle piece image and 25 is the original distance between them
+  //** DISTANCE + MOVEMENT
+  // 125 = original width of the puzzle piece image
+  // 25 = original distance between 
   const originalWidth = 125;
   const originalDistance = 25;
   const divisor = (width / originalWidth).toFixed(5);
   const distance = (originalDistance * divisor).toFixed(5);
 
-  // create a random direction to rotate the piece
+  // random direction to rotate the piece
   const randomNum = () => {
     return Math.floor(Math.random() * 361);
   };
@@ -60,7 +59,7 @@ const SkillsPuzzle = () => {
       await controls[i].start({ x: i * distance });
     }
 
-    // then move to center
+    // move to center
     for (let i = 0; i < controls.length; i++) {
       let movement = 0;
       if (i > 0) {
@@ -97,7 +96,6 @@ const SkillsPuzzle = () => {
     }
   }, [isInView, distance, runAnimations, resetAnimations]);
 
-  // doesn't fit the same props as directProps() so made it it's own seperate object
   const directProps = {
     initial: { rotate: randomNum() },
     variants: variants,
@@ -115,10 +113,8 @@ const SkillsPuzzle = () => {
 };
 
 const MobileSkillsPuzzle = () => {
-  // container for puzzle
   const prevDistance = useRef(null);
   const containerRef = useRef(null);
-  // puzzle pieces
   const topPiece = useRef(null);
   const botPiece = useRef(null);
   const controls = useRef([
@@ -132,13 +128,12 @@ const MobileSkillsPuzzle = () => {
 
   // top puzzle piece
   const [top, setTop] = useState(0);
-  // amount needed for each piece to move vertically and join together
   const [distance, setDistance] = useState(0);
 
   // make sure that the container is in the middle of the viewport
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
-  //** movement
+  //** MOVEMENT
   const yMovement = distance;
   const xMovement = distance * 2;
   const variants = {
@@ -164,7 +159,6 @@ const MobileSkillsPuzzle = () => {
     }
   }, [controls]);
 
-  //* return to original positions
   const resetAnimations = useCallback(async () => {
     for (let i = 0; i < controls.length; i++) {
       controls[i].start("reset");
@@ -176,13 +170,13 @@ const MobileSkillsPuzzle = () => {
       const piece = topPiece.current.getBoundingClientRect();
       const scrollTop = document.documentElement.scrollTop;
 
-      // position of the container plus how far down the user has scrolled to get it's exact position
+      // position of the container plus how far down the user has scrolled
       const piecePosition = piece.bottom + scrollTop;
 
       // bottom of first puzzle piece
       setTop(piecePosition.toFixed(2));
 
-      // calculating the distance needed
+      // calculating the distance
       const decrease = 150 - piece.width;
       const newDistance = Math.round(25 - 25 * (decrease / 150));
 
@@ -194,8 +188,7 @@ const MobileSkillsPuzzle = () => {
   }, []);
 
   useEffect(() => {
-    //** calculates distance/position pieces need to move and join
-    //*** puzzle animations
+    //** animations on scroll
     let timeoutId;
 
     if (isInView) {
@@ -227,7 +220,7 @@ const MobileSkillsPuzzle = () => {
   );
 };
 
-/* will render one of the puzzles depending on the screen size */
+/* will render one of two puzzles depending on the screen size */
 const SkillsSectionPuzzle = () => {
   const size = useWindowSize();
   if (size.width < 700) {
