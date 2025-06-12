@@ -4,10 +4,8 @@ import useWindowSize from "../../components/useWindowSize";
 import { mobileNavIcons } from "../../assets/mobile-nav-icons";
 import { globalColors } from "../../utils/colorData";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
-  // hover effects to check which element is being hovered
   const [isHovered, setIsHovered] = useState("");
 
-  // scrolling to a specific section using refs
   const scrollToSection = (ref) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
@@ -21,7 +19,7 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
   const sectionRefs = [aboutRef, skillsRef, projectsRef, contactRef];
   const sectionInfo = [];
 
-  // icons are only for mobile
+  // icons for mobile
   for (let i = 0; i < sectionTitles.length; i++) {
     sectionInfo.push({
       title: sectionTitles[i],

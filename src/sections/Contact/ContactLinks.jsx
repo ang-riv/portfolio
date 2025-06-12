@@ -2,16 +2,15 @@
 import React, { useState } from "react";
 import useWindowSize from "../../components/useWindowSize";
 import { motion } from "framer-motion";
-// svgs for puzzle pieces
 import { globalColors } from "../../utils/colorData";
 
-/* sizes for icons based on screen size */
+// icon size based on screen size 
 function SocialIconSize() {
   const size = useWindowSize();
   return size.width > 700 ? "3.8em" : "2.5em";
 }
 
-/* icons */
+/* ICONS FROM ICONIFY */
 function GithubIcon(props) {
   return (
     <svg
@@ -82,9 +81,7 @@ function FrontEndMentorIcon(props) {
 
 /* groups together the contact links + styles */
 export function ContactLinks() {
-  // hover styles
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  // colors depending on which link is hovered over
   const getHoverColor = (index) => {
     switch (index) {
       case 0:
@@ -100,7 +97,6 @@ export function ContactLinks() {
     }
   };
 
-  // specific social link info
   const personalInfo = {
     Github: "https://github.com/ang-riv",
     Email: "mailto: a.riveraa99@gmail.com",

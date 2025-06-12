@@ -5,7 +5,6 @@ import { addImgs } from "../../utils/imgData";
 import SectionTitles from "../../components/SectionTitles";
 
 const ProjectsSection = React.forwardRef((_, ref) => {
-  // individual project info
   const projectInfo = [
     {
       title: "Dinner Party Generator",
