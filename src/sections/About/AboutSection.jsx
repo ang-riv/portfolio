@@ -9,11 +9,6 @@ const AboutSection = React.forwardRef((_, ref) => {
   const [activeTab, setActiveTab] = useState("Intro");
   const size = useWindowSize();
 
-  // for info body and which section to show
-  const handleClick = (currentTab) => {
-    setActiveTab(currentTab);
-  };
-
   const aboutSections = [
     { title: "Intro", color: null },
     { title: "Backstory", color: null },
@@ -23,7 +18,6 @@ const AboutSection = React.forwardRef((_, ref) => {
 
   const aboutCopy = [...aboutSections];
 
-  // adds colors to the tabs
   addColors(aboutCopy);
 
   return (
@@ -42,12 +36,12 @@ const AboutSection = React.forwardRef((_, ref) => {
             {/* only show tabs on tablet + desktop */}
             {size.width > 767 ? (
               <div className="about-tabs-container">
-                {/* making the tabs*/}
+                {/* tabs */}
                 {aboutCopy.map((tabSection) => (
                   <div
                     className="about-tab"
                     style={{ backgroundColor: tabSection.color }}
-                    onClick={() => handleClick(tabSection.title)}
+                    onClick={() => setActiveTab(tabSection.title)}
                   >
                     <h3 className="about-tab-title">{tabSection.title}</h3>
                   </div>

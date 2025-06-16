@@ -4,12 +4,10 @@ import { addColors } from "../../utils/colorData";
 
 const AboutInfo = ({ activeTab }) => {
   const tabName = activeTab.toLowerCase();
-
   const size = useWindowSize();
-  // holder variable
   let currentTab = "";
 
-  // list for the values tab
+  // bullet list for the values tab
   const list = () => {
     return (
       <ul
@@ -32,7 +30,7 @@ const AboutInfo = ({ activeTab }) => {
     );
   };
 
-  // contains the content for each tab
+  // content for each tab
   const tabInfo = {
     intro: {
       title: "Who Am I?",
@@ -62,18 +60,16 @@ const AboutInfo = ({ activeTab }) => {
 
   const tabCopy = { ...tabInfo };
 
-  // add colors to the sections
   addColors(tabCopy);
 
-  // loop through tabInfo then return the appropriate title and description, color
+  // if tab matches activeTab, assign matching info
   for (const tab in tabCopy) {
-    // if the tab matches the activeTab then assign them to variables
     if (tab === tabName) {
       currentTab = tabCopy[tab];
     }
   }
 
-  // for showing the description of each section, prevents putting a value section's ul within a p element
+  // prevents putting value section's ul within a p element
   function sectionDescription(key, value) {
     let description =
       key !== "values" ? (

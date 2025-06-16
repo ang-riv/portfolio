@@ -1,4 +1,4 @@
-// for rendering the puzzle piece images for the intro and skills section puzzles
+// puzzle piece images for the intro and skills puzzles
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -7,7 +7,6 @@ import {
   mobilePieces,
 } from "../../../utils/imgData";
 const RenderPieces = ({ directProps, specificProps }) => {
-  // destructuring
   const { imgArr, ascendingIndex, controls, specificRef } = specificProps;
 
   const puzzleImgs = [];
@@ -18,7 +17,7 @@ const RenderPieces = ({ directProps, specificProps }) => {
     // deciding the order of the index
     let i = 0;
     ascendingIndex ? (i = index) : (i = entries.length - 1 - index);
-    // refs
+    
     const refs = () => {
       if (imgArr === introPieces && key === "pinkPiece") {
         return { ref: specificRef };

@@ -16,7 +16,7 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
     },
   };
 
-  // figure out which tabs get the spin animation
+  // which tabs get the spin animation
   const spinSection = () => tab === "backstory" || tab === "hobbies";
 
   return (

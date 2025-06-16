@@ -8,6 +8,7 @@ const iconSize = {
   height: 50,
 };
 
+// ** ICONS FROM ICONIFY
 function Snowflake(props) {
   return (
     <svg
