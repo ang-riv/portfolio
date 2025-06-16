@@ -4,7 +4,7 @@ import { useAnimation, useInView } from "framer-motion";
 // svgs for puzzle pieces
 import { introPieces } from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
-import RenderPieces from "../PuzzleAnimations/PuzzleComponents/RenderPieces";
+import RenderPieces from "./PuzzleComponents/RenderPieces";
 
 const IntroPuzzle = () => {
   // container for puzzle

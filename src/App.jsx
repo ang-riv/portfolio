@@ -1,13 +1,11 @@
 import "./style.css";
 import React, { useRef } from "react";
-import Navigation from "./sections/Navigation/Navigation.js";
-import IntroSection from "./sections/Intro/IntroSection.js";
-import AboutSection from "./sections/About/AboutSection.js";
-import SkillsSection from "./sections/Skills/SkillsSection.js";
-import ProjectsSection from "./sections/Projects/ProjectsSection.js";
-import ContactSection from "./sections/Contact/ContactSection.js";
-import TestPage from "./TestPage.js";
-//import TestPage from "./TestPage.js";
+import Navigation from "./sections/Navigation/Navigation";
+import IntroSection from "./sections/Intro/IntroSection";
+import AboutSection from "./sections/About/AboutSection";
+import SkillsSection from "./sections/Skills/SkillsSection";
+import ProjectsSection from "./sections/Projects/ProjectsSection";
+import ContactSection from "./sections/Contact/ContactSection";
 
 function App() {
   const test = false;

@@ -2,13 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 
 function ProjectTile(props) {
-  // initial button style
+  const badges = props.badges;
+
   const buttonColor = {
     outline: `3px solid ${props.color}`,
     backgroundColor: "#FFFFFF",
   };
 
-  // hover style
   const hoverColor = {
     backgroundColor: props.color,
     outline: `3px solid ${props.color}`,
@@ -17,12 +17,21 @@ function ProjectTile(props) {
   const ariaLabel = `${props.title} Live Site`;
   return (
     <div className="project-tile-container">
-      {/* image */}
-      <img src={props.img} alt={props.imgAlt} className="project-image" />
-      {/* text */}
-      <div className="project-text-container">
-        <h3 className="project-title">{props.title}</h3>
-        <p style={{ margin: "0.7em 0" }}>{props.description}</p>
+      <div className="project-tile-wrapper">
+        {/* image */}
+        <img src={props.img} alt={props.imgAlt} className="project-image" />
+        {/* text */}
+        <div>
+          <h3 className="project-title">{props.title}</h3>
+          <div className="project-badges-wrapper">
+            {badges.map((badge, index) => (
+              <p key={index} style={buttonColor} className="project-badge">
+                {badge}
+              </p>
+            ))}
+          </div>
+          <p style={{ margin: "0.7em 0 0 0" }}>{props.description}</p>
+        </div>
       </div>
       {/* button */}
       <motion.a

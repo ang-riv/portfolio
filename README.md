@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Angela Rivera's Portfolio Website
 
 Learn more about me as a Front End Developer!
@@ -34,3 +35,13 @@ A React app that features all my skills and projects.
 
 - Updating skills sections and changing the puzzle animation to accomodate new skills
 - Make puzzles bigger
+=======
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+>>>>>>> migrate-to-vite
