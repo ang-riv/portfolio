@@ -45,7 +45,7 @@ const AboutInfo = ({ activeTab }) => {
       color: null,
     },
     values: {
-      title: "I'm a Developer Who...",
+      title: "I'm a Front-end Developer Who...",
       description: list(),
       color: null,
     },

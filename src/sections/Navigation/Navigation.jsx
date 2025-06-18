@@ -81,15 +81,19 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
       ) : (
         <div className="mobile-nav-container">
           <ul>
-            {sectionInfo.map((section) => (
-              <li
-                key={section.title}
-                onClick={() => scrollToSection(section.ref)}
-              >
-                {section.icon}
-                <p>{section.title}</p>
-              </li>
-            ))}
+            {sectionInfo.map((section) => {
+              const semanticLink = `#${section.title.toLowerCase}`;
+              return (
+                <li
+                  key={section.title}
+                  onClick={() => scrollToSection(section.ref)}
+                >
+                  <a href={semanticLink}></a>
+                  {section.icon}
+                  <p>{section.title}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

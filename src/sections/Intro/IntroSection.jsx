@@ -5,7 +5,7 @@ const IntroSection = React.forwardRef((_, ref) => {
     <section ref={ref} id="introSection" className="intro-section center-flex">
       <IntroPuzzle />
       <h1>
-        Hi, I'm Angela Rivera, <br /> Front End Developer.
+        Hi, I'm Angela Rivera, <br /> Front-end Developer.
       </h1>
     </section>
   );
