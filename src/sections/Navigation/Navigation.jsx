@@ -33,14 +33,16 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
         <div className="nav-container">
           <nav>
             <ul>
-              {sectionInfo.map((section) =>
-                section.title !== "Contact" ? (
+              {sectionInfo.map((section) => {
+                const semanticLink = `#${section.title.toLowerCase()}`;
+                return section.title !== "Contact" ? (
                   <motion.li
                     key={section.title}
                     onClick={() => scrollToSection(section.ref)}
                     onHoverStart={() => setIsHovered(section.title)}
                     onHoverEnd={() => setIsHovered("")}
                   >
+                    <a href={semanticLink}></a>
                     {section.title}
                     {/* underline titles */}
                     <motion.div
@@ -71,8 +73,8 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                   >
                     {section.title}
                   </motion.li>
-                )
-              )}
+                );
+              })}
             </ul>
           </nav>
         </div>
