@@ -147,12 +147,28 @@ const TestSpace = () => {
   }, [controls, distance]);
 
   const styles = {
-    width: "100px",
-    height: "100px",
+    width: "11em",
+    height: "11em",
   };
   return (
-    <div>
-      <div style={{ backgroundColor: "lightBlue", display: "flex" }}>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        border: "1px solid green",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "lightBlue",
+          display: "flex",
+          height: "fit",
+          width: "80%",
+        }}
+      >
         <motion.img
           src={html}
           alt=""
@@ -176,7 +192,14 @@ const TestSpace = () => {
         />
         <motion.img src={react} alt="" animate={controls[3]} style={styles} />
       </div>
-      <div style={{ backgroundColor: "plum", display: "flex" }}>
+      <div
+        style={{
+          backgroundColor: "plum",
+          display: "flex",
+          height: "fit",
+          width: "80%",
+        }}
+      >
         <motion.img
           src={bootstrap}
           alt=""

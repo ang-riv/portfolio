@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import {
   introPieces,
   desktopPieces,
+  newDesktopPieces,
   mobilePieces,
 } from "../../../utils/imgData";
 const RenderPieces = ({ directProps, specificProps }) => {
@@ -17,7 +18,7 @@ const RenderPieces = ({ directProps, specificProps }) => {
     // deciding the order of the index
     let i = 0;
     ascendingIndex ? (i = index) : (i = entries.length - 1 - index);
-    
+
     const refs = () => {
       if (imgArr === introPieces && key === "pinkPiece") {
         return { ref: specificRef };

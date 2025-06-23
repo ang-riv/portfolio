@@ -14,6 +14,17 @@ import reactPiece from "../assets/desktop-skill-svgs/reactPiece.svg";
 import bootstrapPiece from "../assets/desktop-skill-svgs/bootstrapPiece.svg";
 import githubPiece from "../assets/desktop-skill-svgs/githubPiece.svg";
 
+// new desktop/tablet
+import html from "../assets/new-desktop/top/html.png";
+import css from "../assets/new-desktop/top/css.png";
+import javascript from "../assets/new-desktop/top/js.png";
+import react from "../assets/new-desktop/top/react.png";
+
+import bootstrap from "../assets/new-desktop/bot/bootstrap.png";
+import tailwind from "../assets/new-desktop/bot/tailwind.png";
+import api from "../assets/new-desktop/bot/api.png";
+import github from "../assets/new-desktop/bot/github.png";
+
 // mobile
 import mobileHtmlPiece from "../assets/mobile-skill-svgs/mobileHtmlPiece.svg";
 import mobileCssPiece from "../assets/mobile-skill-svgs/mobileCssPiece.svg";
@@ -52,6 +63,17 @@ export const desktopPieces = {
   react: reactPiece,
   bootstrap: bootstrapPiece,
   github: githubPiece,
+};
+
+export const newDesktopPieces = {
+  html: html,
+  css: css,
+  tailwind: tailwind,
+  api: api,
+  javascript: javascript,
+  react: react,
+  bootstrap: bootstrap,
+  github: github,
 };
 
 export const mobilePieces = {

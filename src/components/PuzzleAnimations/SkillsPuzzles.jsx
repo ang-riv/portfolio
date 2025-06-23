@@ -1,7 +1,11 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
-import { desktopPieces, mobilePieces } from "../../utils/imgData";
+import {
+  desktopPieces,
+  newDesktopPieces,
+  mobilePieces,
+} from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
 
@@ -26,7 +30,7 @@ const SkillsPuzzle = () => {
 
   //** DISTANCE + MOVEMENT
   // 125 = original width of the puzzle piece image
-  // 25 = original distance between 
+  // 25 = original distance between
   const originalWidth = 125;
   const originalDistance = 25;
   const divisor = (width / originalWidth).toFixed(5);
@@ -220,6 +224,205 @@ const MobileSkillsPuzzle = () => {
   );
 };
 
+const NewSkillsPuzzle = () => {
+  const topPieces = [
+    newDesktopPieces.html,
+    newDesktopPieces.css,
+    newDesktopPieces.javascript,
+    newDesktopPieces.react,
+  ];
+  const botPieces = [
+    newDesktopPieces.bootstrap,
+    newDesktopPieces.tailwind,
+    newDesktopPieces.api,
+    newDesktopPieces.github,
+  ];
+  const topPiece = useRef(null);
+  const botPiece = useRef(null);
+  const topControls = useRef([
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+  ]).current;
+  const botControls = useRef([
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+    useAnimation(),
+  ]).current;
+  const [width, setWidth] = useState(null);
+  const [verticalDistance, setVerticalDistance] = useState(null);
+
+  const originalWidth = 300;
+  const originalDistance = 51;
+  const divisor = (width / originalWidth).toFixed(5);
+  const distance = Number((originalDistance * divisor).toFixed(5));
+  const v = distance + Number(verticalDistance / 2);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
+  let testAnimations = true;
+  const runAnimations = async () => {
+    console.log("Distance", distance);
+    console.log("v Distance", verticalDistance);
+
+    const variants = {
+      outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
+      outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
+      outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
+      innerSecondL: { x: distance, transition: { delay: 0.5 } },
+      innerSecondR: { x: -distance, transition: { delay: 0.5 } },
+      outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
+      topRow: { y: -v, transition: { delay: 0.5 } },
+      bottomRow: { y: v, transition: { delay: 0.5 } },
+      reset: {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        transition: { delay: 0.3, duration: 0.5 },
+      },
+    };
+
+    // move outer pieces
+    const firstPhase = async () => {
+      let pieces = [];
+      for (let i = 0; i < topControls.length; i++) {
+        const top = topControls[i];
+        const bot = botControls[i];
+
+        if (i === 0) {
+          pieces.push(top.start(variants.outerFirstL));
+          pieces.push(bot.start(variants.outerFirstL));
+        } else if (i === 3) {
+          pieces.push(top.start(variants.outerFirstR));
+          pieces.push(bot.start(variants.outerFirstR));
+        }
+      }
+      await Promise.all(pieces);
+    };
+
+    // chain together in groups
+    const secondPhase = async () => {
+      let pieces = [];
+      for (let i = 0; i < topControls.length; i++) {
+        const top = topControls[i];
+        const bot = botControls[i];
+
+        switch (i) {
+          case 0:
+            pieces.push(top.start(variants.outerSecondL));
+            pieces.push(bot.start(variants.outerSecondL));
+            break;
+          case 1:
+            pieces.push(top.start(variants.innerSecondL));
+            pieces.push(bot.start(variants.innerSecondL));
+            break;
+          case 3:
+            pieces.push(top.start(variants.outerSecondR));
+            pieces.push(bot.start(variants.outerSecondR));
+            break;
+          case 2:
+            pieces.push(top.start(variants.innerSecondR));
+            pieces.push(bot.start(variants.innerSecondR));
+            break;
+          default:
+            console.log("Unknown number");
+        }
+      }
+      await Promise.all(pieces);
+    };
+
+    // vertical join
+    const thirdPhase = async () => {
+      let pieces = [];
+
+      for (let i = 0; i < topControls.length; i++) {
+        const top = topControls[i];
+        const bot = botControls[i];
+        pieces.push(top.start(variants.bottomRow));
+        pieces.push(bot.start(variants.topRow));
+      }
+      await Promise.all(pieces);
+    };
+    await firstPhase();
+    await secondPhase();
+    await thirdPhase();
+    testAnimations = false;
+  };
+  // check if inView
+  useEffect(() => {
+    if (topPiece.current) {
+      let top = topPiece.current.getBoundingClientRect();
+      let bot = botPiece.current.getBoundingClientRect();
+      setWidth(top.width.toFixed(2));
+      if (botPiece.current) {
+        const vDistance = bot.top.toFixed(2) - top.bottom.toFixed(2);
+        setVerticalDistance(vDistance.toFixed(2));
+        console.log(bot.top.toFixed(2), top.bottom.toFixed(2));
+      }
+    }
+    if (isInView) {
+      runAnimations();
+    }
+    console.log(width);
+  }, [topControls, botControls, distance, isInView]);
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        border: "1px solid green",
+        height: "fit",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div style={{ height: "fit" }}>
+        {topControls.map((_, index) => {
+          if (index === 0) {
+            return (
+              <motion.img
+                src={topPieces[index]}
+                style={{ height: "100px", width: "100px" }}
+                ref={topPiece}
+                animate={topControls[index]}
+              />
+            );
+          } else {
+            return (
+              <motion.img
+                src={topPieces[index]}
+                style={{ height: "100px", width: "100px" }}
+                animate={topControls[index]}
+              />
+            );
+          }
+        })}
+      </div>
+      <div style={{ height: "fit" }}>
+        {botControls.map((_, index) => {
+          if (index === 0) {
+            return (
+              <motion.img
+                src={botPieces[index]}
+                style={{ height: "100px", width: "100px" }}
+                ref={botPiece}
+                animate={botControls[index]}
+              />
+            );
+          } else {
+            return (
+              <motion.img
+                src={botPieces[index]}
+                style={{ height: "100px", width: "100px" }}
+                animate={botControls[index]}
+              />
+            );
+          }
+        })}
+      </div>
+    </div>
+  );
+};
 /* will render one of two puzzles depending on the screen size */
 const SkillsSectionPuzzle = () => {
   const size = useWindowSize();
@@ -233,7 +436,7 @@ const SkillsSectionPuzzle = () => {
   } else {
     return (
       <>
-        <SkillsPuzzle />
+        <NewSkillsPuzzle />
       </>
     );
   }

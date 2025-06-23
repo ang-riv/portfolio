@@ -6,6 +6,6 @@ import TestSpace from "./TestSpace";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <TestSpace />
+    <App />
   </StrictMode>
 );
