@@ -21,17 +21,32 @@ const TestSpace = () => {
   ]).current;
   const distance = 51;
   const variants = {
-    outerFirstL: { x: distance * 2 },
-    outerFirstR: { x: -distance * 2 },
-    outerSecondL: { x: distance * 3 },
-    innerSecondL: { x: distance },
-    innerSecondR: { x: -distance },
-    outerSecondR: { x: -distance * 3 },
-    topRow: { y: -distance },
-    bottomRow: { y: distance },
+    outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
+    outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
+    outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
+    innerSecondL: { x: distance, transition: { delay: 0.5 } },
+    innerSecondR: { x: -distance, transition: { delay: 0.5 } },
+    outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
+    topRow: { y: -distance, transition: { delay: 0.5 } },
+    bottomRow: { y: distance, transition: { delay: 0.5 } },
+    reset: { x: 0, y: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
   };
 
   let testAnimations = true;
+
+  const randomNum = () => {
+    return Math.floor(Math.random() * 361);
+  };
+
+  const resetAnimations = async () => {
+    let pieces = [];
+    for (let i = 0; i < controls.length; i++) {
+      const element = controls[i];
+      pieces.push(element.start("reset"));
+    }
+    await Promise.all(pieces);
+  };
+
   const runAnimations = useCallback(async () => {
     // move outer pieces
     const firstPhase = async () => {
@@ -88,7 +103,7 @@ const TestSpace = () => {
       }
       await Promise.all(pieces);
     };
-
+    await resetAnimations();
     await firstPhase();
     await secondPhase();
     await thirdPhase();
@@ -108,12 +123,14 @@ const TestSpace = () => {
           alt=""
           animate={controls[0]}
           variants={variants}
+          initial={{ rotate: randomNum() }}
         />
         <motion.img
           src={css}
           alt=""
           animate={controls[1]}
           variants={variants}
+          initial={{ rotate: randomNum() }}
         />
         <motion.img src={js} alt="" animate={controls[2]} variants={variants} />
         <motion.img
