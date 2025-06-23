@@ -6,9 +6,10 @@ import bootstrap from "./assets/new-desktop/bot/bootstrap.png";
 import tailwind from "./assets/new-desktop/bot/tailwind.png";
 import api from "./assets/new-desktop/bot/api.png";
 import github from "./assets/new-desktop/bot/github.png";
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import { useAnimation, motion } from "framer-motion";
 const TestSpace = () => {
+  const pieceRef = useRef(null);
   const controls = useRef([
     useAnimation(),
     useAnimation(),
@@ -19,20 +20,26 @@ const TestSpace = () => {
     useAnimation(),
     useAnimation(),
   ]).current;
-  const distance = 51;
-  const variants = {
-    outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
-    outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
-    outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
-    innerSecondL: { x: distance, transition: { delay: 0.5 } },
-    innerSecondR: { x: -distance, transition: { delay: 0.5 } },
-    outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
-    topRow: { y: -distance, transition: { delay: 0.5 } },
-    bottomRow: { y: distance, transition: { delay: 0.5 } },
-    reset: { x: 0, y: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
-  };
+  const [width, setWidth] = useState(null);
+  const originalWidth = 300;
+  const originalDistance = 51;
+  const divisor = (width / originalWidth).toFixed(5);
+  const distance = Number((originalDistance * divisor).toFixed(5));
+  // const variants = {
+  //   outerFirstL: { x: originalDistance * 2, transition: { delay: 0.5 } },
+  //   outerFirstR: { x: -originalDistance * 2, transition: { delay: 0.5 } },
+  //   outerSecondL: { x: originalDistance * 3, transition: { delay: 0.5 } },
+  //   innerSecondL: { x: originalDistance, transition: { delay: 0.5 } },
+  //   innerSecondR: { x: -originalDistance, transition: { delay: 0.5 } },
+  //   outerSecondR: { x: -originalDistance * 3, transition: { delay: 0.5 } },
+  //   topRow: { y: -originalDistance, transition: { delay: 0.5 } },
+  //   bottomRow: { y: originalDistance, transition: { delay: 0.5 } },
+  //   reset: { x: 0, y: 0, rotate: 0, transition: { delay: 0.3, duration: 0.5 } },
+  // };
 
   let testAnimations = true;
+
+  // find originalDistance based on current size
 
   const randomNum = () => {
     return Math.floor(Math.random() * 361);
@@ -42,21 +49,39 @@ const TestSpace = () => {
     let pieces = [];
     for (let i = 0; i < controls.length; i++) {
       const element = controls[i];
-      pieces.push(element.start("reset"));
+      pieces.push(element.start({ x: 0, rotate: 0, y: 0 }));
     }
     await Promise.all(pieces);
   };
 
-  const runAnimations = useCallback(async () => {
+  const runAnimations = async () => {
+    console.log("Distance", distance);
+    const variants = {
+      outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
+      outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
+      outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
+      innerSecondL: { x: distance, transition: { delay: 0.5 } },
+      innerSecondR: { x: -distance, transition: { delay: 0.5 } },
+      outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
+      topRow: { y: -distance, transition: { delay: 0.5 } },
+      bottomRow: { y: distance, transition: { delay: 0.5 } },
+      reset: {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        transition: { delay: 0.3, duration: 0.5 },
+      },
+    };
+
     // move outer pieces
     const firstPhase = async () => {
       let pieces = [];
       for (let i = 0; i < controls.length; i++) {
         const element = controls[i];
         if (i === 0 || i === 4) {
-          pieces.push(element.start("outerFirstL"));
+          pieces.push(element.start(variants.outerFirstL));
         } else if (i === 3 || i === 7) {
-          pieces.push(element.start("outerFirstR"));
+          pieces.push(element.start(variants.outerFirstR));
         }
       }
       await Promise.all(pieces);
@@ -70,19 +95,19 @@ const TestSpace = () => {
         switch (i) {
           case 0:
           case 4:
-            pieces.push(element.start("outerSecondL"));
+            pieces.push(element.start(variants.outerSecondL));
             break;
           case 1:
           case 5:
-            pieces.push(element.start("innerSecondL"));
+            pieces.push(element.start(variants.innerSecondL));
             break;
           case 3:
           case 7:
-            pieces.push(element.start("outerSecondR"));
+            pieces.push(element.start(variants.outerSecondR));
             break;
           case 2:
           case 6:
-            pieces.push(element.start("innerSecondR"));
+            pieces.push(element.start(variants.innerSecondR));
             break;
           default:
             console.log("Unknown number");
@@ -98,8 +123,8 @@ const TestSpace = () => {
       for (let i = 0; i < controls.length; i++) {
         const element = controls[i];
         i < 4
-          ? pieces.push(element.start("bottomRow"))
-          : pieces.push(element.start("topRow"));
+          ? pieces.push(element.start(variants.bottomRow))
+          : pieces.push(element.start(variants.topRow));
       }
       await Promise.all(pieces);
     };
@@ -108,13 +133,23 @@ const TestSpace = () => {
     await secondPhase();
     await thirdPhase();
     testAnimations = false;
-  }, [controls]);
+  };
 
   useEffect(() => {
-    if (testAnimations) {
+    if (pieceRef.current) {
+      let piece = pieceRef.current.getBoundingClientRect();
+      setWidth(piece.width.toFixed(2));
+    }
+    if (testAnimations && distance != 0) {
       runAnimations();
     }
-  }, [controls]);
+    console.log(width);
+  }, [controls, distance]);
+
+  const styles = {
+    width: "100px",
+    height: "100px",
+  };
   return (
     <div>
       <div style={{ backgroundColor: "lightBlue", display: "flex" }}>
@@ -122,49 +157,40 @@ const TestSpace = () => {
           src={html}
           alt=""
           animate={controls[0]}
-          variants={variants}
-          initial={{ rotate: randomNum() }}
+          ref={pieceRef}
+          style={styles}
         />
         <motion.img
           src={css}
           alt=""
           animate={controls[1]}
-          variants={variants}
+          initial={{ rotate: randomNum() }}
+          style={styles}
+        />
+        <motion.img
+          src={js}
+          alt=""
+          animate={controls[2]}
+          style={styles}
           initial={{ rotate: randomNum() }}
         />
-        <motion.img src={js} alt="" animate={controls[2]} variants={variants} />
-        <motion.img
-          src={react}
-          alt=""
-          animate={controls[3]}
-          variants={variants}
-        />
+        <motion.img src={react} alt="" animate={controls[3]} style={styles} />
       </div>
       <div style={{ backgroundColor: "plum", display: "flex" }}>
         <motion.img
           src={bootstrap}
           alt=""
           animate={controls[4]}
-          variants={variants}
+          style={styles}
         />
         <motion.img
           src={tailwind}
           alt=""
           animate={controls[5]}
-          variants={variants}
+          style={styles}
         />
-        <motion.img
-          src={api}
-          alt=""
-          animate={controls[6]}
-          variants={variants}
-        />
-        <motion.img
-          src={github}
-          alt=""
-          animate={controls[7]}
-          variants={variants}
-        />
+        <motion.img src={api} alt="" animate={controls[6]} style={styles} />
+        <motion.img src={github} alt="" animate={controls[7]} style={styles} />
       </div>
     </div>
   );
