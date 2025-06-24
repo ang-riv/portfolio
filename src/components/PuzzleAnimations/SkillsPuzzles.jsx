@@ -237,8 +237,10 @@ const NewSkillsPuzzle = () => {
     newDesktopPieces.api,
     newDesktopPieces.github,
   ];
+
   const topPiece = useRef(null);
   const botPiece = useRef(null);
+
   const topControls = useRef([
     useAnimation(),
     useAnimation(),
@@ -251,6 +253,7 @@ const NewSkillsPuzzle = () => {
     useAnimation(),
     useAnimation(),
   ]).current;
+
   const [width, setWidth] = useState(null);
   const [verticalDistance, setVerticalDistance] = useState(null);
 
@@ -263,15 +266,15 @@ const NewSkillsPuzzle = () => {
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
   const resetAnimations = async () => {
-    let pieces = [];
+    let movements = [];
     for (let i = 0; i < topControls.length; i++) {
       const top = topControls[i];
       const bot = botControls[i];
 
-      pieces.push(top.start({ x: 0, rotate: 0, y: 0 }));
-      pieces.push(bot.start({ x: 0, rotate: 0, y: 0 }));
+      movements.push(top.start({ x: 0, rotate: 0, y: 0 }));
+      movements.push(bot.start({ x: 0, rotate: 0, y: 0 }));
     }
-    await Promise.all(pieces);
+    await Promise.all(movements);
   };
 
   const runAnimations = useCallback(async () => {
@@ -382,55 +385,37 @@ const NewSkillsPuzzle = () => {
     }
   }, [topControls, botControls, distance, isInView]);
   return (
-    <div
-      ref={containerRef}
-      style={{
-        border: "1px solid green",
-        height: "fit",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <div style={{ height: "fit" }}>
+    <div ref={containerRef} className="skill-desktop-div">
+      <div style={{ height: "fit" }} className="puzzle-row">
         {topControls.map((_, index) => {
           if (index === 0) {
             return (
               <motion.img
                 src={topPieces[index]}
-                style={{ height: "150px", width: "150px" }}
                 ref={topPiece}
                 animate={topControls[index]}
               />
             );
           } else {
             return (
-              <motion.img
-                src={topPieces[index]}
-                style={{ height: "150px", width: "150px" }}
-                animate={topControls[index]}
-              />
+              <motion.img src={topPieces[index]} animate={topControls[index]} />
             );
           }
         })}
       </div>
-      <div style={{ height: "fit" }}>
+      <div style={{ height: "fit" }} className="puzzle-row">
         {botControls.map((_, index) => {
           if (index === 0) {
             return (
               <motion.img
                 src={botPieces[index]}
-                style={{ height: "150px", width: "150px" }}
                 ref={botPiece}
                 animate={botControls[index]}
               />
             );
           } else {
             return (
-              <motion.img
-                src={botPieces[index]}
-                style={{ height: "150px", width: "150px" }}
-                animate={botControls[index]}
-              />
+              <motion.img src={botPieces[index]} animate={botControls[index]} />
             );
           }
         })}
@@ -441,7 +426,7 @@ const NewSkillsPuzzle = () => {
 /* will render one of two puzzles depending on the screen size */
 const SkillsSectionPuzzle = () => {
   const size = useWindowSize();
-  if (size.width < 700) {
+  if (size.width < 710) {
     // mobile size
     return (
       <>
