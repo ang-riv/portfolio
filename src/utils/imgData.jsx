@@ -6,13 +6,6 @@ import piece3 from "../assets/intro-svgs/piece3.svg";
 import piece4 from "../assets/intro-svgs/piece4.svg";
 
 /*** SKILLS SECTION SVGS***/
-// desktop/tablet
-import htmlPiece from "../assets/desktop-skill-svgs/htmlPiece.svg";
-import cssPiece from "../assets/desktop-skill-svgs/cssPiece.svg";
-import javascriptPiece from "../assets/desktop-skill-svgs/javascriptPiece.svg";
-import reactPiece from "../assets/desktop-skill-svgs/reactPiece.svg";
-import bootstrapPiece from "../assets/desktop-skill-svgs/bootstrapPiece.svg";
-import githubPiece from "../assets/desktop-skill-svgs/githubPiece.svg";
 
 // new desktop/tablet
 import html from "../assets/new-desktop/top/html.png";
@@ -24,6 +17,17 @@ import bootstrap from "../assets/new-desktop/bot/bootstrap.png";
 import tailwind from "../assets/new-desktop/bot/tailwind.png";
 import api from "../assets/new-desktop/bot/api.png";
 import github from "../assets/new-desktop/bot/github.png";
+
+// new mobile
+import mobileHtml from "../assets/new-mobile/left/html.png";
+import mobileCss from "../assets/new-mobile/left/css.png";
+import mobileJavascript from "../assets/new-mobile/left/js.png";
+import mobileReact from "../assets/new-mobile/left/react.png";
+
+import mobileBootstrap from "../assets/new-mobile/right/bootstrap.png";
+import mobileTailwind from "../assets/new-mobile/right/tailwind.png";
+import mobileApi from "../assets/new-mobile/right/api.png";
+import mobileGithub from "../assets/new-mobile/right/github.png";
 
 // mobile
 import mobileHtmlPiece from "../assets/mobile-skill-svgs/mobileHtmlPiece.svg";
@@ -56,15 +60,6 @@ export const introPieces = {
   purplePiece: piece4,
 };
 
-export const desktopPieces = {
-  html: htmlPiece,
-  css: cssPiece,
-  js: javascriptPiece,
-  react: reactPiece,
-  bootstrap: bootstrapPiece,
-  github: githubPiece,
-};
-
 export const newDesktopPieces = {
   html: html,
   css: css,
@@ -75,6 +70,31 @@ export const newDesktopPieces = {
   bootstrap: bootstrap,
   github: github,
 };
+
+export const newMobilePieces = {
+  html: mobileHtml,
+  css: mobileCss,
+  tailwind: mobileTailwind,
+  api: mobileApi,
+  javascript: mobileJavascript,
+  react: mobileReact,
+  bootstrap: mobileBootstrap,
+  github: mobileGithub,
+};
+
+export const leftPieces = [
+  newMobilePieces.react,
+  newMobilePieces.javascript,
+  newMobilePieces.css,
+  newMobilePieces.html,
+];
+
+export const rightPieces = [
+  newMobilePieces.github,
+  newMobilePieces.api,
+  newMobilePieces.tailwind,
+  newMobilePieces.bootstrap,
+];
 
 export const mobilePieces = {
   html: mobileHtmlPiece,

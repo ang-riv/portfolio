@@ -3,7 +3,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
   introPieces,
-  desktopPieces,
   newDesktopPieces,
   mobilePieces,
 } from "../../../utils/imgData";
@@ -23,9 +22,7 @@ const RenderPieces = ({ directProps, specificProps }) => {
       if (imgArr === introPieces && key === "pinkPiece") {
         return { ref: specificRef };
       }
-      if (imgArr === desktopPieces) {
-        return { ref: specificRef };
-      }
+
       if (imgArr === mobilePieces) {
         const mobileRefs = {
           css: specificRef.topRef,

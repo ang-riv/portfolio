@@ -468,7 +468,19 @@ a {
 
   /* skill section  */
   .skill-section {
-    height: 35vh;
+    height: fit-content;
+  }
+
+  .puzzle-column {
+    width: fit-content;
+    height: fit-content;
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puzzle-column > img {
+    height: 8.7em;
   }
 
   .skill-mobile-div {
