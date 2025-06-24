@@ -1,126 +1,15 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
-import { useAnimation, motion, useInView } from "framer-motion";
+import { useAnimation, useInView } from "framer-motion";
 import {
   newDesktopPieces,
-  mobilePieces,
+  newMobilePieces,
   rightPieces,
   leftPieces,
 } from "../../utils/imgData";
-import { directProps, specificProps } from "../../utils/puzzleUtils";
-import RenderPieces from "./PuzzleComponents/RenderPieces";
-import NewRenderPieces from "./PuzzleComponents/NewRenderPieces";
+import SkillsRenderPieces from "./PuzzleComponents/SkillsRenderPieces";
 // desktop + tablet puzzle in skill section
-
-const MobileSkillsPuzzle = () => {
-  const prevDistance = useRef(null);
-  const containerRef = useRef(null);
-  const topPiece = useRef(null);
-  const botPiece = useRef(null);
-  const controls = useRef([
-    useAnimation(),
-    useAnimation(),
-    useAnimation(),
-    useAnimation(),
-    useAnimation(),
-    useAnimation(),
-  ]).current;
-
-  // top puzzle piece
-  const [top, setTop] = useState(0);
-  const [distance, setDistance] = useState(0);
-
-  // make sure that the container is in the middle of the viewport
-  const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
-
-  //** MOVEMENT
-  const yMovement = distance;
-  const xMovement = distance * 2;
-  const variants = {
-    down: { y: yMovement, transition: { duration: 0.5 } },
-    up: { y: -yMovement, transition: { duration: 0.5 } },
-    right: { x: -xMovement, transition: { duration: 0.5 } },
-    left: { x: xMovement, transition: { duration: 0.5 } },
-    reset: { x: 0, y: 0 },
-  };
-
-  const runAnimations = useCallback(async () => {
-    // x movement
-    // if it's the first piece, or the third piece, move right
-    for (let i = 0; i < controls.length; i++) {
-      if (i === 0 || i === 3) await controls[i].start("left");
-      else if (i === 2 || i === 5) await controls[i].start("right");
-    }
-
-    // y movement
-    for (let i = 0; i < controls.length; i++) {
-      if (i === 0 || i === 1 || i === 2) controls[i].start("down");
-      else controls[i].start("up");
-    }
-  }, [controls]);
-
-  const resetAnimations = useCallback(async () => {
-    for (let i = 0; i < controls.length; i++) {
-      controls[i].start("reset");
-    }
-  }, [controls]);
-
-  const findDistance = useCallback(() => {
-    if (topPiece.current && containerRef.current) {
-      const piece = topPiece.current.getBoundingClientRect();
-      const scrollTop = document.documentElement.scrollTop;
-
-      // position of the container plus how far down the user has scrolled
-      const piecePosition = piece.bottom + scrollTop;
-
-      // bottom of first puzzle piece
-      setTop(piecePosition.toFixed(2));
-
-      // calculating the distance
-      const decrease = 150 - piece.width;
-      const newDistance = Math.round(25 - 25 * (decrease / 150));
-
-      if (newDistance !== prevDistance.current) {
-        setDistance(newDistance);
-        prevDistance.current = newDistance;
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    //** animations on scroll
-    let timeoutId;
-
-    if (isInView) {
-      if (distance < 10 || distance >= 100) {
-        findDistance();
-      }
-      timeoutId = setTimeout(() => {
-        runAnimations();
-      }, 600);
-    } else {
-      resetAnimations();
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [isInView, distance, top, runAnimations, resetAnimations, findDistance]);
-
-  return (
-    <>
-      <motion.div className="skill-mobile-div center-flex" ref={containerRef}>
-        <RenderPieces
-          directProps={directProps("mobile-piece", variants)}
-          specificProps={specificProps(mobilePieces, true, controls, {
-            topRef: topPiece,
-            botRef: botPiece,
-          })}
-        />
-      </motion.div>
-    </>
-  );
-};
-
-const NewSkillsPuzzle = () => {
+const SkillsPuzzle = () => {
   const topPieces = [
     newDesktopPieces.html,
     newDesktopPieces.css,
@@ -281,14 +170,14 @@ const NewSkillsPuzzle = () => {
   }, [topControls, botControls, distance, isInView]);
   return (
     <div ref={containerRef} className="skill-desktop-div">
-      <NewRenderPieces
+      <SkillsRenderPieces
         screen="desktop"
         pieceRef={topPiece}
         pieces={topPieces}
         controls={topControls}
         variants={variants}
       />
-      <NewRenderPieces
+      <SkillsRenderPieces
         screen="desktop"
         pieceRef={botPiece}
         pieces={botPieces}
@@ -299,7 +188,7 @@ const NewSkillsPuzzle = () => {
   );
 };
 
-const NewMobileSkillsPuzzle = () => {
+const MobileSkillsPuzzle = () => {
   const topPiece = useRef(null);
   const containerRef = useRef(null);
   const leftControls = useRef([
@@ -494,14 +383,14 @@ const NewMobileSkillsPuzzle = () => {
         display: "flex",
       }}
     >
-      <NewRenderPieces
+      <SkillsRenderPieces
         screen="mobile"
         pieceRef={topPiece}
         pieces={leftPieces}
         controls={leftControls}
         variants={variants}
       />
-      <NewRenderPieces
+      <SkillsRenderPieces
         screen="mobile"
         pieceRef={null}
         pieces={rightPieces}
@@ -519,13 +408,13 @@ const SkillsSectionPuzzle = () => {
     // mobile size
     return (
       <>
-        <NewMobileSkillsPuzzle />
+        <MobileSkillsPuzzle />
       </>
     );
   } else {
     return (
       <>
-        <NewSkillsPuzzle />
+        <SkillsPuzzle />
       </>
     );
   }

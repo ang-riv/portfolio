@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
+const SkillsRenderPieces = ({
+  screen,
+  pieceRef,
+  pieces,
+  controls,
+  variants,
+}) => {
   return (
     <>
       {screen === "desktop" ? (
@@ -12,6 +18,7 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
                   ref={pieceRef}
                   animate={controls[index]}
                   variants={variants}
+                  alt="puzzle piece"
                 />
               );
             } else {
@@ -20,6 +27,7 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
                   src={pieces[index]}
                   animate={controls[index]}
                   variants={variants}
+                  alt="puzzle piece"
                 />
               );
             }
@@ -36,6 +44,7 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
                   ref={pieceRef}
                   animate={controls[index]}
                   variants={variants}
+                  alt="puzzle piece"
                 />
               );
             } else {
@@ -45,6 +54,7 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
                   src={pieces[index]}
                   animate={controls[index]}
                   variants={variants}
+                  alt="puzzle piece"
                 />
               );
             }
@@ -55,4 +65,4 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
   );
 };
 
-export default NewRenderPieces;
+export default SkillsRenderPieces;

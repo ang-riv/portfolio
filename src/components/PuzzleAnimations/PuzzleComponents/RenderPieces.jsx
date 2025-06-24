@@ -1,11 +1,6 @@
 // puzzle piece images for the intro and skills puzzles
-import React from "react";
 import { motion } from "framer-motion";
-import {
-  introPieces,
-  newDesktopPieces,
-  mobilePieces,
-} from "../../../utils/imgData";
+import { introPieces } from "../../../utils/imgData";
 const RenderPieces = ({ directProps, specificProps }) => {
   const { imgArr, ascendingIndex, controls, specificRef } = specificProps;
 
@@ -21,14 +16,6 @@ const RenderPieces = ({ directProps, specificProps }) => {
     const refs = () => {
       if (imgArr === introPieces && key === "pinkPiece") {
         return { ref: specificRef };
-      }
-
-      if (imgArr === mobilePieces) {
-        const mobileRefs = {
-          css: specificRef.topRef,
-          react: specificRef.botRef,
-        };
-        return mobileRefs[key] ? { ref: mobileRefs[key] } : undefined;
       }
     };
     puzzleImgs.push(

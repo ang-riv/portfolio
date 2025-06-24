@@ -96,15 +96,6 @@ export const rightPieces = [
   newMobilePieces.bootstrap,
 ];
 
-export const mobilePieces = {
-  html: mobileHtmlPiece,
-  css: mobileCssPiece,
-  js: mobileJavascriptPiece,
-  bootstrap: mobileBootstrapPiece,
-  react: mobileReactPiece,
-  github: mobileGithubPiece,
-};
-
 /********** PROJECT IMGS ************/
 export const imgArr = [dinner, notes, tip, gallery, unplugged];
 
