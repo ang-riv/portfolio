@@ -258,14 +258,23 @@ const NewSkillsPuzzle = () => {
   const originalDistance = 51;
   const divisor = (width / originalWidth).toFixed(5);
   const distance = Number((originalDistance * divisor).toFixed(5));
-  const v = distance + Number(verticalDistance / 2);
+  const vDistance = distance + Number(verticalDistance / 2);
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
-  let testAnimations = true;
-  const runAnimations = async () => {
-    console.log("Distance", distance);
-    console.log("v Distance", verticalDistance);
 
+  const resetAnimations = async () => {
+    let pieces = [];
+    for (let i = 0; i < topControls.length; i++) {
+      const top = topControls[i];
+      const bot = botControls[i];
+
+      pieces.push(top.start({ x: 0, rotate: 0, y: 0 }));
+      pieces.push(bot.start({ x: 0, rotate: 0, y: 0 }));
+    }
+    await Promise.all(pieces);
+  };
+
+  const runAnimations = useCallback(async () => {
     const variants = {
       outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
       outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
@@ -273,8 +282,8 @@ const NewSkillsPuzzle = () => {
       innerSecondL: { x: distance, transition: { delay: 0.5 } },
       innerSecondR: { x: -distance, transition: { delay: 0.5 } },
       outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
-      topRow: { y: -v, transition: { delay: 0.5 } },
-      bottomRow: { y: v, transition: { delay: 0.5 } },
+      topRow: { y: -vDistance, transition: { delay: 0.5 } },
+      bottomRow: { y: vDistance, transition: { delay: 0.5 } },
       reset: {
         x: 0,
         y: 0,
@@ -283,88 +292,94 @@ const NewSkillsPuzzle = () => {
       },
     };
 
+    const movementFiller = (arr, position, movement) => {
+      arr.push(position[0].start(movement));
+      arr.push(position[1].start(movement));
+    };
+
     // move outer pieces
     const firstPhase = async () => {
-      let pieces = [];
+      let movements = [];
+
       for (let i = 0; i < topControls.length; i++) {
         const top = topControls[i];
         const bot = botControls[i];
-
+        const combinedPositions = [top, bot];
         if (i === 0) {
-          pieces.push(top.start(variants.outerFirstL));
-          pieces.push(bot.start(variants.outerFirstL));
+          movementFiller(movements, combinedPositions, variants.outerFirstL);
         } else if (i === 3) {
-          pieces.push(top.start(variants.outerFirstR));
-          pieces.push(bot.start(variants.outerFirstR));
+          movementFiller(movements, combinedPositions, variants.outerFirstR);
         }
       }
-      await Promise.all(pieces);
+      await Promise.all(movements);
     };
 
     // chain together in groups
     const secondPhase = async () => {
-      let pieces = [];
+      let movements = [];
       for (let i = 0; i < topControls.length; i++) {
         const top = topControls[i];
         const bot = botControls[i];
+        const combinedPositions = [top, bot];
 
         switch (i) {
           case 0:
-            pieces.push(top.start(variants.outerSecondL));
-            pieces.push(bot.start(variants.outerSecondL));
+            movementFiller(movements, combinedPositions, variants.outerSecondL);
             break;
           case 1:
-            pieces.push(top.start(variants.innerSecondL));
-            pieces.push(bot.start(variants.innerSecondL));
+            movementFiller(movements, combinedPositions, variants.innerSecondL);
             break;
           case 3:
-            pieces.push(top.start(variants.outerSecondR));
-            pieces.push(bot.start(variants.outerSecondR));
+            movementFiller(movements, combinedPositions, variants.outerSecondR);
             break;
           case 2:
-            pieces.push(top.start(variants.innerSecondR));
-            pieces.push(bot.start(variants.innerSecondR));
+            movementFiller(movements, combinedPositions, variants.innerSecondR);
             break;
           default:
             console.log("Unknown number");
         }
       }
-      await Promise.all(pieces);
+      await Promise.all(movements);
     };
 
     // vertical join
     const thirdPhase = async () => {
-      let pieces = [];
+      let movements = [];
 
       for (let i = 0; i < topControls.length; i++) {
         const top = topControls[i];
         const bot = botControls[i];
-        pieces.push(top.start(variants.bottomRow));
-        pieces.push(bot.start(variants.topRow));
+
+        movements.push(top.start(variants.bottomRow));
+        movements.push(bot.start(variants.topRow));
       }
-      await Promise.all(pieces);
+      await Promise.all(movements);
     };
+
     await firstPhase();
     await secondPhase();
     await thirdPhase();
-    testAnimations = false;
-  };
-  // check if inView
-  useEffect(() => {
+  }, [distance]);
+
+  const findDistance = useCallback(() => {
     if (topPiece.current) {
       let top = topPiece.current.getBoundingClientRect();
       let bot = botPiece.current.getBoundingClientRect();
       setWidth(top.width.toFixed(2));
       if (botPiece.current) {
         const vDistance = bot.top.toFixed(2) - top.bottom.toFixed(2);
-        setVerticalDistance(vDistance.toFixed(2));
-        console.log(bot.top.toFixed(2), top.bottom.toFixed(2));
+        if (vDistance > 0) setVerticalDistance(vDistance.toFixed(2));
       }
     }
+  }, [distance]);
+
+  useEffect(() => {
     if (isInView) {
+      findDistance();
       runAnimations();
+    } else {
+      resetAnimations();
     }
-    console.log(width);
   }, [topControls, botControls, distance, isInView]);
   return (
     <div
@@ -382,7 +397,7 @@ const NewSkillsPuzzle = () => {
             return (
               <motion.img
                 src={topPieces[index]}
-                style={{ height: "100px", width: "100px" }}
+                style={{ height: "150px", width: "150px" }}
                 ref={topPiece}
                 animate={topControls[index]}
               />
@@ -391,7 +406,7 @@ const NewSkillsPuzzle = () => {
             return (
               <motion.img
                 src={topPieces[index]}
-                style={{ height: "100px", width: "100px" }}
+                style={{ height: "150px", width: "150px" }}
                 animate={topControls[index]}
               />
             );
@@ -404,7 +419,7 @@ const NewSkillsPuzzle = () => {
             return (
               <motion.img
                 src={botPieces[index]}
-                style={{ height: "100px", width: "100px" }}
+                style={{ height: "150px", width: "150px" }}
                 ref={botPiece}
                 animate={botControls[index]}
               />
@@ -413,7 +428,7 @@ const NewSkillsPuzzle = () => {
             return (
               <motion.img
                 src={botPieces[index]}
-                style={{ height: "100px", width: "100px" }}
+                style={{ height: "150px", width: "150px" }}
                 animate={botControls[index]}
               />
             );
