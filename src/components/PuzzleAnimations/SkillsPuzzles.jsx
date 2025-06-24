@@ -1,26 +1,21 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
 import { useAnimation, useInView } from "framer-motion";
-import {
-  newDesktopPieces,
-  newMobilePieces,
-  rightPieces,
-  leftPieces,
-} from "../../utils/imgData";
+import { desktopPieces, rightPieces, leftPieces } from "../../utils/imgData";
 import SkillsRenderPieces from "./PuzzleComponents/SkillsRenderPieces";
 // desktop + tablet puzzle in skill section
 const SkillsPuzzle = () => {
   const topPieces = [
-    newDesktopPieces.html,
-    newDesktopPieces.css,
-    newDesktopPieces.javascript,
-    newDesktopPieces.react,
+    desktopPieces.html,
+    desktopPieces.css,
+    desktopPieces.javascript,
+    desktopPieces.react,
   ];
   const botPieces = [
-    newDesktopPieces.bootstrap,
-    newDesktopPieces.tailwind,
-    newDesktopPieces.api,
-    newDesktopPieces.github,
+    desktopPieces.bootstrap,
+    desktopPieces.tailwind,
+    desktopPieces.api,
+    desktopPieces.github,
   ];
 
   const topPiece = useRef(null);
@@ -229,7 +224,6 @@ const MobileSkillsPuzzle = () => {
       transition: { delay: 0.3, duration: 0.5 },
     },
   };
-  let test = true;
   const runAnimations = async () => {
     const movementFiller = (
       firstPhase,

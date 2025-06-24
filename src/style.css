@@ -264,12 +264,6 @@ a {
   height: 11em;
 }
 
-.skill-mobile-div {
-  max-width: 87.5em;
-  width: 70%;
-  flex-flow: row wrap;
-}
-
 /** projects section styles **/
 .project-content-wrapper {
   height: 100%;

@@ -18,7 +18,7 @@ import tailwind from "../assets/new-desktop/bot/tailwind.png";
 import api from "../assets/new-desktop/bot/api.png";
 import github from "../assets/new-desktop/bot/github.png";
 
-// new mobile
+// mobile
 import mobileHtml from "../assets/new-mobile/left/html.png";
 import mobileCss from "../assets/new-mobile/left/css.png";
 import mobileJavascript from "../assets/new-mobile/left/js.png";
@@ -28,14 +28,6 @@ import mobileBootstrap from "../assets/new-mobile/right/bootstrap.png";
 import mobileTailwind from "../assets/new-mobile/right/tailwind.png";
 import mobileApi from "../assets/new-mobile/right/api.png";
 import mobileGithub from "../assets/new-mobile/right/github.png";
-
-// mobile
-import mobileHtmlPiece from "../assets/mobile-skill-svgs/mobileHtmlPiece.svg";
-import mobileCssPiece from "../assets/mobile-skill-svgs/mobileCssPiece.svg";
-import mobileJavascriptPiece from "../assets/mobile-skill-svgs/mobileJavascriptPiece.svg";
-import mobileBootstrapPiece from "../assets/mobile-skill-svgs/mobileBootstrapPiece.svg";
-import mobileReactPiece from "../assets/mobile-skill-svgs/mobileReactPiece.svg";
-import mobileGithubPiece from "../assets/mobile-skill-svgs/mobileGithubPiece.svg";
 
 // project imgs
 import gallery from "../assets/project-imgs/gh-gallery.png";
@@ -60,7 +52,7 @@ export const introPieces = {
   purplePiece: piece4,
 };
 
-export const newDesktopPieces = {
+export const desktopPieces = {
   html: html,
   css: css,
   tailwind: tailwind,
@@ -71,7 +63,7 @@ export const newDesktopPieces = {
   github: github,
 };
 
-export const newMobilePieces = {
+export const mobilePieces = {
   html: mobileHtml,
   css: mobileCss,
   tailwind: mobileTailwind,
@@ -83,17 +75,17 @@ export const newMobilePieces = {
 };
 
 export const leftPieces = [
-  newMobilePieces.react,
-  newMobilePieces.javascript,
-  newMobilePieces.css,
-  newMobilePieces.html,
+  mobilePieces.react,
+  mobilePieces.javascript,
+  mobilePieces.css,
+  mobilePieces.html,
 ];
 
 export const rightPieces = [
-  newMobilePieces.github,
-  newMobilePieces.api,
-  newMobilePieces.tailwind,
-  newMobilePieces.bootstrap,
+  mobilePieces.github,
+  mobilePieces.api,
+  mobilePieces.tailwind,
+  mobilePieces.bootstrap,
 ];
 
 /********** PROJECT IMGS ************/
