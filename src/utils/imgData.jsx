@@ -8,26 +8,26 @@ import piece4 from "../assets/intro-svgs/piece4.svg";
 /*** SKILLS SECTION SVGS***/
 
 // new desktop/tablet
-import html from "../assets/new-desktop/top/html.png";
-import css from "../assets/new-desktop/top/css.png";
-import javascript from "../assets/new-desktop/top/js.png";
-import react from "../assets/new-desktop/top/react.png";
+import html from "../assets/skills-desktop-imgs/top/html.png";
+import css from "../assets/skills-desktop-imgs/top/css.png";
+import javascript from "../assets/skills-desktop-imgs/top/js.png";
+import react from "../assets/skills-desktop-imgs/top/react.png";
 
-import bootstrap from "../assets/new-desktop/bot/bootstrap.png";
-import tailwind from "../assets/new-desktop/bot/tailwind.png";
-import api from "../assets/new-desktop/bot/api.png";
-import github from "../assets/new-desktop/bot/github.png";
+import bootstrap from "../assets/skills-desktop-imgs/bot/bootstrap.png";
+import tailwind from "../assets/skills-desktop-imgs/bot/tailwind.png";
+import api from "../assets/skills-desktop-imgs/bot/api.png";
+import github from "../assets/skills-desktop-imgs/bot/github.png";
 
 // mobile
-import mobileHtml from "../assets/new-mobile/left/html.png";
-import mobileCss from "../assets/new-mobile/left/css.png";
-import mobileJavascript from "../assets/new-mobile/left/js.png";
-import mobileReact from "../assets/new-mobile/left/react.png";
+import mobileHtml from "../assets/skills-mobile-imgs/left/html.png";
+import mobileCss from "../assets/skills-mobile-imgs/left/css.png";
+import mobileJavascript from "../assets/skills-mobile-imgs/left/js.png";
+import mobileReact from "../assets/skills-mobile-imgs/left/react.png";
 
-import mobileBootstrap from "../assets/new-mobile/right/bootstrap.png";
-import mobileTailwind from "../assets/new-mobile/right/tailwind.png";
-import mobileApi from "../assets/new-mobile/right/api.png";
-import mobileGithub from "../assets/new-mobile/right/github.png";
+import mobileBootstrap from "../assets/skills-mobile-imgs/right/bootstrap.png";
+import mobileTailwind from "../assets/skills-mobile-imgs/right/tailwind.png";
+import mobileApi from "../assets/skills-mobile-imgs/right/api.png";
+import mobileGithub from "../assets/skills-mobile-imgs/right/github.png";
 
 // project imgs
 import gallery from "../assets/project-imgs/gh-gallery.png";

@@ -1,11 +1,11 @@
-import html from "./assets/new-desktop/top/html.png";
-import css from "./assets/new-desktop/top/css.png";
-import js from "./assets/new-desktop/top/js.png";
-import react from "./assets/new-desktop/top/react.png";
-import bootstrap from "./assets/new-desktop/bot/bootstrap.png";
-import tailwind from "./assets/new-desktop/bot/tailwind.png";
-import api from "./assets/new-desktop/bot/api.png";
-import github from "./assets/new-desktop/bot/github.png";
+import html from "./assets/skills-desktop-imgs/top/html.png";
+import css from "./assets/skills-desktop-imgs/top/css.png";
+import js from "./assets/skills-desktop-imgs/top/js.png";
+import react from "./assets/skills-desktop-imgs/top/react.png";
+import bootstrap from "./assets/skills-desktop-imgs/bot/bootstrap.png";
+import tailwind from "./assets/skills-desktop-imgs/bot/tailwind.png";
+import api from "./assets/skills-desktop-imgs/bot/api.png";
+import github from "./assets/skills-desktop-imgs/bot/github.png";
 import { useRef, useCallback, useEffect, useState } from "react";
 import { useAnimation, motion } from "framer-motion";
 const TestSpace = () => {
