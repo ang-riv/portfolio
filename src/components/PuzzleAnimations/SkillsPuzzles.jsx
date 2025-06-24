@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
 import { useAnimation, motion, useInView } from "framer-motion";
+
 import {
   desktopPieces,
   newDesktopPieces,
@@ -8,7 +9,7 @@ import {
 } from "../../utils/imgData";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
-
+import NewRenderPieces from "./PuzzleComponents/NewRenderPieces";
 // desktop + tablet puzzle in skill section
 const SkillsPuzzle = () => {
   // container div ref
@@ -265,6 +266,23 @@ const NewSkillsPuzzle = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
+  const variants = {
+    outerFirstL: { x: distance * 2, transition: { delay: 0.8 } },
+    outerFirstR: { x: -distance * 2, transition: { delay: 0.8 } },
+    outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
+    innerSecondL: { x: distance, transition: { delay: 0.5 } },
+    innerSecondR: { x: -distance, transition: { delay: 0.5 } },
+    outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
+    topRow: { y: -vDistance, transition: { delay: 0.5 } },
+    bottomRow: { y: vDistance, transition: { delay: 0.5 } },
+    reset: {
+      x: 0,
+      y: 0,
+      rotate: 0,
+      transition: { delay: 0.3, duration: 0.5 },
+    },
+  };
+
   const resetAnimations = async () => {
     let movements = [];
     for (let i = 0; i < topControls.length; i++) {
@@ -278,23 +296,6 @@ const NewSkillsPuzzle = () => {
   };
 
   const runAnimations = useCallback(async () => {
-    const variants = {
-      outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
-      outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
-      outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
-      innerSecondL: { x: distance, transition: { delay: 0.5 } },
-      innerSecondR: { x: -distance, transition: { delay: 0.5 } },
-      outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
-      topRow: { y: -vDistance, transition: { delay: 0.5 } },
-      bottomRow: { y: vDistance, transition: { delay: 0.5 } },
-      reset: {
-        x: 0,
-        y: 0,
-        rotate: 0,
-        transition: { delay: 0.3, duration: 0.5 },
-      },
-    };
-
     const movementFiller = (arr, position, movement) => {
       arr.push(position[0].start(movement));
       arr.push(position[1].start(movement));
@@ -309,9 +310,9 @@ const NewSkillsPuzzle = () => {
         const bot = botControls[i];
         const combinedPositions = [top, bot];
         if (i === 0) {
-          movementFiller(movements, combinedPositions, variants.outerFirstL);
+          movementFiller(movements, combinedPositions, "outerFirstL");
         } else if (i === 3) {
-          movementFiller(movements, combinedPositions, variants.outerFirstR);
+          movementFiller(movements, combinedPositions, "outerFirstR");
         }
       }
       await Promise.all(movements);
@@ -327,16 +328,16 @@ const NewSkillsPuzzle = () => {
 
         switch (i) {
           case 0:
-            movementFiller(movements, combinedPositions, variants.outerSecondL);
+            movementFiller(movements, combinedPositions, "outerSecondL");
             break;
           case 1:
-            movementFiller(movements, combinedPositions, variants.innerSecondL);
+            movementFiller(movements, combinedPositions, "innerSecondL");
             break;
           case 3:
-            movementFiller(movements, combinedPositions, variants.outerSecondR);
+            movementFiller(movements, combinedPositions, "outerSecondR");
             break;
           case 2:
-            movementFiller(movements, combinedPositions, variants.innerSecondR);
+            movementFiller(movements, combinedPositions, "innerSecondR");
             break;
           default:
             console.log("Unknown number");
@@ -353,8 +354,8 @@ const NewSkillsPuzzle = () => {
         const top = topControls[i];
         const bot = botControls[i];
 
-        movements.push(top.start(variants.bottomRow));
-        movements.push(bot.start(variants.topRow));
+        movements.push(top.start("bottomRow"));
+        movements.push(bot.start("topRow"));
       }
       await Promise.all(movements);
     };
@@ -386,40 +387,18 @@ const NewSkillsPuzzle = () => {
   }, [topControls, botControls, distance, isInView]);
   return (
     <div ref={containerRef} className="skill-desktop-div">
-      <div style={{ height: "fit" }} className="puzzle-row">
-        {topControls.map((_, index) => {
-          if (index === 0) {
-            return (
-              <motion.img
-                src={topPieces[index]}
-                ref={topPiece}
-                animate={topControls[index]}
-              />
-            );
-          } else {
-            return (
-              <motion.img src={topPieces[index]} animate={topControls[index]} />
-            );
-          }
-        })}
-      </div>
-      <div style={{ height: "fit" }} className="puzzle-row">
-        {botControls.map((_, index) => {
-          if (index === 0) {
-            return (
-              <motion.img
-                src={botPieces[index]}
-                ref={botPiece}
-                animate={botControls[index]}
-              />
-            );
-          } else {
-            return (
-              <motion.img src={botPieces[index]} animate={botControls[index]} />
-            );
-          }
-        })}
-      </div>
+      <NewRenderPieces
+        pieceRef={topPiece}
+        pieces={topPieces}
+        controls={topControls}
+        variants={variants}
+      />
+      <NewRenderPieces
+        pieceRef={botPiece}
+        pieces={botPieces}
+        controls={botControls}
+        variants={variants}
+      />
     </div>
   );
 };

@@ -255,6 +255,10 @@ a {
   flex-direction: column;
 }
 
+.puzzle-row {
+  height: fit-content;
+}
+
 .puzzle-row > img {
   width: 11em;
   height: 11em;
