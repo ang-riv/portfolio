@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { globalColors } from "../utils/colorData";
 
 const SectionTitles = (props) => {
+  const reducedMotion = useReducedMotion();
   const ref = useRef(null);
   const styles = {
     textAlign: "center",
@@ -48,7 +49,7 @@ const SectionTitles = (props) => {
             hidden: { scaleX: 0 },
             visible: { scaleX: 1 },
           }}
-          initial="hidden"
+          initial={reducedMotion ? "visible" : "hidden"}
           whileInView="visible"
           transition={{ duration: 1 }}
           viewport={{ root: ref }}

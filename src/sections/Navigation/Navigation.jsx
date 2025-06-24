@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import useWindowSize from "../../components/useWindowSize";
 import { mobileNavIcons } from "../../assets/mobile-nav-icons";
 import { globalColors } from "../../utils/colorData";
 const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
+  const reducedMotion = useReducedMotion();
   const [isHovered, setIsHovered] = useState("");
 
   const scrollToSection = (ref) => {
@@ -53,8 +54,14 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                         transformOrigin: "left",
                       }}
                       initial={false}
-                      animate={{ scaleX: isHovered === section.title ? 1 : 0 }}
-                      transition={{ duration: 0.4 }}
+                      animate={
+                        reducedMotion
+                          ? {}
+                          : { scaleX: isHovered === section.title ? 1 : 0 }
+                      }
+                      transition={
+                        reducedMotion ? { duration: 0 } : { duration: 0.4 }
+                      }
                     />
                   </motion.li>
                 ) : (
@@ -64,12 +71,16 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                     onClick={() => scrollToSection(section.ref)}
                     onHoverStart={() => setIsHovered(section.title)}
                     onHoverEnd={() => setIsHovered("")}
-                    animate={{
-                      backgroundColor:
-                        isHovered === section.title
-                          ? `${globalColors.blue}`
-                          : "#FFFFFF",
-                    }}
+                    animate={
+                      reducedMotion
+                        ? { backgroundColor: `${globalColors.blue}` }
+                        : {
+                            backgroundColor:
+                              isHovered === section.title
+                                ? `${globalColors.blue}`
+                                : "#FFFFFF",
+                          }
+                    }
                   >
                     {section.title}
                   </motion.li>

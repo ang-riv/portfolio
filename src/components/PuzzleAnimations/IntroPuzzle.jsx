@@ -1,14 +1,17 @@
 // 2x2 puzzle in introSection
-import React, { useRef, useEffect, useState, useCallback } from "react";
-import { useAnimation, useInView } from "framer-motion";
+import { useRef, useEffect, useState, useCallback } from "react";
+import { useAnimation, useInView, useReducedMotion } from "framer-motion";
 import { introPieces } from "../../utils/imgData";
+import completedPuzzle from "../../assets/completed-intro-puzzle.png";
 import { directProps, specificProps } from "../../utils/puzzleUtils";
 import RenderPieces from "./PuzzleComponents/RenderPieces";
 
 const IntroPuzzle = () => {
+  const reducedMotion = useReducedMotion();
+
   const containerRef = useRef(null);
   const prevDistance = useRef(null);
-  
+
   const topRef = useRef(null);
   const [top, setTop] = useState(null);
   // separate controls for each piece
@@ -19,7 +22,7 @@ const IntroPuzzle = () => {
     useAnimation(),
   ]).current;
 
-  // amount needed for each piece to move vertically and join 
+  // amount needed for each piece to move vertically and join
   const [distance, setDistance] = useState(0);
   const [puzzleGap, setPuzzleGap] = useState(0);
 
@@ -55,7 +58,7 @@ const IntroPuzzle = () => {
       // figuring out the size of the piece of the puzzle that is sticking out using the original img sizes
       const multiplier = topPiece.width / 200;
       const gap = (50 * multiplier).toFixed(2);
-      
+
       setTop(piecePosition.toFixed(2));
       setPuzzleGap(gap);
 
@@ -94,7 +97,7 @@ const IntroPuzzle = () => {
   useEffect(() => {
     // animations on scroll
     let timeoutId;
-    if (isInView) {
+    if (isInView && !reducedMotion) {
       findDistance();
       timeoutId = setTimeout(() => {
         runAnimations();
@@ -108,10 +111,16 @@ const IntroPuzzle = () => {
 
   return (
     <figure className="intro-puzzle-container center-flex" ref={containerRef}>
-      <RenderPieces
-        directProps={directProps("intro-piece", variants)}
-        specificProps={specificProps(introPieces, true, controls, topRef)}
-      />
+      {reducedMotion ? (
+        <img src={completedPuzzle} />
+      ) : (
+        <>
+          <RenderPieces
+            directProps={directProps("intro-piece", variants)}
+            specificProps={specificProps(introPieces, true, controls, topRef)}
+          />
+        </>
+      )}
     </figure>
   );
 };
