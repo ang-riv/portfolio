@@ -421,10 +421,20 @@ a {
     text-align: center;
   }
 
-  .skill-mobile-div > img {
-    max-height: 9.6em;
-    max-width: 8em;
-    z-index: 0;
+  .puzzle-row > img {
+    max-height: 11em;
+    max-width: 11em;
+  }
+  .puzzle-column {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .puzzle-column > img {
+    height: 12em;
+    width: 12em;
   }
 
   .last-link-title {
@@ -474,27 +484,12 @@ a {
   .puzzle-column {
     width: fit-content;
     height: fit-content;
-    border: 1px solid green;
     display: flex;
     flex-direction: column;
   }
 
   .puzzle-column > img {
-    height: 8.7em;
-  }
-
-  .skill-mobile-div {
-    max-width: 25em;
-    width: 100%;
-    height: fit-content;
-    flex-flow: row wrap;
-  }
-
-  .skill-mobile-div > img {
-    z-index: 0;
-    width: calc-size(fit-content, size - 3em);
-    max-height: 9.6em;
-    max-width: 8em;
+    height: 9.5em;
   }
 
   /* project section */

@@ -173,7 +173,6 @@ const NewSkillsPuzzle = () => {
     reset: {
       x: 0,
       y: 0,
-      rotate: 0,
       transition: { delay: 0.3, duration: 0.5 },
     },
   };
@@ -184,8 +183,8 @@ const NewSkillsPuzzle = () => {
       const top = topControls[i];
       const bot = botControls[i];
 
-      movements.push(top.start({ x: 0, rotate: 0, y: 0 }));
-      movements.push(bot.start({ x: 0, rotate: 0, y: 0 }));
+      movements.push(top.start("reset"));
+      movements.push(bot.start("reset"));
     }
     await Promise.all(movements);
   };
@@ -302,7 +301,6 @@ const NewSkillsPuzzle = () => {
 
 const NewMobileSkillsPuzzle = () => {
   const topPiece = useRef(null);
-  const botPiece = useRef(null);
   const containerRef = useRef(null);
   const leftControls = useRef([
     useAnimation(),
@@ -318,25 +316,23 @@ const NewMobileSkillsPuzzle = () => {
   ]).current;
 
   const [width, setWidth] = useState(null);
-  const [verticalDistance, setVerticalDistance] = useState(null);
 
   const originalWidth = 300;
   const originalDistance = 51;
   const divisor = (width / originalWidth).toFixed(5);
   const distance = Number((originalDistance * divisor).toFixed(5));
-  const vDistance = distance + Number(verticalDistance / 2);
 
   const isInView = useInView(containerRef, { margin: "-50% -50% -50% -50%" });
 
   const variants = {
-    outerFirstL: { x: distance * 2, transition: { delay: 0.8 } },
-    outerFirstR: { x: -distance * 2, transition: { delay: 0.8 } },
-    outerSecondL: { x: distance * 3, transition: { delay: 0.5 } },
-    innerSecondL: { x: distance, transition: { delay: 0.5 } },
-    innerSecondR: { x: -distance, transition: { delay: 0.5 } },
-    outerSecondR: { x: -distance * 3, transition: { delay: 0.5 } },
-    topRow: { y: -vDistance, transition: { delay: 0.5 } },
-    bottomRow: { y: vDistance, transition: { delay: 0.5 } },
+    moveRight: { x: distance, transition: { delay: 0.8 } },
+    moveLeft: { x: -distance, transition: { delay: 0.8 } },
+    topRowSecond: { y: distance * 2, transition: { delay: 0.5 } },
+    botRowSecond: { y: -distance * 2, transition: { delay: 0.5 } },
+    outerTopThird: { y: distance * 3, transition: { delay: 0.5 } },
+    innerTopThird: { y: distance, transition: { delay: 0.5 } },
+    innerBotThird: { y: -distance, transition: { delay: 0.5 } },
+    outerBotThird: { y: -distance * 3, transition: { delay: 0.5 } },
     reset: {
       x: 0,
       y: 0,
@@ -344,18 +340,174 @@ const NewMobileSkillsPuzzle = () => {
       transition: { delay: 0.3, duration: 0.5 },
     },
   };
+  let test = true;
+  const runAnimations = async () => {
+    const movementFiller = (
+      firstPhase,
+      arr,
+      position,
+      firstMovement,
+      secondMovement
+    ) => {
+      if (firstPhase === true) {
+        arr.push(position[0].start(firstMovement));
+        arr.push(position[1].start(secondMovement));
+      } else {
+        arr.push(position[0].start(firstMovement));
+        arr.push(position[1].start(firstMovement));
+      }
+    };
+
+    // connect horizontally in groups
+    const firstPhase = async () => {
+      let movements = [];
+
+      for (let i = 0; i < leftControls.length; i++) {
+        const left = leftControls[i];
+        const right = rightControls[i];
+        const combinedPositions = [left, right];
+        movementFiller(
+          true,
+          movements,
+          combinedPositions,
+          "moveRight",
+          "moveLeft"
+        );
+      }
+      await Promise.all(movements);
+    };
+
+    // connect outer pieces
+    const secondPhase = async () => {
+      let movements = [];
+      for (let i = 0; i < leftControls.length; i++) {
+        const left = leftControls[i];
+        const right = rightControls[i];
+        const combinedPositions = [left, right];
+
+        if (i === 0) {
+          movementFiller(
+            false,
+            movements,
+            combinedPositions,
+            "topRowSecond",
+            null
+          );
+        } else if (i === 3)
+          movementFiller(
+            false,
+            movements,
+            combinedPositions,
+            "botRowSecond",
+            null
+          );
+      }
+      await Promise.all(movements);
+    };
+
+    // move all to center
+    const thirdPhase = async () => {
+      let movements = [];
+      for (let i = 0; i < leftControls.length; i++) {
+        const left = leftControls[i];
+        const right = rightControls[i];
+        const combinedPositions = [left, right];
+        // could use an array and a loop
+        switch (i) {
+          case 0:
+            movementFiller(
+              false,
+              movements,
+              combinedPositions,
+              "outerTopThird",
+              null
+            );
+            break;
+          case 1:
+            movementFiller(
+              false,
+              movements,
+              combinedPositions,
+              "innerTopThird",
+              null
+            );
+            break;
+          case 2:
+            movementFiller(
+              false,
+              movements,
+              combinedPositions,
+              "innerBotThird",
+              null
+            );
+            break;
+          case 3:
+            movementFiller(
+              false,
+              movements,
+              combinedPositions,
+              "outerBotThird",
+              null
+            );
+            break;
+          default:
+            console.log("Unknown number");
+
+            break;
+        }
+      }
+      await Promise.all(movements);
+    };
+
+    await firstPhase();
+    await secondPhase();
+    await thirdPhase();
+
+    test = false;
+  };
+  const resetAnimations = async () => {
+    let movements = [];
+    for (let i = 0; i < leftControls.length; i++) {
+      const left = leftControls[i];
+      const right = rightControls[i];
+
+      movements.push(left.start("reset"));
+      movements.push(right.start("reset"));
+    }
+    await Promise.all(movements);
+  };
+  useEffect(() => {
+    if (topPiece.current) {
+      let top = topPiece.current.getBoundingClientRect();
+      setWidth(top.width.toFixed(2));
+    }
+    if (isInView && distance != 0) {
+      runAnimations();
+    } else {
+      resetAnimations();
+    }
+  }, [distance, isInView]);
   return (
-    <div ref={containerRef} style={{ display: "flex" }}>
-      <div className="puzzle-column">
-        {leftControls.map((_, index) => (
-          <motion.img src={leftPieces[index]} />
-        ))}
-      </div>
-      <div className="puzzle-column">
-        {rightControls.map((_, index) => (
-          <motion.img src={rightPieces[index]} />
-        ))}
-      </div>
+    <div
+      ref={containerRef}
+      style={{
+        display: "flex",
+      }}
+    >
+      <NewRenderPieces
+        screen="mobile"
+        pieceRef={topPiece}
+        pieces={leftPieces}
+        controls={leftControls}
+        variants={variants}
+      />
+      <NewRenderPieces
+        screen="mobile"
+        pieceRef={null}
+        pieces={rightPieces}
+        controls={rightControls}
+        variants={variants}
+      />
     </div>
   );
 };
@@ -363,7 +515,7 @@ const NewMobileSkillsPuzzle = () => {
 /* will render one of two puzzles depending on the screen size */
 const SkillsSectionPuzzle = () => {
   const size = useWindowSize();
-  if (size.width < 710) {
+  if (size.width <= 703) {
     // mobile size
     return (
       <>

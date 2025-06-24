@@ -26,7 +26,30 @@ const NewRenderPieces = ({ screen, pieceRef, pieces, controls, variants }) => {
           })}
         </div>
       ) : (
-        <></>
+        <div className="puzzle-column">
+          {controls.map((_, index) => {
+            if (index === 0 && pieceRef != null) {
+              return (
+                <motion.img
+                  key={index}
+                  src={pieces[index]}
+                  ref={pieceRef}
+                  animate={controls[index]}
+                  variants={variants}
+                />
+              );
+            } else {
+              return (
+                <motion.img
+                  key={index}
+                  src={pieces[index]}
+                  animate={controls[index]}
+                  variants={variants}
+                />
+              );
+            }
+          })}
+        </div>
       )}
     </>
   );
