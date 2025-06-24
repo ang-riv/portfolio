@@ -14,6 +14,7 @@ const SkillsRenderPieces = ({
             if (index === 0) {
               return (
                 <motion.img
+                  key={index}
                   src={pieces[index]}
                   ref={pieceRef}
                   animate={controls[index]}
@@ -24,6 +25,7 @@ const SkillsRenderPieces = ({
             } else {
               return (
                 <motion.img
+                  key={index}
                   src={pieces[index]}
                   animate={controls[index]}
                   variants={variants}

@@ -1,10 +1,15 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import useWindowSize from "../useWindowSize";
-import { useAnimation, useInView } from "framer-motion";
+import { useAnimation, useInView, useReducedMotion } from "framer-motion";
 import { desktopPieces, rightPieces, leftPieces } from "../../utils/imgData";
+import completedDesktop from "../../assets/completed-skills-imgs/completed-desktop.png";
+import completedMobile from "../../assets/completed-skills-imgs/completed-mobile.png";
 import SkillsRenderPieces from "./PuzzleComponents/SkillsRenderPieces";
+// if user has the prefers-reduced-motion setting on
+
 // desktop + tablet puzzle in skill section
 const SkillsPuzzle = () => {
+  const reducedMotion = useReducedMotion();
   const topPieces = [
     desktopPieces.html,
     desktopPieces.css,
@@ -156,7 +161,7 @@ const SkillsPuzzle = () => {
   }, [distance]);
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && !reducedMotion) {
       findDistance();
       runAnimations();
     } else {
@@ -165,25 +170,36 @@ const SkillsPuzzle = () => {
   }, [topControls, botControls, distance, isInView]);
   return (
     <div ref={containerRef} className="skill-desktop-div">
-      <SkillsRenderPieces
-        screen="desktop"
-        pieceRef={topPiece}
-        pieces={topPieces}
-        controls={topControls}
-        variants={variants}
-      />
-      <SkillsRenderPieces
-        screen="desktop"
-        pieceRef={botPiece}
-        pieces={botPieces}
-        controls={botControls}
-        variants={variants}
-      />
+      {reducedMotion ? (
+        <img
+          src={completedDesktop}
+          alt="completed puzzle"
+          style={{ width: "80%" }}
+        />
+      ) : (
+        <>
+          <SkillsRenderPieces
+            screen="desktop"
+            pieceRef={topPiece}
+            pieces={topPieces}
+            controls={topControls}
+            variants={variants}
+          />
+          <SkillsRenderPieces
+            screen="desktop"
+            pieceRef={botPiece}
+            pieces={botPieces}
+            controls={botControls}
+            variants={variants}
+          />
+        </>
+      )}
     </div>
   );
 };
 
 const MobileSkillsPuzzle = () => {
+  const reducedMotion = useReducedMotion();
   const topPiece = useRef(null);
   const containerRef = useRef(null);
   const leftControls = useRef([
@@ -345,8 +361,6 @@ const MobileSkillsPuzzle = () => {
     await firstPhase();
     await secondPhase();
     await thirdPhase();
-
-    test = false;
   };
   const resetAnimations = async () => {
     let movements = [];
@@ -364,7 +378,7 @@ const MobileSkillsPuzzle = () => {
       let top = topPiece.current.getBoundingClientRect();
       setWidth(top.width.toFixed(2));
     }
-    if (isInView && distance != 0) {
+    if (isInView && distance != 0 && !reducedMotion) {
       runAnimations();
     } else {
       resetAnimations();
@@ -375,22 +389,34 @@ const MobileSkillsPuzzle = () => {
       ref={containerRef}
       style={{
         display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <SkillsRenderPieces
-        screen="mobile"
-        pieceRef={topPiece}
-        pieces={leftPieces}
-        controls={leftControls}
-        variants={variants}
-      />
-      <SkillsRenderPieces
-        screen="mobile"
-        pieceRef={null}
-        pieces={rightPieces}
-        controls={rightControls}
-        variants={variants}
-      />
+      {reducedMotion ? (
+        <img
+          src={completedMobile}
+          alt="completed puzzle"
+          style={{ width: "80%" }}
+        />
+      ) : (
+        <>
+          <SkillsRenderPieces
+            screen="mobile"
+            pieceRef={topPiece}
+            pieces={leftPieces}
+            controls={leftControls}
+            variants={variants}
+          />
+          <SkillsRenderPieces
+            screen="mobile"
+            pieceRef={null}
+            pieces={rightPieces}
+            controls={rightControls}
+            variants={variants}
+          />
+        </>
+      )}
     </div>
   );
 };
