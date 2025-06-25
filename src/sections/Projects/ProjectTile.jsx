@@ -1,7 +1,8 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 function ProjectTile(props) {
+  const reducedMotion = useReducedMotion();
   const badges = props.badges;
 
   const buttonColor = {
@@ -38,7 +39,7 @@ function ProjectTile(props) {
         href={props.link}
         target="_blank"
         rel="noreferrer"
-        style={buttonColor}
+        style={reducedMotion ? hoverColor : buttonColor}
         className="project-btn center-flex"
         whileHover={hoverColor}
         transition={{ duration: 0.5 }}

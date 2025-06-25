@@ -1,4 +1,3 @@
-import React from "react";
 import { gradientColors, circle } from "../components/Gradient";
 
 // to assign the gradient to fill/stroke

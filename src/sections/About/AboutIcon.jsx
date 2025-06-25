@@ -1,7 +1,7 @@
-import { React } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { aboutIcons } from "../../utils/aboutIconData";
 const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
+  const reducedMotion = useReducedMotion();
   const tab = activeTab.toLowerCase();
   const variants = {
     increase: {
@@ -14,6 +14,7 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
       rotate: 360,
       transition: { repeat: Infinity, duration: 8, ease: "linear" },
     },
+    stable: { opacity: 1, scale: 1 },
   };
 
   // which tabs get the spin animation
@@ -27,9 +28,15 @@ const AboutIcon = ({ activeTab, yPlacement, xPlacement }) => {
           className="about-icon center-flex"
           style={{ top: yPlacement, left: xPlacement }}
           variants={variants}
-          initial="decrease"
-          animate={spinSection() ? ["increase"] : ["increase", "spin"]}
-          exit="decrease"
+          initial={reducedMotion ? "stable" : "decrease"}
+          animate={
+            reducedMotion
+              ? {}
+              : spinSection()
+              ? ["increase"]
+              : ["increase", "spin"]
+          }
+          exit={reducedMotion ? "stable" : "decrease"}
         >
           {aboutIcons[tab]}
         </motion.div>
