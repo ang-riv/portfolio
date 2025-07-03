@@ -78,6 +78,18 @@ a {
   align-items: center;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /*** desktop navigation styles***/
 .nav-container {
   margin-top: 1em;
@@ -236,7 +248,7 @@ a {
 }
 
 .about-info-text {
-  text-align: justify;
+  text-align: left;
   font-weight: 500;
   font-size: 1.1em;
 }

@@ -99,7 +99,9 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                   key={section.title}
                   onClick={() => scrollToSection(section.ref)}
                 >
-                  <a href={semanticLink}></a>
+                  <a href={semanticLink}>
+                    <span className="sr-only">{section.title}</span>
+                  </a>
                   {section.icon}
                   <p>{section.title}</p>
                 </li>
