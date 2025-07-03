@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { desktopPieces } from "../../../utils/imgData";
 const SkillsRenderPieces = ({
   screen,
   pieceRef,
@@ -6,6 +7,8 @@ const SkillsRenderPieces = ({
   controls,
   variants,
 }) => {
+  const pieceNames = Object.keys(desktopPieces);
+  console.log(pieceNames);
   return (
     <>
       {screen === "desktop" ? (
@@ -19,7 +22,7 @@ const SkillsRenderPieces = ({
                   ref={pieceRef}
                   animate={controls[index]}
                   variants={variants}
-                  alt="puzzle piece"
+                  alt={`${pieceNames[index]} puzzle piece`}
                 />
               );
             } else {
@@ -29,7 +32,7 @@ const SkillsRenderPieces = ({
                   src={pieces[index]}
                   animate={controls[index]}
                   variants={variants}
-                  alt="puzzle piece"
+                  alt={`${pieceNames[index]} puzzle piece`}
                 />
               );
             }
@@ -46,7 +49,7 @@ const SkillsRenderPieces = ({
                   ref={pieceRef}
                   animate={controls[index]}
                   variants={variants}
-                  alt="puzzle piece"
+                  alt={`mobile ${pieceNames[index]} puzzle piece`}
                 />
               );
             } else {
@@ -56,7 +59,7 @@ const SkillsRenderPieces = ({
                   src={pieces[index]}
                   animate={controls[index]}
                   variants={variants}
-                  alt="puzzle piece"
+                  alt={`mobile ${pieceNames[index]} puzzle piece`}
                 />
               );
             }
