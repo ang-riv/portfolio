@@ -43,7 +43,9 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                     onHoverStart={() => setIsHovered(section.title)}
                     onHoverEnd={() => setIsHovered("")}
                   >
-                    <a href={semanticLink}></a>
+                    <a href={semanticLink}>
+                      <span className="sr-only">{section.title}</span>
+                    </a>
                     {section.title}
                     {/* underline titles */}
                     <motion.div
