@@ -4,7 +4,7 @@ import useWindowSize from "../../components/useWindowSize";
 import { motion } from "framer-motion";
 import { globalColors } from "../../utils/colorData";
 
-// icon size based on screen size 
+// icon size based on screen size
 function SocialIconSize() {
   const size = useWindowSize();
   return size.width > 700 ? "3.8em" : "2.5em";
@@ -153,7 +153,7 @@ export function ContactLinks() {
             }}
           >
             {iconComponents[index]}
-            <p
+            <h3
               className={item.class}
               style={{
                 boxShadow:
@@ -161,7 +161,7 @@ export function ContactLinks() {
               }}
             >
               {item.name}
-            </p>
+            </h3>
           </motion.a>
         );
       })}

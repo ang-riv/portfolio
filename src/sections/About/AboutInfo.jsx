@@ -88,9 +88,9 @@ const AboutInfo = ({ activeTab }) => {
           className="about-info-body"
           style={{ backgroundColor: currentTab.color }}
         >
-          <h4 style={{ margin: 0, padding: "5% 0 0 0", textAlign: "center" }}>
+          <h3 style={{ margin: 0, padding: "5% 0 0 0", textAlign: "center" }}>
             {currentTab.title}
-          </h4>
+          </h3>
           <div style={{ padding: "1% 6%", margin: 0 }}>
             {sectionDescription(currentTab.title, currentTab)}
           </div>
