@@ -35,7 +35,7 @@ const AboutInfo = ({ activeTab }) => {
     intro: {
       title: "Who Am I?",
       description:
-        "Hi, I’m Angela! I’m a Front-end Developer located in Winnipeg, Manitoba who is passionate about making the web a more beautiful and accessible place.",
+        "Hi, I’m Angela Rivera! I’m a Front-end Developer located in Winnipeg, Manitoba who is passionate about making the web a more beautiful and accessible place.",
       color: null,
     },
     backstory: {
