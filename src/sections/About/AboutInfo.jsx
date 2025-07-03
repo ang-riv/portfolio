@@ -108,7 +108,7 @@ const AboutInfo = ({ activeTab }) => {
                 borderRadius: "0.625em",
               }}
             >
-              <h4 style={{ textAlign: "center" }}>{value.title}</h4>
+              <h3 className="mobile-about-title">{value.title}</h3>
               {sectionDescription(key, value)}
             </div>
           ))}
