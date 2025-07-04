@@ -1,8 +1,8 @@
 import React from "react";
 import IntroPuzzle from "../../components/PuzzleAnimations/IntroPuzzle";
-const IntroSection = React.forwardRef((_, ref) => {
+const IntroSection = React.forwardRef(({ id }, ref) => {
   return (
-    <section ref={ref} id="introSection" className="intro-section center-flex">
+    <section ref={ref} id={id} className="intro-section center-flex">
       <IntroPuzzle />
       <h1>
         Hi, I'm Angela Rivera, <br /> Front-end Developer.

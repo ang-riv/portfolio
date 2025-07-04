@@ -37,7 +37,7 @@ li,
   font-family: "Nunito", sans-serif;
 }
 
-section:not(#introSection) {
+section:not(#intro) {
   margin-top: 5em;
 }
 

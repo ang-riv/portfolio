@@ -42,7 +42,9 @@ function App() {
           <Navigation {...refProps} />
           {Object.keys(refProps).map((key, index) => {
             const Component = componentNames[index]; // Get the corresponding component
-            return <Component key={key} ref={refProps[key]} />;
+            const sectionID = sectionTitles[index];
+            console.log(sectionID);
+            return <Component key={key} id={sectionID} ref={refProps[key]} />;
           })}
         </>
       )}

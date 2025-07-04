@@ -5,10 +5,10 @@ import AboutPhoto from "./AboutPhoto";
 import useWindowSize from "../../components/useWindowSize";
 import SectionTitles from "../../components/SectionTitles";
 
-const AboutSection = React.forwardRef((_, ref) => {
+const AboutSection = React.forwardRef(({ id }, ref) => {
   const [activeTab, setActiveTab] = useState("Intro");
   const size = useWindowSize();
-
+  console.log(id);
   const aboutSections = [
     { title: "Intro", color: null },
     { title: "Backstory", color: null },
@@ -22,6 +22,7 @@ const AboutSection = React.forwardRef((_, ref) => {
 
   return (
     <section
+      id={id}
       ref={ref}
       style={{
         height: "fit-content",

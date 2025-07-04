@@ -4,7 +4,7 @@ import { addColors } from "../../utils/colorData";
 import { addImgs } from "../../utils/imgData";
 import SectionTitles from "../../components/SectionTitles";
 
-const ProjectsSection = React.forwardRef((_, ref) => {
+const ProjectsSection = React.forwardRef(({ id }, ref) => {
   const projectInfo = [
     {
       title: "Dinner Party Generator",
@@ -62,7 +62,7 @@ const ProjectsSection = React.forwardRef((_, ref) => {
   addImgs(projectInfo);
 
   return (
-    <section ref={ref} style={{ height: "fit-content" }}>
+    <section ref={ref} id={id} style={{ height: "fit-content" }}>
       <SectionTitles title="Projects" />
       <div className="project-content-wrapper">
         <div className="project-container">
