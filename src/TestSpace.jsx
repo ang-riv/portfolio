@@ -55,7 +55,6 @@ const TestSpace = () => {
   };
 
   const runAnimations = async () => {
-    console.log("Distance", distance);
     const variants = {
       outerFirstL: { x: distance * 2, transition: { delay: 0.5 } },
       outerFirstR: { x: -distance * 2, transition: { delay: 0.5 } },
@@ -143,7 +142,6 @@ const TestSpace = () => {
     if (testAnimations && distance != 0) {
       runAnimations();
     }
-    console.log(width);
   }, [controls, distance]);
 
   const styles = {

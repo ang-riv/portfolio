@@ -8,7 +8,6 @@ const SkillsRenderPieces = ({
   variants,
 }) => {
   const pieceNames = Object.keys(desktopPieces);
-  console.log(pieceNames);
   return (
     <>
       {screen === "desktop" ? (

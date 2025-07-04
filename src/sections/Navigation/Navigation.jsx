@@ -39,14 +39,21 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                 return section.title !== "Contact" ? (
                   <motion.li
                     key={section.title}
-                    onClick={() => scrollToSection(section.ref)}
                     onHoverStart={() => setIsHovered(section.title)}
                     onHoverEnd={() => setIsHovered("")}
                   >
-                    <a href={semanticLink}>
-                      <span className="sr-only">{section.title}</span>
+                    <a
+                      href={semanticLink}
+                      onClick={() => scrollToSection(section.ref)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          scrollToSection(section.ref);
+                        }
+                      }}
+                    >
+                      {section.title}
                     </a>
-                    {section.title}
                     {/* underline titles */}
                     <motion.div
                       style={{
@@ -84,7 +91,18 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
                           }
                     }
                   >
-                    {section.title}
+                    <a
+                      href={semanticLink}
+                      onClick={() => scrollToSection(section.ref)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          scrollToSection(section.ref);
+                        }
+                      }}
+                    >
+                      {section.title}
+                    </a>
                   </motion.li>
                 );
               })}
@@ -97,15 +115,14 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
             {sectionInfo.map((section) => {
               const semanticLink = `#${section.title.toLowerCase}`;
               return (
-                <li
-                  key={section.title}
-                  onClick={() => scrollToSection(section.ref)}
-                >
-                  <a href={semanticLink}>
-                    <span className="sr-only">{section.title}</span>
+                <li key={section.title}>
+                  <a
+                    href={semanticLink}
+                    onClick={() => scrollToSection(section.ref)}
+                  >
+                    {section.icon}
+                    <p>{section.title}</p>
                   </a>
-                  {section.icon}
-                  <p>{section.title}</p>
                 </li>
               );
             })}

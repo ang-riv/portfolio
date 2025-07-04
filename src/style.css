@@ -146,15 +146,23 @@ a {
 
 .mobile-nav-container ul li {
   height: 100%;
-  width: 25%;
-  list-style-type: none;
+  width: 30%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
 }
 
-.mobile-nav-container ul li p {
+.mobile-nav-container ul li a {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-nav-container ul li a p {
   font-weight: bold;
   margin-top: 0.5em;
 }
