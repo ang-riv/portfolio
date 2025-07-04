@@ -41,7 +41,7 @@ const AboutInfo = ({ activeTab }) => {
     backstory: {
       title: "A Brief History",
       description:
-        "Coding became a part of my life back in high school after trying out a computer science course. Being able to see the process behind building websites I use everyday captured my interest right away! When I went to university, I pursued a different path and after graduating, I revisited coding again with free tutorials online. It reminded me of how fun coding is and rekindled my love for it.",
+        "Coding became a part of my life back in high school after trying out a computer science course. Being able to see the process behind building websites I use everyday captured my interest right away! When I went to university, I pursued a different path, English and Linguistics. After graduating, I revisited coding again with free tutorials online. It reminded me of how fun coding is and rekindled my love for it.",
       color: null,
     },
     values: {
