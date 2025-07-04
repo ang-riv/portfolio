@@ -1,7 +1,7 @@
 // contact icons, links, and personal information
 import React, { useState } from "react";
 import useWindowSize from "../../components/useWindowSize";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { globalColors } from "../../utils/colorData";
 
 // icon size based on screen size
@@ -82,6 +82,7 @@ function FrontEndMentorIcon(props) {
 /* groups together the contact links + styles */
 export function ContactLinks() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const reducedMotion = useReducedMotion();
   const getHoverColor = (index) => {
     switch (index) {
       case 0:
@@ -143,7 +144,13 @@ export function ContactLinks() {
             target="_blank"
             rel="noreferrer"
             className="link-style"
-            onHoverStart={() => setHoveredIndex(index)}
+            onFocus={() => setHoveredIndex(index)}
+            onBlur={() => setHoveredIndex(null)}
+            onHoverStart={
+              reducedMotion
+                ? () => setHoveredIndex(null)
+                : () => setHoveredIndex(index)
+            }
             onHoverEnd={() => setHoveredIndex(null)}
             style={{
               outline:
