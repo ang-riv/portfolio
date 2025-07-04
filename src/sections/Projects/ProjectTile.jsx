@@ -41,6 +41,7 @@ function ProjectTile(props) {
         rel="noreferrer"
         style={reducedMotion ? hoverColor : buttonColor}
         className="project-btn center-flex"
+        whileFocus={hoverColor}
         whileHover={hoverColor}
         transition={{ duration: 0.5 }}
         aria-label={ariaLabel}

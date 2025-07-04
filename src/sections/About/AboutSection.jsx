@@ -39,9 +39,17 @@ const AboutSection = React.forwardRef((_, ref) => {
                 {/* tabs */}
                 {aboutCopy.map((tabSection) => (
                   <div
+                    role="button"
+                    tabIndex="0"
                     className="about-tab"
                     style={{ backgroundColor: tabSection.color }}
                     onClick={() => setActiveTab(tabSection.title)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setActiveTab(tabSection.title);
+                      }
+                    }}
                   >
                     <h3 className="about-tab-title">{tabSection.title}</h3>
                   </div>

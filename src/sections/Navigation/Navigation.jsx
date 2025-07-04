@@ -113,12 +113,18 @@ const Navigation = ({ aboutRef, skillsRef, projectsRef, contactRef }) => {
         <div className="mobile-nav-container">
           <ul>
             {sectionInfo.map((section) => {
-              const semanticLink = `#${section.title.toLowerCase}`;
+              const semanticLink = `#${section.title.toLowerCase()}`;
               return (
                 <li key={section.title}>
                   <a
                     href={semanticLink}
                     onClick={() => scrollToSection(section.ref)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        scrollToSection(section.ref);
+                      }
+                    }}
                   >
                     {section.icon}
                     <p>{section.title}</p>
