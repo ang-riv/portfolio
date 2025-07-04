@@ -34,21 +34,16 @@ function App() {
   ];
 
   return (
-    <div className="App">
-      {test ? (
-        <TestPage />
-      ) : (
-        <>
-          <Navigation {...refProps} />
-          {Object.keys(refProps).map((key, index) => {
-            const Component = componentNames[index]; // Get the corresponding component
-            const sectionID = sectionTitles[index];
-            console.log(sectionID);
-            return <Component key={key} id={sectionID} ref={refProps[key]} />;
-          })}
-        </>
-      )}
-    </div>
+    <>
+      <main>
+        <Navigation {...refProps} />
+        {Object.keys(refProps).map((key, index) => {
+          const Component = componentNames[index]; // Get the corresponding component
+          const sectionID = sectionTitles[index];
+          return <Component key={key} id={sectionID} ref={refProps[key]} />;
+        })}
+      </main>
+    </>
   );
 }
 

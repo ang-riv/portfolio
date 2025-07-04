@@ -8,7 +8,6 @@ import SectionTitles from "../../components/SectionTitles";
 const AboutSection = React.forwardRef(({ id }, ref) => {
   const [activeTab, setActiveTab] = useState("Intro");
   const size = useWindowSize();
-  console.log(id);
   const aboutSections = [
     { title: "Intro", color: null },
     { title: "Backstory", color: null },
