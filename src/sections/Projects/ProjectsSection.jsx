@@ -37,10 +37,10 @@ const ProjectsSection = React.forwardRef(({ id }, ref) => {
       imgAlt: "image preview of a website for tip calculator",
     },
     {
-      title: "Github Repo Gallery",
-      badges: ["React", "Github", "API"],
+      title: "GitHub Repo Gallery",
+      badges: ["JavaScript", "GitHub", "API"],
       description:
-        "Personal web app that showcases all my Github repositories using the Github API. Clicking on each repo title takes the user to that specific repo on Github.",
+        "Personal web app that showcases all my GitHub repositories using the GitHub API. Clicking on a repo title takes the user to that specific repo on GitHub.",
       img: null,
       color: null,
       link: "https://ang-riv.github.io/gh-repo-gallery/",
