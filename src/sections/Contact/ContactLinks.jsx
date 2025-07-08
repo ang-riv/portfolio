@@ -99,7 +99,7 @@ export function ContactLinks() {
   };
 
   const personalInfo = {
-    Github: "https://github.com/ang-riv",
+    GitHub: "https://github.com/ang-riv",
     Email: "mailto: a.riveraa99@gmail.com",
     LinkedIn: "https://www.linkedin.com/in/ang-riv",
     FrontEndMentor: "https://www.frontendmentor.io/profile/ang-riv",
