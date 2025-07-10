@@ -8,8 +8,7 @@ import ProjectsSection from "./sections/Projects/ProjectsSection";
 import ContactSection from "./sections/Contact/ContactSection";
 
 function App() {
-  const test = false;
-  const sectionTitles = ["intro", "skills", "about", "projects", "contact"];
+  const sectionTitles = ["intro", "about", "skills", "projects", "contact"];
 
   // creates refs to scroll sections
   const sectionRefs = useRef(
