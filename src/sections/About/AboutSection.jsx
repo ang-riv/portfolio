@@ -18,7 +18,6 @@ const AboutSection = React.forwardRef(({ id }, ref) => {
   const aboutCopy = [...aboutSections];
 
   addColors(aboutCopy);
-  console.log(id);
   return (
     <section
       id={id}
