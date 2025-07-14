@@ -1,5 +1,5 @@
 import { React, useEffect, useRef, useState } from "react";
-import avatar from "../../assets/avatar.png";
+import profilePhoto from "../../assets/profile-photo.jpg";
 import AboutIcon from "./AboutIcon";
 
 const AboutPhoto = ({ activeTab }) => {
@@ -44,11 +44,11 @@ const AboutPhoto = ({ activeTab }) => {
     <div className="about-photo center-flex" ref={containerRef}>
       {iconComponents}
       <img
-        src={avatar}
-        alt="profile avatar"
+        src={profilePhoto}
+        alt="profile photo"
         style={{
-          height: "80%",
-          width: "90%",
+          height: "100%",
+          width: "100%",
         }}
       />
     </div>

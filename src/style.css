@@ -202,7 +202,7 @@ a {
 }
 
 .about-photo {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--pink);
   border-radius: var(--b-radius-value);
   height: 21.875em;
   width: 16.25em;
