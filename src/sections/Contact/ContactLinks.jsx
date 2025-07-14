@@ -100,7 +100,7 @@ export function ContactLinks() {
 
   const personalInfo = {
     GitHub: "https://github.com/ang-riv",
-    Email: "mailto: a.riveraa99@gmail.com",
+    Email: "mailto: ar.angelarivera@gmail.com",
     LinkedIn: "https://www.linkedin.com/in/ang-riv",
     FrontendMentor: "https://www.frontendmentor.io/profile/ang-riv",
   };
