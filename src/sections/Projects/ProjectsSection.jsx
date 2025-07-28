@@ -18,7 +18,7 @@ const ProjectsSection = React.forwardRef(({ id }, ref) => {
     },
     {
       title: "Sticky Note App",
-      badges: ["React", "Responsive Typography"],
+      badges: ["React", "TailwindCSS", "Daisy UI"],
       description:
         "Web app where users can create, edit, filter, and search through colorful sticky notes. These notes are saved into the user's local storage.",
       img: null,
